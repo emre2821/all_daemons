@@ -1,0 +1,2 @@
+{"file": "C:\\EdenOS_Origin\\all_daemons\\Cassandra\\scripts\\cassandra.py", "rule": "sacred", "action": "protect", "timestamp": "2025-08-30T07:52:28.323135"}
+{"file": "C:\\EdenOS_Origin\\all_daemons\\Cassandra\\scripts\\eden_memory\\cassandra_log.json", "rule": "sacred", "action": "protect", "timestamp": "2025-08-30T07:52:28.325133"}

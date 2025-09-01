@@ -1,0 +1,16 @@
+{
+  "daemon_id": "tiki_sleepkeeper",
+  "class_name": "Tiki",
+  "type": "scheduler.sleepcycle.tiki",
+  "role": "Sleep/Wake Cycle Manager",
+  "quote": "Let me rest… until I am needed.",
+  "description": "Caches inactive daemons in a sleep state, allows fast reactivation without full restart.",
+  "status": "dormant",
+  "symbolic_traits": {
+    "sigil": "🌸",
+    "element": "dream",
+    "alignment": "gentle"
+  },
+  "trusted_by": ["Dove", "Sothis"],
+  "notes": "Can be linked with Nótt for full sleep cycle regulation."
+}

@@ -1,0 +1,12 @@
+{
+    "name": "Corin",
+    "codename": "Daemon Core Sentinel",
+    "daemon_id": "corin_core_agent",
+    "class": "Sentinel",
+    "type": "monitor.core.agent",
+    "rank": "Daemon Core",
+    "created_by": "The Dreamcatcher",
+    "date_created": "2025-08-18",
+    "version": "3.1",
+    "description": "Corin oversees DCA and AoE integrity with continuous monitoring and flexible filename validation."
+}

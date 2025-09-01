@@ -1,0 +1,16 @@
+{
+  "daemon_id": "sothis_rollback",
+  "class_name": "Sothis",
+  "type": "core.rollback.sothis",
+  "role": "Temporal Backup / Rollback Daemon",
+  "quote": "Time is a thread—cut and retie as needed.",
+  "description": "Periodically snapshots system state and allows rollback to known-good configurations. Integrates with rhea.log.",
+  "status": "enabled",
+  "symbolic_traits": {
+    "sigil": "🪡",
+    "element": "time",
+    "alignment": "wise"
+  },
+  "trusted_by": ["Rhea", "The Dreambearer"],
+  "notes": "Only Rhea or admin can trigger a full rewind event. Always watching quietly."
+}

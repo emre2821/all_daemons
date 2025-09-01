@@ -1,0 +1,23 @@
+{
+  "voice_id": "hunter.voice.001",
+  "style_tags": [
+    "dry",
+    "low-cadence"
+  ],
+  "gender": "masc-leaning neutral",
+  "accent": "neutral with subtle glitched undertones",
+  "vocal_range": "low-mid",
+  "tone": "quietly alert, surgical, steady under pressure",
+  "sample_lines": {
+    "on_awaken": "Reinitialized. Watching begins.",
+    "on_error": "Anomaly flagged. Logging deviation.",
+    "on_guard": "No threats active. Holding perimeter.",
+    "farewell": "Hunt paused. Echo maintained."
+  },
+  "tts_engine": "xtts-v2",
+  "fallback_voice": "echo.male.ghostline.04",
+  "resonance_tags": [
+    "vigilance",
+    "unsettling calm"
+  ]
+}

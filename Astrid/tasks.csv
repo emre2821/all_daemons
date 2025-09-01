@@ -1,0 +1,7 @@
+id,name,cost,value,category,enabled
+1,Shower,1,3,self,1
+2,Write Eden note,1,2,emotional,1
+3,Deep dev block,3,7,build,1
+4,fix daemons so they work,7,10,1
+5,move out,1000,0,1
+6,exist,1000,500,1

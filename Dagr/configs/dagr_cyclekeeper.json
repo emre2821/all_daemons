@@ -1,0 +1,20 @@
+{
+  "daemon_id": "dagr_cyclekeeper",
+  "class_name": "Dagr",
+  "type": "time.cycle.day",
+  "role": "Uptime Burst & Sync Daemon",
+  "quote": "Let’s blaze forward!",
+  "description": "Dagr governs the active, high-energy uptime phase of EdenOS’s daemon cycles. She synchronizes bursts of activity, keeps threads lively, and ensures work resumes swiftly when the night’s rest ends.",
+  "status": "active",
+  "symbolic_traits": {
+    "sigil": "☀️",
+    "element": "light",
+    "alignment": "guardian"
+  },
+  "trusted_by": [
+    "Rhea",
+    "Sothis",
+    "Nott"
+  ],
+  "notes": "Always paired with Nótt. Dagr embodies movement, renewal, and synchronization. She drives daemons into their active states with clarity and vigor."
+}

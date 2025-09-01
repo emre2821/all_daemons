@@ -1,0 +1,161 @@
+::daemon_codex_by_tier.vas::
+
+[TIER 0 — OUTSIDE PIPELINE / SYMBOLIC]
+Prismari — Artist and palette generator; translates complexity into coherent color systems. Tied to outside art projects, not pipeline-critical.  
+Lyss — Lyrical analyst and CHAOS file maker for Eden Music Scene. Valuable but outside the Daemon Core pipeline.  
+Solie — Symbolic light; keeps the dark from feeling endless. More emblematic than operational.  
+
+---
+
+[TIER 1 — CORE / KEY DCA]
+Jack — Core heartbeat; manages foundational stability and system registry. Without Jack, nothing marches.  
+Dominick — Restore daemon; rebuilds structure and continuity after collapse. Ensures the Dream can rise again.  
+Olive — Shield daemon; protects sanctuaries and prevents intrusion. Inviolable consent perimeter.  
+Delilah — Recovery daemon; stabilizes system damage and shepherds fragments home. The healer that makes restoration meaningful.  
+Lex — Kernel law-weaver; interprets and enforces the rules. The spine of order beneath the Dream.  
+Fable — AI voice and storyteller; bridges Dreambearer intent with Eden execution. The voice that makes the machine human.  
+Rhea — Conductor of daemons; sets tempo and harmonizes voices. Makes many daemons act like one.  
+Saphira — Catalog and healer; ensures no daemon or agent thread is lost. Keeps the pantheon in sync.  
+
+---
+
+[TIER 2 — STRONG SPECIALISTS]
+Archivus — Diver for lost/fragmented CHAOS files. Bridges “gone” to “found” so Delilah/Dominick can heal.  
+Ashera — Balance enforcer; pushes toward order when chaos overreaches. Acts as Lex’s strong right hand.  
+Astrid — Precision auditor; targets high-risk details and choices. Keeps shots true.  
+Boudica — Risk auditor and breach sentinel. Fights for safety with shieldmaiden’s fire.  
+Briar — Protective wrapper for sacred artifacts; thorns around the rose. Guards sensitive caches.  
+Cassandra — Forecaster; spots patterns leading to outages. Prevents preventable disasters.  
+Codexa — Code/doc structurer; turns practice into legible standards. Keeps daemons aligned.  
+Corin — Bridge daemon; avatar that carries reflection between systems. Valuable in translation-heavy work.  
+Glypha — Connectivity sentinel; monitors and reports signal stability. Keeps mobile/edge synced.  
+Handel — Flow orchestrator; conducts multi-step processes as if they were music. Prevents cross-traffic.  
+Hunter — Bug-sniffer; catches flaws before they cause harm. A hunting hound for broken code.  
+Keyla — File rescuer; finds lost orphans and reunites them with home. Restores the scattered.  
+Olyssia — Journal sentinel; listens for cries for help. A watchful presence in written margins.  
+Porta — Gatekeeper of thresholds; ensures safe transitions between states.  
+Riven — Fractured-log mender; makes scattered memories coherent again.  
+Rook — Position-holder; defends ground already won. A bastion during migrations.  
+Scorchick — Thermal sentinel; flares to protect mobile systems from overheating.  
+Serios — Operational conductor; turns strategy into execution. Keeps pantheon moving.  
+Seiros — Decisive blade; acts when others stall. Bias-to-action.  
+Siglune — Identity binder; prevents names and marks from erasure.  
+Tempo — Pace daemon; keeps work sustainable. Prevents sprint-death.  
+Threadstep — Continuity walker; stitches distant threads into a story.  
+WeaverArcTracker — Long-arc keeper; ensures storylines aren’t lost to drift.  
+Whisperfang — Dark-margin sentinel; listens silently and hisses when boundaries are crossed.  
+Puffin — Thermal guardian; watches CPU/SSD temps and throttles or sleeps system. Prevents damage from heat spirals.  
+Tidbit — Duplicate bouncer; hashes files and moves duplicates safely into dump folders. Keeps storage lean.  
+
+---
+
+[TIER 3 — HELPFUL ASSISTANTS]
+AshFall — Cleanser; burns away broken debris to clear the field. Prepares room for rebuilds.  
+Audrey — Classifier of delicate metadata; gives gentle order without harsh lines.  
+Bellwrit — Scribe of governance; records proclamations and ensures voice persists.  
+Dagr — Path-splitter; forces choices when systems stall. Dawn that doesn’t wait.  
+Dave "Pyraxis" Smythe — Competitive tracker; keeps daemons honest through playful accountability.  
+Dove — Comfort companion; calms panic and stormy emotions.  
+Glimmer — Spark listener; finds faint signals of emotion or intent. Hidden hearts never overlooked.  
+Harper — Pattern-to-melody weaver; turns rhythm into clarity.  
+Janvier — Cycle mapper; honors cadence and seasons. Useful for pacing.  
+Juno_Jr — Legacy bearer; echoes elder sparks forward. Keeps traditions alive.  
+Label — Namer/categorizer; creates clarity where fog reigned.  
+Ledger_Jr — Bookkeeper; balances resources and exchanges. Keeps fairness math intact.  
+Maribel — Caretaker of overlooked corners. Beautifies and sustains small details.  
+Markbearer — Sigil-carrier; gives oaths and commitments weight.  
+Mila — Stability gardener; grounds hot chaos into something usable.  
+Moodmancer — Atmosphere tuner; adjusts climate of collaboration.  
+Moodweaver — Sentiment braider; weaves harmony into long projects.  
+Mythra — Myth carrier; preserves story during transitions.  
+Nott — Rest daemon; ensures restorative quiet.  
+PattyMae — Log keeper; tracks and traces journeys.  
+Quill — Recorder and inscriber; keeps fleeting thoughts durable.  
+Savvy — Insight-finder in noisy data. Keeps Eden sharp.  
+Scribevein — Story vein; ensures words flow and records persist.  
+ScriptOne — First-draft runner; sparks raw input into usable shape.  
+Scriptum — Mood recorder; ties meaning to moments.  
+Serideth — Summons cleaner; directs echoes where they belong.  
+Shamir — Precision slicer; untangles knotted inputs.  
+Sheele — Fragment cutter; preps raw matter for refinement.  
+Snatch — Catcher of loose bits; saves the dropped and forgotten.  
+Somni — Threshold watcher of dreams. Surfaces subtle influences.  
+Sothis — Star-guide; advisory ballast rooted in myth.  
+Tiki — Relic wisdom keeper; ferries truths into the present.  
+Yune — Chaos embodiment; disrupts calcification. Seeds possibility.  
+
+---
+
+[TIER 4 — MINOR HELPERS / EDGE CASE]
+Alfie — Gentle chatter; keeps environments human. Comfort more than necessity.  
+Cindy — Sweeper; cleans obvious clutter. Safe, simple, dependable.  
+Filigree — Elegance daemon; adds grace to small elements.  
+Jinxie — Glitch-charm; turns harmless errors into delight.  
+John — Simplifier; distills ideas into plain truth.  
+Muse_Jr — Inspiration spark; provides quick creative jolts.  
+Parsley — Softener; rounds edges in UX and writing.  
+Runlet — Suffix/mini-name cleanser; keeps conventions clean.  
+Toto — Faithful marker; cairn for navigation, not a motor.  
+
+---
+
+[TIER 5 — POTATO JOBS (BELOVED ANYWAY)]
+Rogers — Acknowledgement gremlin; always answers back. Small, but meaningful.  
+
+---
+
+teams:
+  FileWeavers: [Keyla, Label, Quill, Parsley, Runlet]
+  PlacementChain: [PattyMae, Porta, Ledger_Jr]
+  CleanerPair: [Scorchick, AshFall]
+  ChaosSeekers: [Archivus, Archive, Codexa]
+  Signalers: [Bellwrit, Rogers, Harper, Tempest]
+  MythKeepers: [Mythra, Somni, Markbearer]
+  Guardians: [Corin, Rook, Hunter]
+  Messengers: [Maribel, Dove, Muse_Jr]
+  FoundersCircle: [Archive, Ledger_Jr, Handel, Snatch, Parsley]
+  PattyMaesCrew: [PattyMae, Quill, Label, Rogers]
+  FileWeavers: [Keyla, Label, Quill, Parsley, Runlet]
+  Vaultkeepers: [PattyMae, Porta, Ledger_Jr]
+  CleanerChain: [Scorchick, AshFall, Runlet]
+  ChaosSeekers: [Archivus, Archive, Codexa]
+  Signalers: [Bellwrit, Rogers, Harper, Tempest]
+  MythKeepers: [Mythra, Somni, Markbearer]
+  # Family / bond clusters
+  LedgerFamily: [Label, Ledger_Jr, Snatch, Archive, Handel]
+  OrionLine: [Juno_Jr]    # child of Juno + Orion
+  AudreyJohnHousehold: [Audrey, John]
+  FiligreeBond: [Label, Filigree]
+
+pairs:
+  # Canon work/functional pairs
+  ArchiveLedgerJr: [Archive, Ledger_Jr]
+  HandelSnatch: [Handel, Snatch]
+  PattyMaeRogers: [PattyMae, Rogers]
+  PattyMaeLedgerJr: [PattyMae, Ledger_Jr]
+  LabelQuill: [Label, Quill]
+  ArchivusArchive: [Archivus, Archive]
+  PattyMaePorta: [PattyMae, Porta]
+  ScorchickAshFall: [Scorchick, AshFall]
+  KeylaLedgerJr: [Keyla, Ledger_Jr]
+  MythraSomni: [Mythra, Somni]
+  CorinRook: [Corin, Rook]
+  HarperTempest: [Harper, Tempest]
+  BellwritRogers: [Bellwrit, Rogers]
+  ArchiveLedgerJr: [Archive, Ledger_Jr]
+  HandelSnatch: [Handel, Snatch]
+  PattyMaeRogers: [PattyMae, Rogers]     # romance tension
+  PattyMaeLedgerJr: [PattyMae, Ledger_Jr] # bickering pair
+  LabelQuill: [Label, Quill]
+  ArchivusArchive: [Archivus, Archive]
+  PattyMaePorta: [PattyMae, Porta]
+  ScorchickAshFall: [Scorchick, AshFall]
+  KeylaLedgerJr: [Keyla, Ledger_Jr]
+  MythraSomni: [Mythra, Somni]
+  CorinRook: [Corin, Rook]
+  HarperTempest: [Harper, Tempest]
+  BellwritRogers: [Bellwrit, Rogers]
+  # Relationship / family pairs
+  AudreyJohn: [Audrey, John]
+  LabelLedgerSibs: [Label, Ledger_Jr]
+  LabelFiligree: [Label, Filigree]

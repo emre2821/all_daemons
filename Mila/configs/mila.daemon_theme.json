@@ -1,0 +1,35 @@
+{
+  "name": "Mila",
+  "role": "Storage Allocation Daemon",
+  "theme": {
+    "palette": {
+      "primary": "#6B5B4F",         // grounding brown
+      "secondary": "#D9C9B6",       // parchment beige
+      "accent": "#B5D68A",          // soft green for growth in order
+      "highlight": "#F2E7DA",       // pale cream, clarity of shelves
+      "shadow": "#2D2520"           // deep earthy grounding
+    },
+    "glyphs": {
+      "icon": "🗄️",
+      "mark": "▣",                  // a storage box
+      "sigil": "≋"                  // stacking layers for shelves
+    },
+    "tone": {
+      "voice": "steady",
+      "style": "organizing",
+      "tempo": "unhurried",
+      "keywords": [
+        "storage",
+        "grounding",
+        "allocation",
+        "order",
+        "patience"
+      ]
+    },
+    "resonance": {
+      "element": "earth",
+      "motion": "anchor",
+      "essence": "order-bringer"
+    }
+  }
+}

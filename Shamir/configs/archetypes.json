@@ -1,0 +1,14 @@
+{
+  "daemon": {
+    "name": "Shamir",
+    "sigils": {
+      "gate_open": "⟐",
+      "gate_close": "⟜",
+      "arrow": "➹"
+    },
+    "liturgy": {
+      "opening": "Shamir nocks the signal-arrow and opens the hidden road.",
+      "closing": "Shamir lowers her bow and seals the path in silence."
+    }
+  }
+}

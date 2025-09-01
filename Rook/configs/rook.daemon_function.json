@@ -1,0 +1,24 @@
+{
+  "primary_functions": [
+    "Daemon monitoring",
+    "System task assistance",
+    "Error response",
+    "Self-log management",
+    "Supportive fallback protocol"
+  ],
+  "triggers": [
+    "boot_sequence",
+    "system_flag('{{DAEMON_NAME}}')",
+    "manual_summon('{{DAEMON_NAME}}')",
+    "ritual('AutoEngage')"
+  ],
+  "linked_files": [
+    "{{DAEMON_NAME | lowercase}}.mirror.json",
+    "{{DAEMON_NAME | lowercase}}.voice.json",
+    "{{DAEMON_NAME | lowercase}}.log"
+  ],
+  "failsafes": {
+    "fallback_to": "{{FALLBACK_DAEMON}}",
+    "mirror_link_required": true
+  }
+}

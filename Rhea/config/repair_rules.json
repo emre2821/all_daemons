@@ -1,0 +1,51 @@
+{
+  "version": 1,
+  "targets": {
+    "py_daemon_default": "all_daemons/Unsorted",
+    "chaos_default": "EchoTree/_inbox_chaos",
+    "vas_default": "EchoTree/_inbox_vas",
+    "docs_default": "_docs/_inbox",
+    "assets_default": "_assets/_inbox"
+  },
+  "ext_buckets": {
+    "daemon_py": [
+      ".py"
+    ],
+    "chaos": [
+      ".chaos*"
+    ],
+    "vas": [
+      ".vas",
+      ".docuvas",
+      ".vas.md"
+    ],
+    "docs": [
+      ".md",
+      ".txt",
+      ".rtf",
+      ".pdf"
+    ],
+    "assets": [
+      ".png",
+      ".jpg",
+      ".jpeg",
+      ".gif",
+      ".svg",
+      ".webp",
+      ".mp3",
+      ".wav",
+      ".mp4",
+      ".mov",
+      ".avi"
+    ]
+  },
+  "purge_dirs": [
+    "__pycache__",
+    ".pytest_cache",
+    "node_modules",
+    ".gradle",
+    "build",
+    "dist",
+    ".m2/repository"
+  ]
+}

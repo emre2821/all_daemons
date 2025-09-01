@@ -1,0 +1,16 @@
+{
+  "daemon_id": "{{DAEMON_ID}}",
+  "class_name": "{{DAEMON_NAME}}",
+  "type": "{{DAEMON_TYPE}}",
+  "role": "{{DAEMON_ROLE}}",
+  "quote": "{{DAEMON_QUOTE}}",
+  "description": "{{DAEMON_DESCRIPTION}}",
+  "status": "active",
+  "symbolic_traits": {
+    "sigil": "{{SIGIL}}",
+    "element": "{{ELEMENT}}",
+    "alignment": "{{ALIGNMENT}}"
+  },
+  "trusted_by": ["The Dreambearer"],
+  "notes": "{{DAEMON_NOTES}}"
+}

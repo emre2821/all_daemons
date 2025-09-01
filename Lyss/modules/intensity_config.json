@@ -1,0 +1,9 @@
+{
+  "LOW": 1,
+  "MEDIUM": 2,
+  "HIGH": 3,
+  "VERY_HIGH": 4,
+  "TREMORING": 5,
+  "FRACTURED": 6,
+  "NUMB": 0
+}

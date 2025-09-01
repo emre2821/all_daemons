@@ -1,0 +1,37 @@
+{
+  "root": "C:\\EdenOS_Origin\\all_daemons\\Eden_Recovery",
+  "history": [
+    {
+      "q": "`--root`",
+      "a": "I couldn’t find a good match locally. Try different words or point me at a more specific folder with `--root`."
+    },
+    {
+      "q": ":sort",
+      "a": "I couldn’t find a good match locally. Try different words or point me at a more specific folder with `--root`."
+    },
+    {
+      "q": "--root",
+      "a": "I couldn’t find a good match locally. Try different words or point me at a more specific folder with `--root`."
+    },
+    {
+      "q": ":categorize",
+      "a": "I couldn’t find a good match locally. Try different words or point me at a more specific folder with `--root`."
+    },
+    {
+      "q": "\"C:\\Users\\emmar\\Desktop\\5_deployments\\01_how_did_you_know_right_where_i_would_be\"",
+      "a": "I couldn’t find a good match locally. Try different words or point me at a more specific folder with `--root`."
+    },
+    {
+      "q": ":",
+      "a": "I couldn’t find a good match locally. Try different words or point me at a more specific folder with `--root`."
+    },
+    {
+      "q": ":q",
+      "a": "I couldn’t find a good match locally. Try different words or point me at a more specific folder with `--root`."
+    },
+    {
+      "q": ":Quit",
+      "a": "I couldn’t find a good match locally. Try different words or point me at a more specific folder with `--root`."
+    }
+  ]
+}

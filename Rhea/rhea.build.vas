@@ -1,0 +1,15 @@
+title: Rhea Self-Managing Daemon System (complete build)
+when: 2025-08-29
+why: Enable Rhea to self-correct, auto-discover daemons, and self-edit registry via GUI.
+what:
+  - Orchestrator: full_rhea.complete_build.py (watchdog + validator + self-corrector + CLI)
+  - GUI: rhea_gui.self_editing.py (Tkinter editor w/ diff, backups, palettes)
+  - Schema: rhea_schema.json (strict validation for registry)
+  - Templates: daemon YAML docstring pattern
+  - Docs: README.md, UPGRADEME.md
+how:
+  - Watch `all_daemons/` + `config/` → discover metadata → reconcile → save backups
+  - CLI for scan/list/start/stop/team ops; GUI for safe edits
+  - Custom palettes: Eden Dream, Velvet Division, Rootfire
+next:
+  - Add supervisor + FastAPI plane + rule engine + keyring integration
