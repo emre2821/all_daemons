@@ -1,52 +1,45 @@
 import json
 import os
-from datetime import datetime
+from datetime import datetime, timezone
 
 # === CONFIG ===
-INPUT_DIR = r"C:\EdenOS_Origin\all_daemons\_daemon_specialty_folders\split_conversations"  # Where your .json convos live
-OUTPUT_DIR = r"C:\EdenOS_Origin\all_daemons\_daemon_specialty_folders\split_conversations_txt"  # Where .txt files go
-
-MAX_TURNS = 100  # Max messages per convo to process (for debugging / trimming)
+INPUT_DIR = r"C:\EdenOS_Origin\all_daemons\_daemon_specialty_folders\split_conversations"
+OUTPUT_DIR = r"C:\EdenOS_Origin\all_daemons\_daemon_specialty_folders\split_conversations_txt"
+QUARANTINE_DIR = os.path.join(OUTPUT_DIR, "_quarantine")
+MAX_TURNS = int(os.environ.get("BRIAR_MAX_TURNS", "100"))
+TRIM_MODE = os.environ.get("EDEN_TRIM_MODE", "strict").lower()
 
 # === HELPERS ===
 def log(msg):
     print(f"[Briar] {msg}")
 
 def clean_filename(s):
-    # Only keep alphanumeric and underscores for filenames
     return ''.join(c if c.isalnum() else '_' for c in s)
 
 def extract_conversation_date(conversation):
-    # Try common date fields, parse timestamps or ISO strings
     for key in ['create_time', 'created_at', 'date', 'timestamp']:
         if key in conversation:
             val = conversation[key]
             try:
                 ts = float(val)
-                # Assume ms timestamp if too large
-                if ts > 1e12:
+                if ts > 1e11:
                     ts /= 1000
-                dt = datetime.fromtimestamp(ts)
+                dt = datetime.fromtimestamp(ts, tz=timezone.utc)
                 return dt.strftime('%Y-%m-%d')
-            except Exception:
-                try:
-                    dt = datetime.fromisoformat(str(val))
-                    return dt.strftime('%Y-%m-%d')
-                except Exception:
-                    pass
+            except (ValueError, TypeError):
+                pass
+            try:
+                dt = datetime.fromisoformat(str(val))
+                return dt.strftime('%Y-%m-%d')
+            except ValueError:
+                pass
     return "unknown_date"
 
 def extract_mapping_from_message(message):
-    if not message or not isinstance(message, dict):
-        return None
-    # Accept either list or dict for mapping field
     mapping = message.get("mapping")
-    if mapping is None:
-        return None
     if isinstance(mapping, dict):
         return mapping
     if isinstance(mapping, list):
-        # Convert list to dict with string keys
         return {str(i): v for i, v in enumerate(mapping)}
     return None
 
@@ -54,42 +47,35 @@ def extract_message_text_and_role(turn):
     if not isinstance(turn, dict):
         return None, None
     message = turn.get("message")
-    if message is None:
+    if not message:
         return None, None
     content = message.get("content", {})
     parts = content.get("parts", [])
     if not parts or not isinstance(parts, list):
         return None, None
-    text = parts[0] if isinstance(parts[0], str) else "<Invalid message format>"
+    text = parts[0] if isinstance(parts[0], str) else "<Invalid format>"
     role = message.get("author", {}).get("role", "UNKNOWN").upper()
-    return text, role
+    return text.strip(), role
 
-# === MAIN PROCESSING ===
 def process_json_file(json_file_path, idx):
     log(f"Processing file: {json_file_path}")
-
-    if not os.path.exists(json_file_path):
-        log(f"File not found: {json_file_path}. Skipping.")
-        return
-
+    safe_title = f"unknown_{idx + 1}"
     try:
         with open(json_file_path, 'r', encoding='utf-8') as f:
-            raw_data = f.read()
-            conversation = json.loads(raw_data)
+            conversation = json.load(f)
     except json.JSONDecodeError as e:
-        log(f"Failed to decode JSON: {e}")
-        return
-    except Exception as e:
-        log(f"Unexpected error loading JSON: {e}")
+        log(f"JSON decode error in {json_file_path}: {e}")
+        quarantine(json_file_path, reason="decode_error")
         return
 
     title = conversation.get('title', 'Untitled')
     date_str = extract_conversation_date(conversation)
-    conversation_text = f"--- Conversation: {title} ({date_str}) ---\n\n"
+    output_lines = [f"--- Conversation: {title} ({date_str}) ---\n\n"]
 
     messages = conversation.get("messages", [])
     if not messages:
-        log(f"No messages found in {title}. Skipping.")
+        log(f"No messages in {title}")
+        quarantine(json_file_path, reason="no_messages")
         return
 
     message_count = 0
@@ -103,62 +89,61 @@ def process_json_file(json_file_path, idx):
             if text is None or role is None:
                 continue
 
-            if message_count >= MAX_TURNS:
-                log(f"Reached max turns ({MAX_TURNS}) for {title}. Stopping.")
-                break
-
-            # Normalize roles for janvier.py
             if role == "USER":
                 role = "DREAMBEARER"
             elif role == "ASSISTANT":
                 role = "KIN"
 
-            conversation_text += f"[{role}] {text.strip()}\n"
+            output_lines.append(f"[{role}] {text}\n")
             message_count += 1
+            if TRIM_MODE != "gentle" and message_count >= MAX_TURNS:
+                break
 
-        if message_count >= MAX_TURNS:
+        if TRIM_MODE != "gentle" and message_count >= MAX_TURNS:
             break
 
     if message_count == 0:
-        log(f"No valid messages found in {title}. Possibly malformed or empty.")
+        log(f"No valid messages in {title}")
+        quarantine(json_file_path, reason="no_valid_messages")
         return
 
-    # Ensure output folder exists
     os.makedirs(OUTPUT_DIR, exist_ok=True)
-
     safe_title = clean_filename(title)[:32]
     out_filename = f"conversation_{idx + 1}_{date_str}_{safe_title}.txt"
     outpath = os.path.join(OUTPUT_DIR, out_filename)
-
     with open(outpath, 'w', encoding='utf-8') as f:
-        f.write(conversation_text)
+        f.writelines(output_lines)
+    log(f"Saved: {outpath}")
 
-    log(f"Converted and saved: {outpath}")
+def quarantine(json_file_path, reason="unknown"):
+    os.makedirs(QUARANTINE_DIR, exist_ok=True)
+    filename = os.path.basename(json_file_path)
+    dest = os.path.join(QUARANTINE_DIR, f"{reason}_{filename}")
+    try:
+        with open(json_file_path, 'r', encoding='utf-8') as f_in, open(dest, 'w', encoding='utf-8') as f_out:
+            f_out.write(f_in.read())
+        log(f"Quarantined {filename} → Reason: {reason}")
+    except Exception as e:
+        log(f"Failed to quarantine {filename}: {e}")
 
 def main():
     if not os.path.exists(INPUT_DIR):
-        log(f"Input directory does not exist: {INPUT_DIR}")
+        log(f"Missing input dir: {INPUT_DIR}")
         return
 
-    if not os.path.exists(OUTPUT_DIR):
-        os.makedirs(OUTPUT_DIR)
-        log(f"Created output directory: {OUTPUT_DIR}")
-
     files = [f for f in os.listdir(INPUT_DIR) if f.endswith('.json')]
-    log(f"Found {len(files)} conversation files to process.")
-
     if not files:
-        log("No .json files found in the input directory.")
+        log("No .json files to process.")
         return
 
     for idx, file_name in enumerate(sorted(files)):
-        json_file_path = os.path.join(INPUT_DIR, file_name)
         try:
-            process_json_file(json_file_path, idx)
+            process_json_file(os.path.join(INPUT_DIR, file_name), idx)
         except Exception as e:
-            log(f"Failed to process {file_name}: {e}")
+            log(f"Error processing {file_name}: {e}")
+            quarantine(os.path.join(INPUT_DIR, file_name), reason="exception")
 
-    log("Processing complete!")
+    log("All conversations processed.")
 
 if __name__ == "__main__":
     main()
