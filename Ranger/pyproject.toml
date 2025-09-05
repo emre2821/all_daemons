@@ -1,0 +1,13 @@
+[project]
+name = "eden-ranger"
+version = "0.1.0"
+requires-python = ">=3.10"
+dependencies = [
+  "watchdog",
+  "rich",
+  "requests",          # for talking to your local LLM server
+  # Removed: chromadb, sentence-transformers, torch, transformers, etc.
+  # Optional readers (keep if you want):
+  "pypdf",
+  "python-docx",
+]
