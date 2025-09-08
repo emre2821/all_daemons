@@ -1,5 +1,6 @@
 # Eden-aware Parsley
 import os
+import argparse
 from pathlib import Path
 import time
 
@@ -40,13 +41,20 @@ def classify_file(file_path):
     if p.endswith((".tmp", ".log", ".bak", ".old")):     return "purge"
     return "review"
 
-def main():
-    if not INPUT_FILE.exists():
-        log(f"Missing {INPUT_FILE}; nothing to do.")
-        return
+def main(argv=None):
+    ap = argparse.ArgumentParser(description="Parsley - File classifier")
+    ap.add_argument("--input", help="Path to input list file (one path per line)")
+    ap.add_argument("--dry-run", action="store_true", help="Plan only; do not write outputs")
+    ap.add_argument("--confirm", action="store_true", help="Write output lists to OUT_DIR")
+    args = ap.parse_args(argv)
+
+    input_file = Path(args.input) if args.input else INPUT_FILE
+    if not input_file.exists():
+        log(f"Missing {input_file}; nothing to do.")
+        return 0
 
     keep, purge, review = [], [], []
-    for line in INPUT_FILE.read_text(encoding="utf-8", errors="ignore").splitlines():
+    for line in input_file.read_text(encoding="utf-8", errors="ignore").splitlines():
         path = line.strip()
         if not path: continue
         bucket = classify_file(path)
@@ -54,10 +62,24 @@ def main():
         elif bucket == "purge": purge.append(path)
         else:                  review.append(path)
 
-    KEEP_FILE.write_text("\n".join(keep), encoding="utf-8")
-    PURGE_FILE.write_text("\n".join(purge), encoding="utf-8")
-    REVIEW_FILE.write_text("\n".join(review), encoding="utf-8")
-    log(f"Classification complete. keep={len(keep)} purge={len(purge)} review={len(review)}")
+    if args.confirm and not args.dry_run:
+        KEEP_FILE.write_text("\n".join(keep), encoding="utf-8")
+        PURGE_FILE.write_text("\n".join(purge), encoding="utf-8")
+        REVIEW_FILE.write_text("\n".join(review), encoding="utf-8")
+        log(f"Classification written. keep={len(keep)} purge={len(purge)} review={len(review)}")
+    else:
+        log(f"[DRY RUN] keep={len(keep)} purge={len(purge)} review={len(review)} (no files written)")
+    return 0
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())
+
+def describe() -> dict:
+    return {
+        "name": "Parsley",
+        "role": "File classifier (keep/purge/review)",
+        "inputs": {"input": str(INPUT_FILE)},
+        "outputs": {"out_dir": str(OUT_DIR)},
+        "flags": ["--input", "--dry-run", "--confirm"],
+        "safety_level": "normal",
+    }

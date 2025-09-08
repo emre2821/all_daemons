@@ -1,15 +1,17 @@
 # C:\EdenOS_Origin\all_daemons\Archive\archive.py
-import os, sys, time, traceback
+import os, sys, time, traceback, argparse
 
 # --- Eden path bootstrap ------------------------------------------------------
 EDEN_ROOT = os.environ.get("EDEN_ROOT", r"C:\EdenOS_Origin")
 RHEA_BASE = os.path.join(EDEN_ROOT, "all_daemons", "Rhea")
 TOOLS_DIR = os.path.join(EDEN_ROOT, "all_daemons", "Daemon_tools")
+TOOLS_SCRIPTS = os.path.join(TOOLS_DIR, "scripts")
 
 # Make sure imports can find sibling daemons and your tools
 for p in (EDEN_ROOT,
           os.path.join(EDEN_ROOT, "all_daemons"),
-          TOOLS_DIR):
+          TOOLS_DIR,
+          TOOLS_SCRIPTS):
     if p not in sys.path:
         sys.path.append(p)
 
@@ -25,6 +27,27 @@ except Exception as e:
     convert_vas = None
     init_db = lambda: None
     log_to_db = lambda *a, **k: None
+
+# Logging + safety helpers (optional)
+try:
+    from eden_paths import eden_root
+    from eden_safety import SafetyContext, log_event
+except Exception:
+    try:
+        from Daemon_tools.scripts.eden_paths import eden_root
+        from Daemon_tools.scripts.eden_safety import SafetyContext, log_event
+    except Exception:
+        eden_root = lambda: os.environ.get("EDEN_ROOT", r"C:\\EdenOS_Origin")
+        class SafetyContext:  # type: ignore
+            def __init__(self, daemon: str, dry_run: bool = True, confirm: bool = False, **_):
+                self.daemon, self.dry_run, self.confirm = daemon, dry_run, confirm
+            def require_confirm(self):
+                if not self.confirm and not self.dry_run:
+                    self.dry_run = True
+            def log(self, *_a, **_k):
+                pass
+        def log_event(*_a, **_k):  # type: ignore
+            pass
 
 # --- Folders you specified ----------------------------------------------------
 INBOX_DIR     = os.path.join(RHEA_BASE, "_inbox")           # general inbox (not watched by Archive)
@@ -88,51 +111,60 @@ def safe_convert(in_path: str, out_path: str):
             pass
     os.replace(tmp_path, out_path)
 
-def main_loop(poll_seconds: float = 2.0):
+def iter_pending(scope_dir: str = None):
+    """Yield (fname, in_path, out_path) for pending .chaos files."""
+    watch_dir = scope_dir or WATCH_DIR
+    if not os.path.isdir(watch_dir):
+        return
+    for fname in os.listdir(watch_dir):
+        if not fname.lower().endswith(".chaos"):
+            continue
+        if fname.endswith(".part"):
+            continue
+        in_path = os.path.join(watch_dir, fname)
+        if not os.path.isfile(in_path):
+            continue
+        out_name = fname[:-6] + ".converted.chaos"
+        out_path = os.path.join(OUTPUT_DIR, out_name)
+        yield (fname, in_path, out_path)
+
+
+def process_once(ctx: "SafetyContext", scope_dir: str = None) -> int:
+    count = 0
+    for fname, in_path, out_path in iter_pending(scope_dir):
+        count += 1
+        if ctx.dry_run or not ctx.confirm:
+            print(f"[DRY RUN] Would convert: {fname} -> {os.path.basename(out_path)}")
+            log_event("Archive", "plan_convert", target=fname, outcome="planned")
+            continue
+        try:
+            log_line(f"[Archive] Converting: {fname}")
+            safe_convert(in_path, out_path)
+            agent_guess = "Handel" if "handel" in fname.lower() else "Unknown"
+            try:
+                log_to_db(fname, os.path.basename(out_path), agent=agent_guess)
+            except Exception as e_db:
+                log_line(f"[Archive] DB log warning for {fname}: {e_db}")
+            try:
+                os.remove(in_path)
+            except Exception as e_rm:
+                log_line(f"[Archive] WARN: could not remove {in_path}: {e_rm}")
+            log_event("Archive", "convert", target=fname, outcome="ok")
+            log_line(f"[Archive] Logged and converted: {fname} -> {os.path.basename(out_path)}")
+        except Exception as e:
+            log_line(f"[Archive] Error converting {fname}: {e}")
+            traceback.print_exc()
+            log_event("Archive", "convert", target=fname, outcome="error", error=str(e))
+    return count
+
+
+def main_loop(poll_seconds: float = 2.0, ctx: "SafetyContext" = None, scope_dir: str = None):
     log_line("[Archive] Daemon online. Watching for CHAOS files in 'to_convert'...")
     while True:
         try:
-            # listdir can throw if path disappears; we re-create it just in case
-            if not os.path.isdir(WATCH_DIR):
-                os.makedirs(WATCH_DIR, exist_ok=True)
-
-            for fname in os.listdir(WATCH_DIR):
-                # Only process plain .chaos files; skip temp/partial
-                if not fname.lower().endswith(".chaos"):
-                    continue
-                if fname.endswith(".part"):
-                    continue
-
-                in_path = os.path.join(WATCH_DIR, fname)
-                # skip directories or vanished files
-                if not os.path.isfile(in_path):
-                    continue
-
-                try:
-                    out_name = fname[:-6] + ".converted.chaos"  # replace .chaos
-                    out_path = os.path.join(OUTPUT_DIR, out_name)
-
-                    log_line(f"[Archive] Converting: {fname}")
-                    safe_convert(in_path, out_path)
-
-                    # Guess an agent from filename; harmless if Unknown
-                    agent_guess = "Handel" if "handel" in fname.lower() else "Unknown"
-                    try:
-                        log_to_db(fname, out_name, agent=agent_guess)
-                    except Exception as e_db:
-                        log_line(f"[Archive] DB log warning for {fname}: {e_db}")
-
-                    # Remove only after successful conversion
-                    try:
-                        os.remove(in_path)
-                    except Exception as e_rm:
-                        log_line(f"[Archive] WARN: could not remove {in_path}: {e_rm}")
-
-                    log_line(f"[Archive] Logged and converted: {fname} -> {out_name}")
-
-                except Exception as e:
-                    log_line(f"[Archive] Error converting {fname}: {e}")
-                    traceback.print_exc()
+            if not os.path.isdir(scope_dir or WATCH_DIR):
+                os.makedirs(scope_dir or WATCH_DIR, exist_ok=True)
+            process_once(ctx or SafetyContext("Archive", dry_run=True), scope_dir)
 
         except Exception as outer:
             log_line(f"[Archive] Outer loop error: {outer}")
@@ -140,5 +172,37 @@ def main_loop(poll_seconds: float = 2.0):
 
         time.sleep(poll_seconds)
 
+def _build_parser():
+    ap = argparse.ArgumentParser(description="Archive daemon")
+    ap.add_argument("--watch", action="store_true", help="Watch directory and process continuously")
+    ap.add_argument("--scope", help="Override watch directory for one-shot processing")
+    ap.add_argument("--dry-run", action="store_true", help="Plan only")
+    ap.add_argument("--confirm", action="store_true", help="Execute conversions and removals")
+    ap.add_argument("--log-dir", help="Custom log directory")
+    return ap
+
+
+def main(argv=None):
+    args = _build_parser().parse_args(argv)
+    ctx = SafetyContext("Archive", dry_run=(not args.confirm) if not args.dry_run else True, confirm=args.confirm)
+    ctx.require_confirm()
+    if args.watch:
+        main_loop(ctx=ctx, scope_dir=args.scope)
+        return 0
+    processed = process_once(ctx, scope_dir=args.scope)
+    print(f"Archive processed {processed} item(s)")
+    return 0
+
+
 if __name__ == "__main__":
-    main_loop()
+    sys.exit(main())
+
+def describe() -> dict:
+    return {
+        "name": "Archive",
+        "role": ".chaos converter (to converted.chaos)",
+        "inputs": {"scope": WATCH_DIR},
+        "outputs": {"outbox": OUTPUT_DIR},
+        "flags": ["--watch", "--scope", "--dry-run", "--confirm", "--log-dir"],
+        "safety_level": "mutating",
+    }

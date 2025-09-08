@@ -4,6 +4,9 @@
 /specialty_folders/Archivus/chaos_queue
 *.db
 *.log
+__pycache__/
+/.venv/
+/_logs/
 *.out
 *.lnk
 *.sh
