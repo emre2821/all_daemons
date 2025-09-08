@@ -15,7 +15,13 @@ RHEA_BASE = os.path.join(EDEN_ROOT, "all_daemons", "Rhea")
 
 # Override with env vars if you want:
 SOURCE_DIR   = os.environ.get("EDEN_APP_WATCH",    os.path.join(RHEA_BASE, "_inbox", "apps"))
-PRESERVE_DIR = os.environ.get("EDEN_APP_PRESERVE", os.path.join(RHEA_BASE, "_archives", "apps"))
+try:
+    import sys as _sys
+    _sys.path.append(os.path.join(EDEN_ROOT, "all_daemons", "Daemon_tools", "scripts"))
+    from eden_paths import daemon_out_dir as _daemon_out_dir  # type: ignore
+    PRESERVE_DIR = os.environ.get("EDEN_APP_PRESERVE", str(_daemon_out_dir("Snatch")))
+except Exception:
+    PRESERVE_DIR = os.environ.get("EDEN_APP_PRESERVE", os.path.join(RHEA_BASE, "_outbox", "Snatch"))
 LOGS_DIR     = os.path.join(RHEA_BASE, "_logs")
 TMP_DIR      = os.path.join(RHEA_BASE, "_tmp")
 
@@ -206,3 +212,20 @@ def describe() -> dict:
         "flags": ["--watch", "--once", "--dry-run", "--confirm"],
         "safety_level": "destructive",
     }
+
+
+def healthcheck() -> dict:
+    status = "ok"; notes = []
+    for p in (SOURCE_DIR, PRESERVE_DIR, LOGS_DIR, TMP_DIR):
+        try:
+            os.makedirs(p, exist_ok=True)
+        except Exception as e:
+            status = "fail"; notes.append(f"cannot create {p}: {e}")
+    try:
+        with open(LOG_FILE, "a", encoding="utf-8") as _:
+            pass
+    except Exception as e:
+        if status == "ok":
+            status = "warn"
+        notes.append(f"log write warn: {e}")
+    return {"status": status, "notes": "; ".join(notes)}

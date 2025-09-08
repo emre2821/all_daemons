@@ -7,8 +7,15 @@ import time
 EDEN_ROOT = Path(os.environ.get("EDEN_ROOT", r"C:\EdenOS_Origin"))
 RHEA_BASE = EDEN_ROOT / "all_daemons" / "Rhea"
 
+try:
+    import sys
+    sys.path.append(str((EDEN_ROOT / "all_daemons" / "Daemon_tools" / "scripts").resolve()))
+    from eden_paths import daemon_out_dir  # type: ignore
+    OUT_DIR = Path(daemon_out_dir("Parsley"))
+except Exception:
+    OUT_DIR = RHEA_BASE / "_outbox" / "Parsley"
+
 WORK_DIR   = RHEA_BASE / "_work"
-OUT_DIR    = RHEA_BASE / "_outbox" / "parsley"
 LOGS_DIR   = RHEA_BASE / "_logs"
 
 INPUT_FILE  = WORK_DIR / "make_a_new_file_list.txt"
@@ -83,3 +90,19 @@ def describe() -> dict:
         "flags": ["--input", "--dry-run", "--confirm"],
         "safety_level": "normal",
     }
+
+
+def healthcheck() -> dict:
+    status = "ok"; notes = []
+    for d in (WORK_DIR, OUT_DIR, LOGS_DIR):
+        try:
+            d.mkdir(parents=True, exist_ok=True)
+        except Exception as e:
+            status = "fail"; notes.append(f"cannot create {d}: {e}")
+    try:
+        (LOGS_DIR / "parsley_daemon.log").touch()
+    except Exception as e:
+        if status == "ok":
+            status = "warn"
+        notes.append(f"log write warn: {e}")
+    return {"status": status, "notes": "; ".join(notes)}

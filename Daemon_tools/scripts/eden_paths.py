@@ -58,3 +58,20 @@ def daemon_dir(name: str) -> Path:
 def resolve_path(*parts: str) -> Path:
     return Path(os.path.join(*[str(x) for x in parts]))
 
+
+# Rhea-centric paths
+def rhea_root() -> Path:
+    return daemons_root() / "Rhea"
+
+
+def rhea_outbox() -> Path:
+    p = rhea_root() / "_outbox"
+    p.mkdir(parents=True, exist_ok=True)
+    return p
+
+
+def daemon_out_dir(daemon_name: str) -> Path:
+    # Standardized: place daemon outputs directly under Rhea/_outbox/<Daemon>
+    p = rhea_outbox() / daemon_name
+    p.mkdir(parents=True, exist_ok=True)
+    return p

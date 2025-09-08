@@ -1,7 +1,7 @@
 from pathlib import Path
 
-# Recreate the GUI launcher script after code execution state reset
-gui_script_path = Path("/mnt/data/daemon_gui_launcher.py")
+# Archived Daemon GUI Launcher (superseded by eden-daemon CLI)
+gui_script_path = Path("daemon_gui_launcher.py")
 
 gui_script_content = """
 import tkinter as tk

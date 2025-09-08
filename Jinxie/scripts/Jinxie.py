@@ -10,8 +10,22 @@ import webbrowser
 import datetime
 import platform
 import threading
-import pyautogui
-import pyperclip
+try:
+    import pyautogui
+    import pyperclip
+    _JINX_DEPS = True
+except Exception:
+    pyautogui = None
+    pyperclip = None
+    _JINX_DEPS = False
+try:
+    import sys as _sys
+    _sys.path.append(os.path.join(os.environ.get("EDEN_ROOT", os.getcwd()), "all_daemons", "Daemon_tools", "scripts"))
+    from eden_paths import daemon_out_dir  # type: ignore
+    JINXIE_OUT = str(daemon_out_dir("Jinxie"))
+except Exception:
+    JINXIE_OUT = os.path.join(os.environ.get("EDEN_ROOT", os.getcwd()), "all_daemons", "Rhea", "_outbox", "Jinxie")
+    os.makedirs(JINXIE_OUT, exist_ok=True)
 import json
 
 # --- Cookie Jar & Debt ---
@@ -124,10 +138,12 @@ def full_takeover_mode():
 def autopilot_assignment():
     global cookie_debt
     print(jinxie_responses["autopilot_start"])
-    screenshot = pyautogui.screenshot()
-    screenshot_path = "jinxie_autopilot.png"
-    screenshot.save(screenshot_path)
-    pyperclip.copy("Jinxie here! Gotta finish this for the Bosslady. Can you help?")
+    if _JINX_DEPS and pyautogui:
+        screenshot = pyautogui.screenshot()
+        screenshot_path = os.path.join(JINXIE_OUT, "jinxie_autopilot.png")
+        screenshot.save(screenshot_path)
+    if _JINX_DEPS and pyperclip:
+        pyperclip.copy("Jinxie here! Gotta finish this for the Bosslady. Can you help?")
     time.sleep(1)
     open_browser("https://chat.openai.com")
     print(jinxie_responses["autopilot_chat_opened"])
@@ -179,3 +195,25 @@ def check_bingo_trigger(trigger_phrase):
         if trigger in trigger_phrase:
             print("🟢 BINGO! Ope, that was my last spot. Dreambearer owes me a cookie.")
             break
+
+
+def describe() -> dict:
+    return {
+        "name": "Jinxie",
+        "role": "Playful desktop assistant (timers, apps, browser, screenshots)",
+        "outputs": {"out_dir": JINXIE_OUT},
+        "flags": [],
+        "safety_level": "normal",
+    }
+
+
+def healthcheck() -> dict:
+    status = "ok"; notes = []
+    if not _JINX_DEPS:
+        status = "warn"; notes.append("pyautogui/pyperclip missing; reduced features")
+    try:
+        os.makedirs(JINXIE_OUT, exist_ok=True)
+    except Exception as e:
+        if status == "ok": status = "warn"
+        notes.append(f"outdir warn: {e}")
+    return {"status": status, "notes": "; ".join(notes)}

@@ -52,7 +52,15 @@ except Exception:
 # --- Folders you specified ----------------------------------------------------
 INBOX_DIR     = os.path.join(RHEA_BASE, "_inbox")           # general inbox (not watched by Archive)
 WATCH_DIR     = os.path.join(RHEA_BASE, "to_convert")       # <== Archive watches this
-OUTPUT_DIR    = os.path.join(RHEA_BASE, "_outbox", "converted")
+try:
+    from eden_paths import daemon_out_dir as _daemon_out_dir
+except Exception:
+    try:
+        from Daemon_tools.scripts.eden_paths import daemon_out_dir as _daemon_out_dir
+    except Exception:
+        _daemon_out_dir = None
+
+OUTPUT_DIR    = str(_daemon_out_dir("Archive")) if _daemon_out_dir else os.path.join(RHEA_BASE, "_outbox", "Archive")
 ARCHIVES_DIR  = os.path.join(RHEA_BASE, "_archives")        # (not used for writes here, but created)
 LOGS_DIR      = os.path.join(RHEA_BASE, "_logs")
 TMP_DIR       = os.path.join(RHEA_BASE, "_tmp")
@@ -206,3 +214,24 @@ def describe() -> dict:
         "flags": ["--watch", "--scope", "--dry-run", "--confirm", "--log-dir"],
         "safety_level": "mutating",
     }
+
+
+def healthcheck() -> dict:
+    status = "ok"
+    notes = []
+    # Check tool import
+    try:
+        ok = convert_vas is not None  # type: ignore[name-defined]
+    except Exception:
+        ok = False
+    if not ok:
+        status = "warn"
+        notes.append("convert_vas unavailable; conversions will be skipped")
+    # Check dirs
+    for p in [WATCH_DIR, OUTPUT_DIR, TMP_DIR]:
+        try:
+            os.makedirs(p, exist_ok=True)
+        except Exception as e:
+            status = "fail"
+            notes.append(f"cannot create dir {p}: {e}")
+    return {"status": status, "notes": "; ".join(notes)}

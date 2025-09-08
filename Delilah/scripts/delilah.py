@@ -437,24 +437,7 @@ class EdenRecoveryUI(BoxLayout):
             self.out.text += f"Files scanned: {len(self._rec.files)}\n"
             self.out.text += f"Groups found: {len(self._rec.groups)}\n"
             if self._rec.errors:
-                self.out.text += "[Errors]\n" + "\n".join(self._rec.erroimport os, re, json, shutil, hashlib
-from pathlib import Path
-from collections import defaultdict, Counter
-from datetime import datetime
-from kivy.app import App
-from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.gridlayout import GridLayout
-from kivy.uix.label import Label
-from kivy.uix.textinput import TextInput
-from kivy.uix.button import Button
-from kivy.uix.scrollview import ScrollView
-from kivy.uix.filechooser import FileChooserListView
-from kivy.uix.popup import Popup
-from kivy.clock import Clock
-from kivy.uix.treeview import TreeView, TreeViewLabel
-import tkinter as tk
-from tkinter import filedialog
-import tempfile
+                self.out.text += "[Errors]\n" + "\n".join(self._rec.errors)
 
 # ===========================
 # Palettes and Categories

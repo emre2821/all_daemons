@@ -60,6 +60,17 @@ class Threadstep:
             "flags": ["--scope"],
         }
 
+    @staticmethod
+    def healthcheck() -> dict:
+        try:
+            root = Path(os.environ.get("EDEN_ROOT", Path.cwd()))
+            logs = root / "all_daemons" / "_logs"
+            logs.mkdir(parents=True, exist_ok=True)
+            (logs / "Threadstep.log").touch()
+            return {"status": "ok", "notes": "log writable"}
+        except Exception as e:
+            return {"status": "warn", "notes": f"log write warn: {e}"}
+
     def main(self, argv=None):
         parser = argparse.ArgumentParser(description="Threadstep - Path tracer")
         parser.add_argument("--scope", help="Directory to scan (defaults to CWD)")
@@ -71,4 +82,3 @@ class Threadstep:
 
 if __name__ == "__main__":
     Threadstep().main()
-

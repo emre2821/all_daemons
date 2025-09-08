@@ -18,7 +18,9 @@ except Exception:
 
 SKIP_FOLDERS = {
     ".git", ".venv", ".vscode", "Daemon_tools", "CODE_REPORTS", "Digitari_v0_1",
-    "Rhea", "specialty_folders", "_logs", "_template", "bin", "tools"
+    "Rhea", "specialty_folders", "_logs", "_template", "bin", "tools",
+    # Archived / app-like, not daemons
+    "Aethercore", "Cradle", "archived_tools", "RitualGUI"
 }
 
 

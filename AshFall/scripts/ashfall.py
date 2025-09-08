@@ -82,3 +82,30 @@ def main(argv=None):
 
 if __name__ == "__main__":
     sys.exit(main())
+
+def describe() -> dict:
+    return {
+        "name": "AshFall",
+        "role": "Empty folder cleaner",
+        "inputs": {"scope": "target directory"},
+        "outputs": {"log": LOG_PATH},
+        "flags": ["--scope", "--dry-run", "--confirm"],
+        "safety_level": "destructive",
+    }
+
+
+def healthcheck() -> dict:
+    status = "ok"
+    notes = []
+    try:
+        os.makedirs(os.path.dirname(LOG_PATH), exist_ok=True)
+    except Exception as e:
+        status = "fail"; notes.append(f"log dir error: {e}")
+    try:
+        with open(LOG_PATH, "a", encoding="utf-8") as _:
+            pass
+    except Exception as e:
+        if status == "ok":
+            status = "warn"
+        notes.append(f"log write warn: {e}")
+    return {"status": status, "notes": "; ".join(notes)}

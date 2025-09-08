@@ -12,8 +12,22 @@ SAFE_KEYWORDS = [
     "Obsidian", "Notion", "ChatGPT", "Eden", "Ghost_in_a_Shell", "Music_extended", "PausePet"
 ]
 DRY_RUN = True
-LOG_PATH = os.path.join("C:\\Users\\emmar\\Desktop\\Eden_Burn_Book", "deletion_log.txt")
-TO_DELETE_FOLDER = os.path.join("C:\\Users\\emmar\\Desktop\\Eden_Burn_Book", "To_Delete")
+try:
+    from Daemon_tools.scripts.eden_paths import logs_dir as _logs_dir, eden_root as _eden_root
+    from Daemon_tools.scripts.eden_paths import daemon_out_dir as _daemon_out_dir
+except Exception:
+    def _eden_root():
+        return os.environ.get("EDEN_ROOT", os.getcwd())
+    def _logs_dir():
+        p = os.path.join(_eden_root(), "all_daemons", "_logs")
+        os.makedirs(p, exist_ok=True)
+        return p
+    def _daemon_out_dir(name: str):
+        p = os.path.join(_eden_root(), "all_daemons", "Rhea", "_outbox", name)
+        os.makedirs(p, exist_ok=True)
+        return p
+LOG_PATH = os.path.join(_logs_dir(), "Scorchick.log")
+TO_DELETE_FOLDER = _daemon_out_dir("Scorchick")
 
 FILES_MOVED = 0
 SURVIVORS = 0
@@ -103,11 +117,23 @@ def run_noninteractive(list_file: str, dry_run: bool = True) -> int:
         if dry_run:
             print(f"[DRY RUN] Would move: {entry}")
             log_action(entry, "DRY RUN", "No action")
+            try:
+                from Daemon_tools.scripts.eden_safety import log_event as _le
+            except Exception:
+                _le = None
+            if _le:
+                _le("Scorchick", action="plan_move", target=entry, outcome="planned")
             continue
         moved, status = move_to_delete(entry)
         if moved:
             print(f"? Moved: {entry}")
             log_action(entry, "MOVED", status)
+            try:
+                from Daemon_tools.scripts.eden_safety import log_event as _le
+            except Exception:
+                _le = None
+            if _le:
+                _le("Scorchick", action="move", target=entry, outcome="ok")
             FILES_MOVED += 1
         else:
             print(f"? Failed: {entry}")
@@ -140,3 +166,19 @@ def describe() -> dict:
         "flags": ["--list-file", "--dry-run", "--confirm"],
         "safety_level": "destructive",
     }
+
+
+def healthcheck() -> dict:
+    status = "ok"; notes = []
+    try:
+        os.makedirs(TO_DELETE_FOLDER, exist_ok=True)
+    except Exception as e:
+        status = "fail"; notes.append(f"to_delete folder error: {e}")
+    try:
+        with open(LOG_PATH, "a", encoding="utf-8") as _:
+            pass
+    except Exception as e:
+        if status == "ok":
+            status = "warn"
+        notes.append(f"log write warn: {e}")
+    return {"status": status, "notes": "; ".join(notes)}

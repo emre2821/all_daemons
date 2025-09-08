@@ -94,4 +94,4 @@ if __name__ == "__main__":
     sample_texts = ["hope", "grief", "callum", "eden"]
     for text in sample_texts:
         generate_sigil(text)
-    print("Glypha closes the fo
+    print("Glypha closes the forge.")

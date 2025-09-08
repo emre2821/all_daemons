@@ -34,11 +34,13 @@ def _jsonl_append(path: Path, obj: Dict[str, Any]) -> None:
 
 def log_event(daemon: str, action: str, target: str = "", outcome: str = "", error: Optional[str] = None,
               extra: Optional[Dict[str, Any]] = None, log_dir: Optional[Path] = None) -> None:
+    from datetime import datetime
     entry: Dict[str, Any] = {
         "daemon": daemon,
         "action": action,
         "target": target,
         "outcome": outcome,
+        "timestamp": datetime.now().isoformat(timespec="seconds"),
     }
     if error:
         entry["error"] = error

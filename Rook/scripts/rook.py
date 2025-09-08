@@ -1,6 +1,7 @@
 import re
 import json
 from datetime import datetime
+from pathlib import Path
 
 class Rook:
     def __init__(self):
@@ -42,3 +43,21 @@ class Rook:
 if __name__ == "__main__":
     rook = Rook()
     rook.main()
+
+
+def describe() -> dict:
+    return {
+        "name": "Rook",
+        "role": "Command gatekeeper (regex filter)",
+        "outputs": {"log": "rook_log.json"},
+        "flags": [],
+        "safety_level": "normal",
+    }
+
+
+def healthcheck() -> dict:
+    try:
+        Path("rook_log.json").touch()
+        return {"status": "ok", "notes": "log writable"}
+    except Exception as e:
+        return {"status": "warn", "notes": f"log write warn: {e}"}
