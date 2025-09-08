@@ -14,9 +14,14 @@ from pathlib import Path
 
 RHEA = Path(__file__).resolve().parent.parent
 REG = RHEA / "config" / "rhea_registry.json"
-CFG_DIR = RHEA / "scripts" / "configs"
-DAEMONS_YAML = CFG_DIR / "daemons.yaml"
-TASKS_YAML = CFG_DIR / "tasks.yaml"
+# Primary (used by orchestrator/GUI)
+CFG_DIR_PRIMARY = RHEA / "config"
+DAEMONS_YAML_PRIMARY = CFG_DIR_PRIMARY / "daemons.yaml"
+TASKS_YAML_PRIMARY = CFG_DIR_PRIMARY / "tasks.yaml"
+# Secondary (legacy view inside scripts/configs for convenience)
+CFG_DIR_SECONDARY = RHEA / "scripts" / "configs"
+DAEMONS_YAML_SECONDARY = CFG_DIR_SECONDARY / "daemons.yaml"
+TASKS_YAML_SECONDARY = CFG_DIR_SECONDARY / "tasks.yaml"
 
 
 def load_registry() -> dict:
@@ -27,9 +32,10 @@ def load_registry() -> dict:
 
 
 def write_daemons_yaml_from_registry(reg: dict) -> None:
-    # Keep JSON content even though file is named .yaml (GUI expects JSON)
-    DAEMONS_YAML.parent.mkdir(parents=True, exist_ok=True)
-    DAEMONS_YAML.write_text(json.dumps(reg, indent=2), encoding="utf-8")
+    # Keep JSON content even though file is named .yaml (GUI uses JSON loader)
+    for path in (DAEMONS_YAML_PRIMARY, DAEMONS_YAML_SECONDARY):
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps(reg, indent=2), encoding="utf-8")
 
 
 def append_daemon_index_to_tasks(reg: dict) -> None:
@@ -56,10 +62,11 @@ def append_daemon_index_to_tasks(reg: dict) -> None:
         else:
             lines.append("    tags: []")
         lines.append(f"    enabled: {str(enabled).lower()}")
-    # Append to tasks.yaml (create if missing)
-    TASKS_YAML.parent.mkdir(parents=True, exist_ok=True)
-    with TASKS_YAML.open("a", encoding="utf-8") as f:
-        f.write("\n" + "\n".join(lines) + "\n")
+    # Append to both primary and secondary tasks.yaml
+    for path in (TASKS_YAML_PRIMARY, TASKS_YAML_SECONDARY):
+        path.parent.mkdir(parents=True, exist_ok=True)
+        with path.open("a", encoding="utf-8") as f:
+            f.write("\n" + "\n".join(lines) + "\n")
 
 
 def main() -> int:
@@ -75,4 +82,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-
