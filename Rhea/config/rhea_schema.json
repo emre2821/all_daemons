@@ -1,0 +1,171 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Rhea Registry",
+  "type": "object",
+  "required": [
+    "version",
+    "palettes",
+    "daemons",
+    "teams",
+    "groups",
+    "pairs",
+    "tasks"
+  ],
+  "properties": {
+    "version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "palettes": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "bg": {
+            "type": "string"
+          },
+          "fg": {
+            "type": "string"
+          },
+          "accent": {
+            "type": "string"
+          },
+          "muted": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "bg",
+          "fg",
+          "accent",
+          "muted"
+        ]
+      }
+    },
+    "daemons": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "name",
+          "path",
+          "enabled",
+          "tags",
+          "start",
+          "team",
+          "group"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          },
+          "enabled": {
+            "type": "boolean"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "team": {
+            "type": "string"
+          },
+          "group": {
+            "type": "string"
+          },
+          "env": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "start": {
+            "type": "object",
+            "required": [
+              "type",
+              "args"
+            ],
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "python",
+                  "shell"
+                ]
+              },
+              "args": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "teams": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "members"
+        ],
+        "properties": {
+          "members": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "groups": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object"
+      }
+    },
+    "pairs": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "minItems": 2,
+        "maxItems": 2
+      }
+    },
+    "tasks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "target": {
+            "type": "string"
+          },
+          "cmd": {
+            "type": "string"
+          },
+          "schedule": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "target",
+          "cmd"
+        ]
+      }
+    }
+  }
+}

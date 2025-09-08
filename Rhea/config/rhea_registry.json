@@ -554,15 +554,18 @@
     },
     "Saphira": {
       "name": "Saphira",
-      "path": "Saphira/scripts/saphira.py",
+      "path": "_template\\scripts\\template_daemon.py",
       "enabled": false,
       "tags": [
+        "daemon",
         "catalog",
         "index"
       ],
       "team": "Catalog",
-      "group": "Default",
-      "env": {},
+      "group": "Archive",
+      "env": {
+        "EDEN_ENV": "dev"
+      },
       "start": {
         "type": "python",
         "args": [

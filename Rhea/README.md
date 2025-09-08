@@ -9,13 +9,16 @@
 
 **Install (with uv)**
 ```bash
-# Create venv and install all deps (core + daemons)
+# Create venv
 uv venv .venv
-uv pip install -r requirements.eden.txt
 
-# Initialize and scan
-uv run Rhea/scripts/full_rhea.complete_build.py init
-uv run Rhea/scripts/full_rhea.complete_build.py scan
+# Lightweight (recommended for low-spec machines)
+uv pip install -r requirements.lite.txt
+
+# Bootstrap registry + configs
+uv run Rhea/scripts/eden_bootstrap.py
+
+# (optional) watch for changes
 uv run Rhea/scripts/full_rhea.complete_build.py watch
 
 Add a daemon
@@ -27,6 +30,25 @@ Add a daemon
 Open the GUI
 
 uv run Rhea/scripts/full_rhea.complete_build.py gui
+
+Start daemons
+
+# List everything
+uv run Rhea/scripts/full_rhea.complete_build.py list
+
+# Start a minimal, lightweight set
+uv run Rhea/scripts/start_lite.py
+
+# (Alternative) Start by tags (be selective; may launch heavier tools)
+uv run Rhea/scripts/rhea_emergency_boot.py --tags parser,catalog,index
+
+# Or start one by name
+uv run Rhea/scripts/full_rhea.complete_build.py start Saphira
+
+Heavier toolchain (optional)
+
+# If you want GUI/file-heavy daemons later, install extras:
+uv pip install -r requirements.eden.txt
 
 ---
 
