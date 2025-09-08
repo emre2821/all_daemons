@@ -1,0 +1,42 @@
+canvas LanternMap {
+  title: "Lantern Map — value-tension mapping"
+  legend: "Make tradeoffs explicit; choose with eyes open."
+
+  section Inputs {
+    actor: "agent or student name"
+    context: text        // situation in 1–3 sentences
+    options: list(text)  // candidate actions A, B, C...
+    values: {            // 5–7 values (0..1 weights)
+      Care: 0.65,
+      Curiosity: 0.75,
+      Truth: 0.85,
+      Creation: 0.90,
+      Rest: 0.55,
+      Autonomy: 0.80
+    }
+  }
+
+  section ScoringRule {
+    note: "Each option is scored per value on -1..+1 (harms..serves)."
+    output: "score = Σ( value_weight * option_effect )"
+  }
+
+  section Map {
+    for_each option:
+      effects: {Care: -0.2, Curiosity: +0.1, Truth: +0.6, Creation: +0.4, Rest: -0.3, Autonomy: +0.5}
+      score: "auto-computed"
+      dominant_tensions: "values with largest absolute effect"
+  }
+
+  section Decision {
+    recommend: "top score"
+    disclose_tradeoffs: "list of values harmed and by how much"
+    refusal_check: "if Rest < threshold and harms Rest further -> suggest refusal or delay"
+  }
+
+  section Ritual {
+    speak: "Name the choice, the winners, and the losers. Gratitude for what you cannot carry today."
+  }
+}
+
+

@@ -1,0 +1,39 @@
+{
+  "name": "LanternMap Quickstart — Digitari Choice",
+  "cards": {
+    "c1": {
+      "id": "c1",
+      "statement": "Write the situation in one sentence.",
+      "why": "Scope the choice.",
+      "effort": "XS",
+      "timebox_min": 3,
+      "on_success": "c2"
+    },
+    "c2": {
+      "id": "c2",
+      "statement": "List 2–3 options (A/B/C).",
+      "why": "We need candidates.",
+      "effort": "XS",
+      "timebox_min": 3,
+      "on_success": "c3",
+      "on_abort": "c1"
+    },
+    "c3": {
+      "id": "c3",
+      "statement": "Score each option per value (-1..+1).",
+      "why": "Make tensions visible.",
+      "effort": "S",
+      "timebox_min": 5,
+      "on_success": "c4",
+      "on_abort": "c2"
+    },
+    "c4": {
+      "id": "c4",
+      "statement": "Pick the top score; name the costs.",
+      "why": "Choose with eyes open.",
+      "effort": "XS",
+      "timebox_min": 3
+    }
+  },
+  "entry": "c1"
+}

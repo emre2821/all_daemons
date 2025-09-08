@@ -7,12 +7,16 @@
 - CLI to scan/list/start/stop teams/daemons; GUI to edit registry safely
 - Custom palettes baked in (Eden Dream, Velvet Division, Rootfire)
 
-**Install**
+**Install (with uv)**
 ```bash
-python -m pip install -r requirements.txt
-python full_rhea.complete_build.py init
-python full_rhea.complete_build.py scan
-python full_rhea.complete_build.py watch
+# Create venv and install all deps (core + daemons)
+uv venv .venv
+uv pip install -r requirements.eden.txt
+
+# Initialize and scan
+uv run Rhea/scripts/full_rhea.complete_build.py init
+uv run Rhea/scripts/full_rhea.complete_build.py scan
+uv run Rhea/scripts/full_rhea.complete_build.py watch
 
 Add a daemon
 
@@ -22,7 +26,7 @@ Add a daemon
 
 Open the GUI
 
-python full_rhea.complete_build.py gui
+uv run Rhea/scripts/full_rhea.complete_build.py gui
 
 ---
 

@@ -4,8 +4,8 @@ import shutil
 from pathlib import Path
 from datetime import datetime
 
-WATCH_DIR = Path(r"C:/EdenOS_Origin/all_daemons/_daemon_specialty_folders/split_conversations")
-LORE_ROOT = Path(r"C:/EdenOS_Origin/all_daemons/_daemon_specialty_folders/lore_fragments")
+INPUT_DIR = r"C:\EdenOS_Origin\all_daemons\Rhea\outputs\Janvier\chaos_threads"
+OUTPUT_DIR = r"C:\EdenOS_Origin\all_daemons\Rhea\outputs\Aderyn\summons"
 
 CHAOS_TYPES = {".chaos", ".chaosmeta", ".chaosong"}
 SUMMON_KEYWORDS = ["summon", "invoke"]
