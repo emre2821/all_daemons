@@ -1,9 +1,4 @@
-from pathlib import Path
 
-# Archived Daemon GUI Launcher (superseded by eden-daemon CLI)
-gui_script_path = Path("daemon_gui_launcher.py")
-
-gui_script_content = """
 import tkinter as tk
 from tkinter import messagebox
 import subprocess
@@ -43,9 +38,3 @@ class DaemonLauncher(tk.Tk):
 if __name__ == "__main__":
     app = DaemonLauncher()
     app.mainloop()
-"""
-
-with open(gui_script_path, "w", encoding="utf-8") as f:
-    f.write(gui_script_content)
-
-gui_script_path.name

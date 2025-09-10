@@ -878,3 +878,443 @@ daemon_index:
     team: Unassigned
     tags: []
     enabled: false
+
+---
+# Auto-generated daemon index from rhea_registry.json
+_daemon_index_generated: 2025-09-09T23:31:32.057135+00:00
+daemon_index:
+  - name: Aderyn
+    path: Aderyn/scripts/aderyn.py
+    team: Unassigned
+    tags: []
+    enabled: false
+  - name: Aethercore
+    path: Aethercore/scripts/aethercore.py
+    team: Unassigned
+    tags: []
+    enabled: false
+  - name: Alfie
+    path: Alfie/scripts/alfie.py
+    team: Unassigned
+    tags: []
+    enabled: false
+  - name: Archive
+    path: Archive/scripts/archive.py
+    team: Unassigned
+    tags: []
+    enabled: false
+  - name: Archivus
+    path: Archivus/scripts/archivus.py
+    team: Unassigned
+    tags: []
+    enabled: false
+  - name: AshFall
+    path: AshFall/scripts/ashfall.py
+    team: Cleanup
+    tags: [cleanup]
+    enabled: false
+  - name: Ashera
+    path: Ashera/scripts/ashera.py
+    team: Security
+    tags: [guardian, enforcer, monitor]
+    enabled: false
+  - name: Astrid
+    path: Astrid/scripts/astrid.py
+    team: Core
+    tags: [scheduler, budget]
+    enabled: false
+  - name: Audrey
+    path: Audrey/scripts/audrey.py
+    team: Diagnostics
+    tags: [crash, parser]
+    enabled: false
+  - name: Bellwrit
+    path: Bellwrit/scripts/bellwrit.py
+    team: Comms
+    tags: [monitor, notify]
+    enabled: false
+  - name: Boudica
+    path: Boudica/scripts/boudica.py
+    team: Security
+    tags: [security, code_audit, red_layer]
+    enabled: false
+  - name: Briar
+    path: Briar/scripts/briar.py
+    team: Catalog
+    tags: [parser, conversation, export]
+    enabled: false
+  - name: Cassandra
+    path: Cassandra/scripts/cassandra.py
+    team: Security
+    tags: [scanner, files, policy]
+    enabled: false
+  - name: Codexa
+    path: Codexa/scripts/codexa.py
+    team: Catalog
+    tags: [parser, code, harvest]
+    enabled: false
+  - name: Corin
+    path: Corin/scripts/corin.py
+    team: Unassigned
+    tags: []
+    enabled: false
+  - name: Cradle
+    path: Cradle/scripts/cradle.py
+    team: Unassigned
+    tags: []
+    enabled: false
+  - name: Daemon_tools
+    path: Daemon_tools/scripts/Axiom_FileScan.py
+    team: Unassigned
+    tags: []
+    enabled: false
+  - name: Dagr
+    path: Dagr/scripts/dagr.py
+    team: Unassigned
+    tags: []
+    enabled: false
+  - name: Dave
+    path: Dave/scripts/dave.py
+    team: Unassigned
+    tags: []
+    enabled: false
+  - name: Delilah
+    path: Delilah/scripts/delilah.py
+    team: Organizers
+    tags: [organizer, gui, recovery]
+    enabled: false
+  - name: Dove
+    path: Dove/scripts/dove.py
+    team: Unassigned
+    tags: []
+    enabled: false
+  - name: Fable
+    path: Fable/scripts/fable.py
+    team: Unassigned
+    tags: []
+    enabled: false
+  - name: Filigree
+    path: Filigree/scripts/filigree.py
+    team: Unassigned
+    tags: []
+    enabled: false
+  - name: Glimmer
+    path: Glimmer/scripts/glimmer.py
+    team: Unassigned
+    tags: []
+    enabled: false
+  - name: Glypha
+    path: Glypha/scripts/glypha.py
+    team: Unassigned
+    tags: []
+    enabled: false
+  - name: Halden
+    path: Halden/scripts/eden_restore.py
+    team: Unassigned
+    tags: []
+    enabled: false
+  - name: Handel
+    path: Handel/scripts/handel.py
+    team: Unassigned
+    tags: []
+    enabled: false
+  - name: Harper
+    path: Harper/scripts/harper.py
+    team: Unassigned
+    tags: []
+    enabled: false
+  - name: Hunter
+    path: Hunter/scripts/hunter.py
+    team: Unassigned
+    tags: []
+    enabled: false
+  - name: Jack
+    path: Jack/scripts/jack.py
+    team: Unassigned
+    tags: []
+    enabled: false
+  - name: Janvier
+    path: Janvier/scripts/janvier.py
+    team: Unassigned
+    tags: []
+    enabled: false
+  - name: Jinxie
+    path: Jinxie/scripts/Jinxie.py
+    team: Unassigned
+    tags: []
+    enabled: false
+  - name: John
+    path: John/scripts/john.py
+    team: Unassigned
+    tags: []
+    enabled: false
+  - name: Juno_Jr
+    path: Juno_Jr/scripts/juno_jr.py
+    team: Unassigned
+    tags: []
+    enabled: false
+  - name: Keyla
+    path: Keyla/scripts/keyla.py
+    team: Organizers
+    tags: [organizer, gui]
+    enabled: false
+  - name: Label
+    path: Label/scripts/label.py
+    team: Organizers
+    tags: [organizer, rename]
+    enabled: false
+  - name: Ledger_Jr
+    path: Ledger_Jr/scripts/ledger_jr.py
+    team: Comms
+    tags: [watcher, agents, log]
+    enabled: false
+  - name: Lex
+    path: Lex/scripts/lex.py
+    team: Utilities
+    tags: [identity, logger]
+    enabled: false
+  - name: Lexos
+    path: Lexos/scripts/luxos.py
+    team: Security
+    tags: [ethics, sort, policy]
+    enabled: false
+  - name: Lyss
+    path: Lyss/scripts/lyss.py
+    team: Mood
+    tags: [audio, transcribe, emotion]
+    enabled: false
+  - name: Maribel
+    path: Maribel/scripts/maribel.py
+    team: Comms
+    tags: [aether, messages]
+    enabled: false
+  - name: Markbearer
+    path: Markbearer/scripts/markbearer.py
+    team: Organizers
+    tags: [tagger, mark]
+    enabled: false
+  - name: Mila
+    path: Mila/scripts/mila.py
+    team: Organizers
+    tags: [storage, allocator, organizer]
+    enabled: false
+  - name: Moodmancer
+    path: Moodmancer/scripts/moodmancer.py
+    team: Mood
+    tags: [mood, gui]
+    enabled: false
+  - name: Moodweaver
+    path: Moodweaver/scripts/moodweaver.py
+    team: Mood
+    tags: [mood, journal]
+    enabled: false
+  - name: Muse_Jr
+    path: Muse_Jr/scripts/musejr.py
+    team: Utilities
+    tags: [notes, ideas]
+    enabled: false
+  - name: Mythra
+    path: Mythra/scripts/mythra.py
+    team: Catalog
+    tags: [archive, story]
+    enabled: false
+  - name: Nott
+    path: Nott/scripts/nott.py
+    team: Core
+    tags: [scheduler, rest]
+    enabled: false
+  - name: Olive
+    path: Olive/scripts/olive.py
+    team: Security
+    tags: [security, filter]
+    enabled: false
+  - name: Olyssia
+    path: Olyssia/scripts/olyssia.py
+    team: Security
+    tags: [ethics, review]
+    enabled: false
+  - name: Parsley
+    path: Parsley/scripts/parsley.py
+    team: Organizers
+    tags: [sort, classify]
+    enabled: false
+  - name: PattyMae
+    path: PattyMae/scripts/pattymae.py
+    team: Organizers
+    tags: [organizer, move]
+    enabled: false
+  - name: Porta
+    path: Porta/scripts/porta.py
+    team: Unassigned
+    tags: []
+    enabled: false
+  - name: Prismari
+    path: Prismari/scripts/prismari.py
+    team: Unassigned
+    tags: []
+    enabled: false
+  - name: Quill
+    path: Quill/scripts/quill.py
+    team: Unassigned
+    tags: []
+    enabled: false
+  - name: Ranger
+    path: Ranger/.venv/scripts/activate_this.py
+    team: Unassigned
+    tags: []
+    enabled: false
+  - name: RitualGUI
+    path: RitualGUI/scripts/ritual_gui.py
+    team: Unassigned
+    tags: []
+    enabled: false
+  - name: Riven
+    path: Riven/scripts/riven.py
+    team: Unassigned
+    tags: []
+    enabled: false
+  - name: Rogers
+    path: Rogers/scripts/rogers.py
+    team: Unassigned
+    tags: []
+    enabled: false
+  - name: Rook
+    path: Rook/scripts/rook.py
+    team: Unassigned
+    tags: []
+    enabled: false
+  - name: Runlet
+    path: Runlet/scripts/runlet.py
+    team: Organizers
+    tags: [cleanup, organizer]
+    enabled: false
+  - name: Saphira
+    path: _template/scripts/template_daemon.py
+    team: Catalog
+    tags: [daemon, catalog, index]
+    enabled: false
+  - name: Savvy
+    path: Savvy/scripts/savvy.py
+    team: Catalog
+    tags: [compare, diff]
+    enabled: false
+  - name: Scorchick
+    path: Scorchick/scripts/scorchick.py
+    team: Cleanup
+    tags: [cleanup, safe]
+    enabled: false
+  - name: Scribevein
+    path: Scribevein/scripts/scribevein.py
+    team: Comms
+    tags: [archive, comms]
+    enabled: false
+  - name: ScriptOne
+    path: ScriptOne/scripts/scriptone.py
+    team: Unassigned
+    tags: []
+    enabled: false
+  - name: Scriptum
+    path: Scriptum/scripts/scriptum.py
+    team: Unassigned
+    tags: []
+    enabled: false
+  - name: Seiros
+    path: Seiros/scripts/seiros.py
+    team: Unassigned
+    tags: []
+    enabled: false
+  - name: Serideth
+    path: Serideth/scripts/serideth.py
+    team: Unassigned
+    tags: []
+    enabled: false
+  - name: Shamir
+    path: Shamir/scripts/shamir.py
+    team: Unassigned
+    tags: []
+    enabled: false
+  - name: Sheele
+    path: Sheele/scripts/sheele.py
+    team: Unassigned
+    tags: []
+    enabled: false
+  - name: Siglune
+    path: Siglune/scripts/siglune.py
+    team: Unassigned
+    tags: []
+    enabled: false
+  - name: Snatch
+    path: Snatch/scripts/snatch.py
+    team: Unassigned
+    tags: []
+    enabled: false
+  - name: Solie
+    path: Solie/scripts/solie.py
+    team: Unassigned
+    tags: []
+    enabled: false
+  - name: Somni
+    path: Somni/scripts/somni.py
+    team: Unassigned
+    tags: []
+    enabled: false
+  - name: Sothis
+    path: Sothis/scripts/sothis.py
+    team: Unassigned
+    tags: []
+    enabled: false
+  - name: Sybbie
+    path: Sybbie/scripts/sybbie.py
+    team: Unassigned
+    tags: []
+    enabled: false
+  - name: Tempest
+    path: Tempest/scripts/tempest.py
+    team: Unassigned
+    tags: []
+    enabled: false
+  - name: Tempo
+    path: Tempo/scripts/tempo.py
+    team: Utilities
+    tags: [ops, monitor, sigil]
+    enabled: false
+  - name: Threadstep
+    path: Threadstep/scripts/threadstep.py
+    team: Security
+    tags: [scanner, trace]
+    enabled: false
+  - name: Tidbit
+    path: Tidbit/tidbit.py
+    team: Cleanup
+    tags: [dedupe, watcher]
+    enabled: false
+  - name: Tiki
+    path: Tiki/scripts/tiki.py
+    team: Core
+    tags: [scheduler, sleep]
+    enabled: false
+  - name: Toto
+    path: Toto/scripts/toto.py
+    team: Utilities
+    tags: [notes, milestones]
+    enabled: false
+  - name: WeaverArcTracker
+    path: WeaverArcTracker/scripts/weaverarctracker.py
+    team: Catalog
+    tags: [tracker, weave]
+    enabled: false
+  - name: Whisperfang
+    path: Whisperfang/scripts/whisperfang.py
+    team: Comms
+    tags: [keywords, comms]
+    enabled: false
+  - name: Yune
+    path: Yune/scripts/yune.py
+    team: Dev
+    tags: [chaos, test]
+    enabled: false
+  - name: _template
+    path: _template/scripts/template_daemon.py
+    team: Unassigned
+    tags: []
+    enabled: false

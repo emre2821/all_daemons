@@ -554,7 +554,7 @@
     },
     "Saphira": {
       "name": "Saphira",
-      "path": "Saphira/scripts/saphira.py",
+      "path": "_template\\scripts\\template_daemon.py",
       "enabled": false,
       "tags": [
         "daemon",

@@ -554,7 +554,7 @@
     },
     "Saphira": {
       "name": "Saphira",
-      "path": "_template\\scripts\\template_daemon.py",
+      "path": "Saphira/scripts/saphira.py",
       "enabled": false,
       "tags": [
         "daemon",
@@ -1461,6 +1461,36 @@
           "template_daemon.py"
         ]
       }
+    },
+    "archived_tools": {
+      "name": "archived_tools",
+      "path": "archived_tools/Aethercore/scripts/aethercore.py",
+      "enabled": false,
+      "tags": [],
+      "team": "Unassigned",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "aethercore.py"
+        ]
+      }
+    },
+    "Blaze": {
+      "name": "Blaze",
+      "path": "Blaze/scripts/blaze.py",
+      "enabled": false,
+      "tags": [],
+      "team": "Unassigned",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "blaze.py"
+        ]
+      }
     }
   },
   "teams": {
@@ -1592,7 +1622,9 @@
         "Sothis",
         "Sybbie",
         "Tempest",
-        "_template"
+        "_template",
+        "archived_tools",
+        "Blaze"
       ]
     }
   },
