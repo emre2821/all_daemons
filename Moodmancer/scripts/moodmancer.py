@@ -8,6 +8,7 @@ import re
 import random
 import datetime
 from tkinter.font import Font
+from pathlib import Path
 
 class MoodMancerGUI:
     def __init__(self, root):
@@ -52,7 +53,7 @@ class MoodMancerGUI:
                 "background": "#1E1E2E", # Dark background
                 "text": "#FFFFFF"       # White text
             },
-            "log_file": "C:\\EdenOS_Origin\\CHAOS_Logs\\mood_log.txt"
+            "log_file": str((Path.home() / "CHAOS_Logs" / "mood_log.txt").resolve())
 
         }
         
