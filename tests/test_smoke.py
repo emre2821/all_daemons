@@ -26,7 +26,7 @@ def test_subproject_smoke(subproject):
                 'exec',
             )
         except SyntaxError as exc:  # pragma: no cover - smoke test
-            pytest.xfail(f"Syntax error in {py_file}: {exc}")
+            pytest.fail(f"Syntax error in {py_file}: {exc}")
 
 
 @pytest.mark.parametrize('py_file', list(ROOT.glob('*.py')))
@@ -38,4 +38,4 @@ def test_root_python_files(py_file):
             'exec',
         )
     except SyntaxError as exc:  # pragma: no cover - smoke test
-        pytest.xfail(f"Syntax error in {py_file}: {exc}")
+        pytest.fail(f"Syntax error in {py_file}: {exc}")
