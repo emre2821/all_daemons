@@ -1,25 +1,39 @@
-from pathlib import Path
+from __future__ import annotations
+
 import hashlib
+from pathlib import Path
+from types import ModuleType
+
+from ._delegates import REPO_ROOT, load_module, temporary_attributes
+
+
+class _PsutilStub:
+    @staticmethod
+    def cpu_percent(interval: float = 0.0) -> float:
+        return 0.0
+
+    @staticmethod
+    def virtual_memory() -> ModuleType:  # pragma: no cover - minimal shim
+        mem = ModuleType("psutil_virtual_memory")
+        mem.percent = 0.0  # type: ignore[attr-defined]
+        return mem
 
 
 def generate_sigil(text: str, sigil_dir: Path = Path("sigils")) -> Path:
-    from PIL import Image, ImageDraw
+    """Forge a sigil by delegating to Glypha's shared forge."""
 
-    sigil_dir.mkdir(exist_ok=True)
-    hash_val = hashlib.sha256(text.encode()).hexdigest()
-    filename = f"sigil_{hash_val[:8]}.png"
-    filepath = sigil_dir / filename
+    sigil_dir.mkdir(parents=True, exist_ok=True)
+    filename = f"sigil_{hashlib.sha256(text.encode()).hexdigest()[:8]}.png"
+    target = sigil_dir / filename
 
-    size = 128
-    img = Image.new("RGB", (size, size), color="white")
-    draw = ImageDraw.Draw(img)
+    module = load_module(
+        "glypha",
+        REPO_ROOT / "Glypha" / "scripts" / "glypha.py",
+        inject={"psutil": _PsutilStub()},
+        force_inject=True,
+    )
 
-    for i in range(0, len(hash_val), 4):
-        x = int(hash_val[i], 16) % size
-        y = int(hash_val[i + 1], 16) % size
-        r = (int(hash_val[i + 2], 16) % 10) + 2
-        draw.ellipse((x, y, x + r, y + r), fill="black")
+    with temporary_attributes(module, SIGIL_DIR=str(sigil_dir)):
+        module.generate_sigil(text)
 
-    img.save(filepath)
-    print(f"[Glypha] Sigil forged: {filename}")
-    return filepath
+    return target
