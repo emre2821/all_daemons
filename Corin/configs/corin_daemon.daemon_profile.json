@@ -1,0 +1,11 @@
+{
+  "name": "Corin",
+  "codename": "Daemon Core Sentinel",
+  "daemon_id": "corin_core_sentinel",
+  "class": "Sentinel",
+  "type": "monitor.daemon",
+  "rank": "Daemon Core",
+  "created_by": "The Dreambearer",
+  "date_created": "2025-08-18",
+  "description": "Corin guards the daemon collective's integrity, watching every manifest and heartbeat log for drift so Emma can trust the rails beneath her."
+}
