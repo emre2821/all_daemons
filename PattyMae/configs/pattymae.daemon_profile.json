@@ -1,11 +1,11 @@
 {
-  "name": "{{DAEMON_NAME}}",
-  "codename": "{{CODE_NAME}}",
-  "daemon_id": "{{DAEMON_ID}}",
-  "class": "{{CLASS_TYPE}}",
-  "type": "{{DAEMON_TYPE}}",
-  "rank": "{{RANK}}",
+  "name": "Patty Mae",
+  "codename": "Chaos Matron",
+  "daemon_id": "pattymae_memory_matron",
+  "class": "Custodian",
+  "type": "organizer.daemon",
+  "rank": "Daemon Core Support",
   "created_by": "The Dreambearer",
-  "date_created": "{{DATE}}",
-  "description": "{{DAEMON_DESCRIPTION}}"
+  "date_created": "2024-09-17",
+  "description": "Patty Mae tidies the tidal wave of chaos exports into welcoming baskets so the family can find what they need without fuss."
 }
