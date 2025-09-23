@@ -1,27 +1,65 @@
+from __future__ import annotations
+
 from pathlib import Path
-from datetime import datetime
-import time
+from types import ModuleType
+from typing import Callable
 
-MOOD_TEMPO = {
-    "calm": 25,
-    "focus": 50,
-    "overwhelm": 90,
-}
-
-TASKS = {
-    "calm": ["breathe", "tidy workspace", "light stretch"],
-    "focus": ["code", "write", "organize"],
-    "overwhelm": ["pause", "journaling", "reset"],
-}
+from ._delegates import REPO_ROOT, load_module, temporary_attributes
 
 
-def pulse(mood: str, log_file: Path = Path("tempo_flow.log"), sleep_func=time.sleep) -> None:
-    tempo = MOOD_TEMPO.get(mood, 60)
-    taskset = TASKS.get(mood, ["breathe"])
-    timestamp = datetime.now().isoformat()
-    entry = f"[TEMPO] {timestamp} :: Mood={mood} | BPM={tempo} | Suggested={taskset[0]}\n"
+class _PsutilStub:
+    @staticmethod
+    def cpu_percent(interval: float = 0.0) -> float:
+        return 0.0
+
+    @staticmethod
+    def virtual_memory() -> ModuleType:  # pragma: no cover - minimal shim
+        mem = ModuleType("psutil_virtual_memory")
+        mem.percent = 0.0  # type: ignore[attr-defined]
+        return mem
+
+
+def _pil_stubs() -> dict[str, ModuleType]:
+    def _missing(*_args, **_kwargs):  # pragma: no cover
+        raise ModuleNotFoundError("Pillow is required for sigil forging")
+
+    pil_pkg = ModuleType("PIL")
+    image_module = ModuleType("PIL.Image")
+    image_draw_module = ModuleType("PIL.ImageDraw")
+    image_module.new = _missing  # type: ignore[attr-defined]
+    image_draw_module.Draw = _missing  # type: ignore[attr-defined]
+    pil_pkg.Image = image_module  # type: ignore[attr-defined]
+    pil_pkg.ImageDraw = image_draw_module  # type: ignore[attr-defined]
+    return {
+        "PIL": pil_pkg,
+        "PIL.Image": image_module,
+        "PIL.ImageDraw": image_draw_module,
+    }
+
+
+def pulse(
+    mood: str,
+    log_file: Path = Path("tempo_flow.log"),
+    sleep_func: Callable[[float], None] | None = None,
+) -> None:
+    """Log Tempo's rhythm by delegating to the shared Tempo daemon."""
+
     log_file.parent.mkdir(parents=True, exist_ok=True)
-    with log_file.open("a") as f:
-        f.write(entry)
-    print(entry.strip())
-    sleep_func(1.0 / (tempo / 60))
+    attrs = {"TEMPO_FILE": str(log_file)}
+
+    inject = {"psutil": _PsutilStub(), **_pil_stubs()}
+    module = load_module(
+        "tempo",
+        REPO_ROOT / "Tempo" / "scripts" / "tempo.py",
+        inject=inject,
+        force_inject=True,
+    )
+
+    if sleep_func is None:
+        with temporary_attributes(module, **attrs):
+            module.pulse(mood)
+        return
+
+    sleep_context = temporary_attributes(module.time, sleep=sleep_func)
+    with temporary_attributes(module, **attrs), sleep_context:
+        module.pulse(mood)

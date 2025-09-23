@@ -1,5 +1,22 @@
+from __future__ import annotations
+
 from pathlib import Path
-import shutil
+from typing import Any
+
+from ._delegates import REPO_ROOT, load_module, temporary_attributes
+
+
+class _PsutilStub:
+    @staticmethod
+    def cpu_percent(interval: float = 0.0) -> float:
+        return 0.0
+
+    @staticmethod
+    def virtual_memory() -> Any:  # pragma: no cover - minimal shim
+        class _Mem:
+            percent = 0.0
+
+        return _Mem()
 
 
 def deliver_messages(
@@ -7,17 +24,24 @@ def deliver_messages(
     outbox: Path = Path("aether_outbox"),
     processed: Path = Path("aether_delivered"),
 ) -> None:
-    inbox.mkdir(exist_ok=True)
-    outbox.mkdir(exist_ok=True)
-    processed.mkdir(exist_ok=True)
+    """Carry messages by delegating to Maribel's shared courier."""
 
-    for src in outbox.glob("*.aethermsg"):
-        dest = inbox / src.name
-        shutil.copy2(src, dest)
-        src.unlink()
-        print(f"[Maribel] Delivered: {src.name}")
+    inbox.mkdir(parents=True, exist_ok=True)
+    outbox.mkdir(parents=True, exist_ok=True)
+    processed.mkdir(parents=True, exist_ok=True)
 
-    for src in inbox.glob("*.aethermsg"):
-        dest = processed / src.name
-        shutil.move(src, dest)
-        print(f"[Maribel] Processed: {src.name}")
+    module = load_module(
+        "maribel",
+        REPO_ROOT / "Maribel" / "scripts" / "maribel.py",
+        inject={"psutil": _PsutilStub()},
+        force_inject=True,
+    )
+
+    attrs: dict[str, Any] = {
+        "INBOX": str(inbox),
+        "OUTBOX": str(outbox),
+        "PROCESSED": str(processed),
+    }
+
+    with temporary_attributes(module, **attrs):
+        module.deliver_messages()
