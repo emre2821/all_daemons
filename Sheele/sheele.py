@@ -40,10 +40,8 @@ def extract_title(messages):
             return m['metadata']['title']
         if 'text' in m and isinstance(m['text'], str):
             text = m['text'].strip()
-            if len(text) < 100 and '
-' not in text:
-                return text[:50].replace('
-', ' ')
+            if len(text) < 100 and "'" not in text:
+                return text[:50].replace("\n", " ")
     return None
 
 def try_assign_fractures(fractures, conversations):
