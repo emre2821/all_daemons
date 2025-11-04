@@ -836,8 +836,18 @@ class EdenRecoveryUI(BoxLayout):
         except Exception as e:
             self.log(f"[!] Apply failed: {e}")
 
-    def
-rs)
+    def debug_state(self):
+        self.out.readonly = False
+        self.out.text = "[Debug State]\n"
+        self.out.text += f"Roots: {self.root_folders}\n"
+        self.out.text += f"Rhea Home: {self.rhea_input}\n"
+        self.out.text += f"Plan exists: {bool(self._plan)}\n"
+        self.out.text += f"Recover exists: {bool(self._rec)}\n"
+        if self._rec:
+            self.out.text += f"Files scanned: {len(self._rec.files)}\n"
+            self.out.text += f"Groups found: {len(self._rec.groups)}\n"
+            if self._rec.errors:
+                self.out.text += "[Errors]\n" + "\n".join(self._rec.errors)
         self.out.readonly = True
         print("[EdenRecovery] Debug state dumped.")
 
