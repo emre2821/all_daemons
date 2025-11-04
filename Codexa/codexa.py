@@ -14,8 +14,7 @@ def extract_code_blocks(text):
     matches = re.findall(pattern, text, re.DOTALL)
     blocks = []
     for m in matches:
-        parts = m.split("
-", 1)
+        parts = m.split("\n", 1)
         lang = parts[0].strip() if len(parts) > 1 else ""
         code = parts[1] if len(parts) > 1 else parts[0]
         blocks.append({"lang": lang or "plain", "code": code})
