@@ -5,6 +5,7 @@ import json
 
 INPUT_DIR = r"C:\EdenOS_Origin\all_daemons\Rhea\outputs\Janvier\chaos_threads"
 OUTPUT_DIR = r"C:\EdenOS_Origin\all_daemons\Rhea\outputs\Codexa\codeblocks"
+NEWLINE = "\n"
 
 def clean_filename(s):
     return ''.join(c if c.isalnum() else '_' for c in s)
@@ -14,7 +15,7 @@ def extract_code_blocks(text):
     matches = re.findall(pattern, text, re.DOTALL)
     blocks = []
     for m in matches:
-        parts = m.split("\n", 1)
+        parts = m.split(NEWLINE, 1)
         lang = parts[0].strip() if len(parts) > 1 else ""
         code = parts[1] if len(parts) > 1 else parts[0]
         blocks.append({"lang": lang or "plain", "code": code})
