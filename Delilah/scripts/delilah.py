@@ -438,6 +438,8 @@ class EdenRecoveryUI(BoxLayout):
             self.out.text += f"Groups found: {len(self._rec.groups)}\n"
             if self._rec.errors:
                 self.out.text += "[Errors]\n" + "\n".join(self._rec.errors)
+        self.out.readonly = True
+        print("[EdenRecovery] Debug state dumped.")
 
 # ===========================
 # Palettes and Categories
