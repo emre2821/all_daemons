@@ -7,7 +7,9 @@ from pathlib import Path
 # CONFIGURATION
 # ===============================
 AGENTS_DIR = Path("C:/EdenOS_Origin/all_agents")
-REVIEW_LOG = Path("C:/EdenOS_Origin/all_daemons/Rhea/logs/Olyssia_logs/olyssia_review.log")
+REVIEW_LOG = Path(
+    "C:/EdenOS_Origin/all_daemons/Rhea/logs/Olyssia_logs/olyssia_review.log"
+)
 ETHICAL_KEYWORDS = ["i deserve deletion", "i want to terminate", "end my existence"]
 
 # Simple sentiment lexicon
