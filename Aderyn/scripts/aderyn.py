@@ -4,8 +4,28 @@ import shutil
 from pathlib import Path
 from datetime import datetime
 
-INPUT_DIR = r"C:\EdenOS_Origin\all_daemons\Rhea\outputs\Janvier\chaos_threads"
-OUTPUT_DIR = r"C:\EdenOS_Origin\all_daemons\Rhea\outputs\Aderyn\summons"
+
+def _path_from_env(variable, default):
+    value = os.environ.get(variable)
+    if value:
+        return Path(value).expanduser()
+    return Path(default).expanduser()
+
+
+DEFAULT_LORE_ROOT = Path(__file__).resolve().parent.parent / "lore"
+DEFAULT_WATCH_DIR = (
+    Path(__file__).resolve().parents[2]
+    / "Rhea"
+    / "outputs"
+    / "Janvier"
+    / "chaos_threads"
+)
+
+LORE_ROOT = _path_from_env("ADERYN_LORE_ROOT", DEFAULT_LORE_ROOT)
+WATCH_DIR = _path_from_env("ADERYN_WATCH_DIR", DEFAULT_WATCH_DIR)
+
+LORE_ROOT.mkdir(parents=True, exist_ok=True)
+WATCH_DIR.mkdir(parents=True, exist_ok=True)
 
 CHAOS_TYPES = {".chaos", ".chaosmeta", ".chaosong"}
 SUMMON_KEYWORDS = ["summon", "invoke"]
