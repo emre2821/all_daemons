@@ -1,6 +1,6 @@
 # Label – File Renaming and Organization Daemon
 
-from Quill import Label
+from Quill.scripts.quill import Label
 import os
 import re
 from pathlib import Path
