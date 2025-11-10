@@ -1,67 +1,80 @@
-import os
-import re
-import hashlib
-import json
+import os, re, time
+from pathlib import Path
 
-INPUT_DIR = r"C:\EdenOS_Origin\all_daemons\Rhea\outputs\Janvier\chaos_threads"
-OUTPUT_DIR = r"C:\EdenOS_Origin\all_daemons\Rhea\outputs\Codexa\codeblocks"
-NEWLINE = "\n"
+# === PATHS ===
+SRC_DIR  = Path(r"C:\EdenOS_Origin\data\exports\openai_exports\conversations_text")
+OUT_DIR  = Path(r"C:\EdenOS_Origin\data\exports\openai_exports\codeblocks")
+LOG_FILE = Path(r"C:\EdenOS_Origin\data\exports\openai_exports\codexa_v3.log")
 
-def clean_filename(s):
-    return ''.join(c if c.isalnum() else '_' for c in s)
+# === REGEX ===
+CODEBLOCK = re.compile(r"```([a-zA-Z0-9_\-+.]*)\s*\n(.*?)\n```", re.DOTALL)
 
-def extract_code_blocks(text):
-    pattern = r"```(.*?)```"
-    matches = re.findall(pattern, text, re.DOTALL)
-    blocks = []
-    for m in matches:
-        parts = m.split(NEWLINE, 1)
-        lang = parts[0].strip() if len(parts) > 1 else ""
-        code = parts[1] if len(parts) > 1 else parts[0]
-        blocks.append({"lang": lang or "plain", "code": code})
-    return blocks
+# === UTILITIES ===
+def log(msg: str):
+    ts = time.strftime("%Y-%m-%d %H:%M:%S")
+    line = f"{ts} [CodexaV3] {msg}"
+    print(line)
+    try:
+        with open(LOG_FILE, "a", encoding="utf-8") as f:
+            f.write(line + "\n")
+    except Exception:
+        pass
 
-def hash_code(code):
-    return hashlib.sha256(code.encode("utf-8")).hexdigest()[:16]
+def extract_blocks(text: str):
+    """Return list of (language, code) from code fences."""
+    return [(m.group(1) or "plain", m.group(2)) for m in CODEBLOCK.finditer(text)]
 
-def process_chaos_file(path):
-    with open(path, 'r', encoding='utf-8') as f:
-        data = json.load(f)
-    title = data.get("title", "Untitled")
-    date = data.get("date", "unknown_date")
-    nodes = data.get("nodes", [])
-    seen = set()
-    results = []
-    for node in nodes:
-        text = node.get("content", "")
-        blocks = extract_code_blocks(text)
-        for b in blocks:
-            h = hash_code(b["code"])
-            if h in seen: continue
-            seen.add(h)
-            results.append({
-                "title": title,
-                "date": date,
-                "lang": b["lang"],
-                "hash": h,
-                "code": b["code"]
-            })
-    return results
+def sanitize_name(name: str):
+    name = re.sub(r"[^A-Za-z0-9_.-]+", "_", name)
+    return name.strip("_")[:120]
 
+def write_codeblock(chatname: str, lang: str, idx: int, code: str):
+    """Write each code block as a .chaos file."""
+    safe = sanitize_name(chatname)
+    lang_safe = lang if lang else "plain"
+    out_folder = OUT_DIR / lang_safe
+    out_folder.mkdir(parents=True, exist_ok=True)
+
+    fname = f"{safe}.block{idx}.{lang_safe}.codeblock.chaos"
+    path = out_folder / fname
+
+    payload = (
+        f"# source: {chatname}\n"
+        f"# lang: {lang_safe}\n"
+        f"# extracted_by: CodexaV3\n\n"
+        f"{code}\n"
+    )
+    path.write_text(payload, encoding="utf-8")
+    return path
+
+# === MAIN ===
 def main():
-    os.makedirs(OUTPUT_DIR, exist_ok=True)
-    for fname in os.listdir(INPUT_DIR):
-        if not fname.endswith(".chaos"): continue
-        path = os.path.join(INPUT_DIR, fname)
-        blocks = process_chaos_file(path)
-        if not blocks: continue
-        base = clean_filename(fname).replace(".chaos", "")
-        for i, b in enumerate(blocks):
-            outname = f"{base}_{b['lang']}_{b['hash']}.codeblock.chaos"
-            outpath = os.path.join(OUTPUT_DIR, outname)
-            with open(outpath, 'w', encoding='utf-8') as f:
-                json.dump(b, f, indent=2)
-            print(f"✅ Codexa extracted {outname}")
+    OUT_DIR.mkdir(parents=True, exist_ok=True)
+    if not SRC_DIR.exists():
+        log(f"Source folder missing: {SRC_DIR}")
+        return
+
+    total_blocks = 0
+    for fp in sorted(SRC_DIR.glob("*.txt")):
+        try:
+            text = fp.read_text(encoding="utf-8", errors="ignore")
+        except Exception as e:
+            log(f"WARN: Cannot read {fp.name}: {e}")
+            continue
+
+        blocks = extract_blocks(text)
+        if not blocks:
+            continue
+
+        for i, (lang, code) in enumerate(blocks, start=1):
+            out = write_codeblock(fp.stem, lang, i, code)
+            log(f"Wrote {out.name}")
+            total_blocks += 1
+
+    if total_blocks == 0:
+        log("No code blocks found.")
+    else:
+        log(f"✅ Done. Wrote {total_blocks} .codeblock.chaos files across all languages.")
 
 if __name__ == "__main__":
     main()
