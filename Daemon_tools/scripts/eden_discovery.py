@@ -71,6 +71,8 @@ def discover() -> List[DaemonInfo]:
     infos: List[DaemonInfo] = []
 
     for child in sorted([p for p in root.iterdir() if p.is_dir()], key=lambda x: x.name.lower()):
+        if child.name.startswith(".") or child.name == "__pycache__":
+            continue
         if child.name in SKIP_FOLDERS:
             continue
 
