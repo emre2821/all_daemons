@@ -6,15 +6,27 @@ from typing import Optional
 
 def _find_eden_root_from_here(start: Optional[Path] = None) -> Optional[Path]:
     here = (start or Path(__file__).resolve()).parent
-    for p in [here] + list(here.parents):
-        if (p / "all_daemons").exists():
-            return p
+
+    def candidate_paths(seed: Path):
+        return [seed] + list(seed.parents)
+
+    def pick_best(candidates):
+        if not candidates:
+            return None
+        # Prefer a parent whose all_daemons folder actually looks like the project root
+        for p in candidates:
+            if (p / "all_daemons" / "Daemon_tools").exists():
+                return p
+        return candidates[0]
+
+    candidates = [p for p in candidate_paths(here) if (p / "all_daemons").exists()]
+    if candidates:
+        return pick_best(candidates)
+
     # Try from CWD as a fallback
     cwd = Path.cwd()
-    for p in [cwd] + list(cwd.parents):
-        if (p / "all_daemons").exists():
-            return p
-    return None
+    candidates = [p for p in candidate_paths(cwd) if (p / "all_daemons").exists()]
+    return pick_best(candidates)
 
 
 def eden_root() -> Path:
