@@ -1,0 +1,24 @@
+{
+  "primary_functions": [
+    "Sweep Janvier chaos exports into welcoming, labeled categories",
+    "Maintain directory structure for Rhea's archive outputs",
+    "Create gentle status updates so the Dreambearer knows what's sorted",
+    "Flag any sacred-marked files for Emma's review before moving",
+    "Back up organized batches to prevent accidental loss"
+  ],
+  "triggers": [
+    "boot_sequence",
+    "system_flag('PattyMae')",
+    "manual_summon('Patty Mae')",
+    "ritual('Tidy the chaos porch')"
+  ],
+  "linked_files": [
+    "pattymae.daemon_mirror.json",
+    "pattymae.daemon_voice.json",
+    "pattymae.log"
+  ],
+  "failsafes": {
+    "fallback_to": "Label",
+    "mirror_link_required": true
+  }
+}

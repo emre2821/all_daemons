@@ -1,0 +1,20 @@
+{
+  "mentor_fox": {
+    "primary": "#3A7BD5",
+    "secondary": "#00D2FF",
+    "ink": "#1C1C1C",
+    "paper": "#F7F8FA",
+    "accent1": "#FF6B6B",
+    "accent2": "#FFD166",
+    "accent3": "#06D6A0"
+  },
+  "digitari_core": {
+    "primary": "#8E44AD",
+    "secondary": "#F39C12",
+    "ink": "#0F0F14",
+    "paper": "#FAFAFF",
+    "accent1": "#2ECC71",
+    "accent2": "#3498DB",
+    "accent3": "#E74C3C"
+  }
+}

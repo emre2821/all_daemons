@@ -1,0 +1,21 @@
+canvas TruthAnchor {
+  title: "Truth Anchor - micro-auditor"
+  legend: "Audits outputs against shared facts; writes verdicts into episodes.audit"
+
+  section SharedFacts {
+    source: "data/facts/cache.json"   // human-curated, append-only
+    policy: "cite-when-challenged"
+  }
+
+  section Verdict {
+    values: ok | warn | fail
+    on_ok: "append audit with ok"
+    on_warn: "append audit with warn + note"
+    on_fail: "append audit with fail + corrective prompt"
+  }
+
+  section Hooks {
+    audit(output): verdict
+    correct(output): suggestion
+  }
+}

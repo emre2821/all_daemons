@@ -1,0 +1,29 @@
+canvas StepCards {
+  title: "Step Cards — micro-step pacing"
+  legend: "When overwhelmed, do one card only."
+
+  section Card {
+    id: "uuid"
+    statement: "one-line, concrete action"
+    why: "one-line reason (optional)"
+    effort: "XS|S|M|L"
+    timebox_min: 3
+    blocker: "dependency or precondition (optional)"
+    on_success: "next card id or ritual"
+    on_abort: "softer fallback or rest"
+  }
+
+  section Deck {
+    name: "deck title"
+    cards: [Card...]
+    entry: "first card id"
+  }
+
+  section Rituals {
+    start: "1 breath, name the card"
+    finish: "log 1–2 words of feeling + result"
+    rest: "2 minutes gaze-soften; water sip"
+  }
+}
+
+

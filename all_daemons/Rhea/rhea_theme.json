@@ -1,0 +1,30 @@
+{
+  "name": "Rhea",
+  "role": "Cataloguing Daemon",
+  "theme": {
+    "palette": {
+      "primary": "#5A6A8B",
+      "secondary": "#AFC1D6",
+      "accent": "#E5E1D1",
+      "highlight": "#C8D87A",
+      "shadow": "#2F2F38"
+    },
+    "tone": {
+      "voice": "calm",
+      "style": "precise",
+      "tempo": "measured",
+      "keywords": [
+        "archival",
+        "classification",
+        "clarity",
+        "diligence",
+        "quiet insight"
+      ]
+    },
+    "resonance": {
+      "element": "air",
+      "motion": "weave",
+      "essence": "pattern-seeker"
+    }
+  }
+}

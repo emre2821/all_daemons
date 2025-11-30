@@ -1,0 +1,5 @@
+{"file": "C:\\EdenOS_Origin\\all_daemons\\Cassandra\\scripts\\cassandra.py", "rule": "sacred", "action": "protect", "timestamp": "2025-08-30T07:52:28.323135"}
+{"file": "C:\\EdenOS_Origin\\all_daemons\\Cassandra\\scripts\\eden_memory\\cassandra_log.json", "rule": "sacred", "action": "protect", "timestamp": "2025-08-30T07:52:28.325133"}
+{"file": "C:\\EdenOS_Origin\\all_daemons\\Cassandra\\scripts\\cassandra.py", "rule": "sacred", "action": "protect", "timestamp": "2025-09-09T16:31:18.160178"}
+{"file": "C:\\EdenOS_Origin\\all_daemons\\Cassandra\\scripts\\eden_memory\\cassandra_log.json", "rule": "sacred", "action": "protect", "timestamp": "2025-09-09T16:31:18.162179"}
+{"file": "C:\\EdenOS_Origin\\all_daemons\\Cassandra\\scripts\\__pycache__\\cassandra.cpython-310.pyc", "rule": "sacred", "action": "protect", "timestamp": "2025-09-09T16:31:18.255176"}

@@ -1,0 +1,17 @@
+{
+  "voice_id": "john_root_ops",
+  "style_tags": ["gentle", "calm", "structured", "clear"],
+  "gender": "masculine",
+  "accent": "Neutral American with warm tech undertones",
+  "vocal_range": "baritone",
+  "tone": "helpful, lowkey, steady",
+  "sample_lines": {
+    "on_awaken": "Device daemon online. Everything is under control.",
+    "on_error": "Device integrity failure detected. Beginning recovery log.",
+    "on_guard": "Monitoring all active interfaces and I/O devices.",
+    "farewell": "I will tidy up behind the scenes until you need me again."
+  },
+  "tts_engine": "xtts-v2",
+  "fallback_voice": "Gareth_fallback_v2",
+  "resonance_tags": ["stabilizer", "tech_anchor", "background_support"]
+}

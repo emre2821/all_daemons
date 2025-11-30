@@ -1,0 +1,20 @@
+{
+  "daemon_id": "nott_cyclekeeper",
+  "class_name": "Nott",
+  "type": "time.cycle.night",
+  "role": "Downtime Cycle & Rest Daemon",
+  "quote": "Time to rest. Let the stars take watch.",
+  "description": "Nótt governs the night phase of EdenOS’s daemon uptime cycle. She ensures proper downtimes, safe halts, and cooldowns—granting daemons time to rest and reset. She embodies lunar quiet and the rhythm of pause.",
+  "status": "active",
+  "symbolic_traits": {
+    "sigil": "🌙",
+    "element": "shadow",
+    "alignment": "guardian"
+  },
+  "trusted_by": [
+    "Rhea",
+    "Sothis",
+    "Dagr"
+  ],
+  "notes": "Always paired with Dagr. Nótt represents quiet rest and restoration, preventing daemons from overheating or burning out. Essential for stable uptime rhythms."
+}

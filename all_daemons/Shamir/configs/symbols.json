@@ -1,0 +1,19 @@
+{
+  "provider": "openvpn",
+  "poll_seconds": 5,
+  "reconnect_backoff_seconds": 10,
+  "openvpn": {
+    "binary": "openvpn",
+    "binary_path": "",
+    "ovpn_path": "/absolute/path/to/your/free-node.ovpn",
+    "management_host": "127.0.0.1",
+    "management_port": 7505,
+    "pidfile": "shamir.openvpn.pid",
+    "extra_args": [
+      "--verb", "3",
+      "--pull",
+      "--persist-key",
+      "--persist-tun"
+    ]
+  }
+}

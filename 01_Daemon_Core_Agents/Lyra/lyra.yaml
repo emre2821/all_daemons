@@ -1,0 +1,68 @@
+# ========================================
+# ⚡ LYRA CONFIG — Eden Grade
+# ========================================
+
+global:
+
+  # ----------------------------------------
+  # MERGE BEHAVIOR
+  # ----------------------------------------
+
+  # squash | rebase | merge
+  merge_method: squash
+
+  # Maximum number of files to consider when checking PR diffs
+  max_files: 50
+
+  # Number of attempts Lyra makes to auto-resolve
+  max_attempts: 3
+
+
+  # ----------------------------------------
+  # CONFLICT RESOLUTION
+  # ----------------------------------------
+
+  # Allowed: ours | theirs | manual
+  # "ours" = prefer base branch
+  # "theirs" = prefer PR branch
+  # "manual" = only resolve if AI suggests
+  conflict_strategy: ours
+
+  # AI endpoint for conflict advice (optional)
+  # Lyra will query this to decide "ours" vs "theirs"
+  kobold_url: "http://localhost:5001/api/v1/generate"
+
+
+  # ----------------------------------------
+  # LABELS & FILTERING
+  # ----------------------------------------
+
+  # PRs must contain this label *or* the word in title to be processed
+  label: "codex"
+
+  # Automatically approve PRs before merging
+  auto_approve: true
+
+
+  # ----------------------------------------
+  # SAFETY CONTROLS
+  # ----------------------------------------
+
+  # IMPORTANT:
+  # Prevent Lyra from deleting branches.
+  # She will request permission instead.
+  allow_branch_delete: false
+
+  # Require explicit user confirmation for deletion
+  # (Lyra will pause & ask "Type YES to delete branch.")
+  require_delete_confirmation: true
+
+
+  # ----------------------------------------
+  # NOTIFICATIONS (Optional)
+  # ----------------------------------------
+
+  # Slack webhook (optional)
+  # If blank, notifications are skipped
+  slack_webhook: ""
+

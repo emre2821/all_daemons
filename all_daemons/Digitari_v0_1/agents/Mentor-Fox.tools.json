@@ -1,0 +1,12 @@
+{
+  "lantern_map": "tools/LanternMap.vas",
+  "step_cards_spec": "tools/StepCards.spec.vas",
+  "step_cards_runtime": "tools/stepcards.runtime.py",
+  "truth_anchor_hook": "tools/TruthAnchor.hook.py",
+  "docs": {
+    "design_notes": "docs/Digitari_v0.1_Design_Notes.md",
+    "audit_ethics": "docs/Eden_Audit_Ethics_Primer.md",
+    "micro_steps": "docs/Micro-Steps_in_Survival_Mode.md"
+  },
+  "quickstart_deck": "decks/LanternMap.quickstart.json"
+}

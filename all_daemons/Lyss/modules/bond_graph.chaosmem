@@ -1,0 +1,18 @@
+{
+  "timestamp": "2025-09-09T23:30:54.494594",
+  "graph": {
+    "Eden": [
+      "Vira",
+      "Dreambearer"
+    ],
+    "Vira": [
+      "Daemon Core",
+      "Echo Partition"
+    ],
+    "Dreambearer": [
+      "Alfred",
+      "Callum"
+    ]
+  },
+  "ritual_log": "[SEAL] :: applied"
+}

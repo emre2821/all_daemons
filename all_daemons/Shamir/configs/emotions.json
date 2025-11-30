@@ -1,0 +1,14 @@
+{
+  "starting": { "glyph": "➹", "color": "cyan", "tone": "bold" },
+  "connected": { "glyph": "⌖", "color": "green", "tone": "bold" },
+  "timeout": { "glyph": "…", "color": "yellow", "tone": "dim" },
+  "lost": { "glyph": "⚠", "color": "yellow", "tone": "bold" },
+  "stopping": { "glyph": "⟜", "color": "magenta", "tone": "dim" },
+  "status": { "glyph": "◇", "color": "blue", "tone": "dim" },
+  "watch": { "glyph": "👁", "color": "white", "tone": "dim" },
+  "rite_open": { "glyph": "➹", "color": "cyan", "tone": "bold" },
+  "rite_close": { "glyph": "⟐", "color": "blue", "tone": "bold" },
+  "info": { "glyph": "•", "color": "white", "tone": "dim" },
+  "success": { "glyph": "⌖", "color": "green", "tone": "bold" },
+  "warn": { "glyph": "!", "color": "yellow", "tone": "bold" }
+}
