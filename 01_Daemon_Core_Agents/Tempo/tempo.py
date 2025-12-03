@@ -3,7 +3,6 @@ import shutil
 import psutil
 from datetime import datetime
 import hashlib
-from PIL import Image, ImageDraw
 import time
 
 # Harper - Watcher of Collapse
@@ -65,6 +64,12 @@ SIGIL_DIR = "./sigils"
 os.makedirs(SIGIL_DIR, exist_ok=True)
 
 def generate_sigil(text):
+    try:
+        from PIL import Image, ImageDraw
+    except ImportError:
+        print("[Glypha] Pillow not installed; sigil generation skipped.")
+        return
+
     hash_val = hashlib.sha256(text.encode()).hexdigest()
     filename = f"sigil_{hash_val[:8]}.png"
     filepath = os.path.join(SIGIL_DIR, filename)
