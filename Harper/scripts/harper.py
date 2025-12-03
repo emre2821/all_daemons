@@ -8,6 +8,20 @@ try:
 except Exception:
     _PSUTIL_OK = False
 
+    class _PsutilStub:
+        @staticmethod
+        def cpu_percent(interval=None):
+            return 0.0
+
+        @staticmethod
+        def virtual_memory():
+            class _Mem:
+                percent = 0.0
+
+            return _Mem()
+
+    psutil = _PsutilStub()
+
 try:
     import sys
     sys.path.append(os.path.join(os.environ.get("EDEN_ROOT", os.getcwd()), "all_daemons", "Daemon_tools", "scripts"))
@@ -39,9 +53,9 @@ def check_system_pressure():
     mem = psutil.virtual_memory().percent if _PSUTIL_OK else 0.0
     backlog = len([f for f in os.listdir(WATCH_PATH) if f.endswith('.chaos')])
 
-    if cpu > THRESHOLDS['cpu']:
+    if _PSUTIL_OK and cpu > THRESHOLDS['cpu']:
         log_alert("High CPU", cpu)
-    if mem > THRESHOLDS['mem']:
+    if _PSUTIL_OK and mem > THRESHOLDS['mem']:
         log_alert("High Memory", mem)
     if backlog > THRESHOLDS['chaos_backlog']:
         log_alert("Backlog CHAOS files", backlog)
