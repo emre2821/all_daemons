@@ -17,3 +17,4 @@ __pycache__/
 *.enc
 *.key
 *.lock
+/01_Daemon_Core_Agents/Lyss/ffmpeg
