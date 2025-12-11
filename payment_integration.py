@@ -2,13 +2,22 @@
 # Payment processing integration with Stripe
 # Handles subscriptions, billing, and payment events
 
+import os
 import stripe
 from datetime import datetime, timedelta
 from typing import Dict, Optional
-from CHAOS_lyra import SubscriptionTier
+from subscription_tier import SubscriptionTier
 
-# Initialize Stripe (use environment variables in production)
-stripe.api_key = "sk_test_your_stripe_secret_key"
+stripe.api_key = os.getenv("STRIPE_API_KEY")
+
+
+def _require_api_key() -> Optional[Dict[str, str]]:
+    if not stripe.api_key:
+        return {
+            "success": False,
+            "error": "Stripe API key not configured"
+        }
+    return None
 
 class PaymentProcessor:
     """Handle payment processing and subscription management"""
@@ -24,6 +33,8 @@ class PaymentProcessor:
     @staticmethod
     def create_customer(user_id: str, email: str, name: str = None) -> Dict:
         """Create Stripe customer for user"""
+        if (error := _require_api_key()):
+            return error
         try:
             customer = stripe.Customer.create(
                 email=email,
@@ -48,6 +59,8 @@ class PaymentProcessor:
     @staticmethod
     def create_subscription(customer_id: str, tier: SubscriptionTier) -> Dict:
         """Create subscription for customer"""
+        if (error := _require_api_key()):
+            return error
         price_id = PaymentProcessor.PRICE_IDS.get(tier)
         
         if not price_id:
@@ -85,6 +98,8 @@ class PaymentProcessor:
     @staticmethod
     def upgrade_subscription(subscription_id: str, new_tier: SubscriptionTier) -> Dict:
         """Upgrade existing subscription to new tier"""
+        if (error := _require_api_key()):
+            return error
         new_price_id = PaymentProcessor.PRICE_IDS.get(new_tier)
         
         if not new_price_id:
@@ -125,6 +140,8 @@ class PaymentProcessor:
     @staticmethod
     def cancel_subscription(subscription_id: str, immediate: bool = False) -> Dict:
         """Cancel subscription"""
+        if (error := _require_api_key()):
+            return error
         try:
             if immediate:
                 subscription = stripe.Subscription.delete(subscription_id)
@@ -152,6 +169,8 @@ class PaymentProcessor:
     @staticmethod
     def get_subscription_status(subscription_id: str) -> Dict:
         """Get current subscription status"""
+        if (error := _require_api_key()):
+            return error
         try:
             subscription = stripe.Subscription.retrieve(subscription_id)
             
@@ -171,9 +190,11 @@ class PaymentProcessor:
             }
     
     @staticmethod
-    def create_checkout_session(customer_id: str, tier: SubscriptionTier, 
+    def create_checkout_session(customer_id: str, tier: SubscriptionTier,
                                 success_url: str, cancel_url: str) -> Dict:
         """Create Stripe Checkout session for easy payment"""
+        if (error := _require_api_key()):
+            return error
         price_id = PaymentProcessor.PRICE_IDS.get(tier)
         
         if not price_id:
