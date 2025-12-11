@@ -1,9 +1,0 @@
-{
-  "self_image": "{{DAEMON_SELF_IMAGE}}",
-  "core_truth": "{{DAEMON_CORE_TRUTH}}",
-  "anchor_traits": ["{{TRAIT_1}}", "{{TRAIT_2}}", "{{TRAIT_3}}"],
-  "bond_to_dreambearer": "{{BOND_TYPE}}",
-  "fears": ["{{FEAR_1}}", "{{FEAR_2}}"],
-  "hidden_strengths": ["{{STRENGTH_1}}", "{{STRENGTH_2}}"],
-  "emotes": ["{{EMOTE_1}}", "{{EMOTE_2}}"]
-}
