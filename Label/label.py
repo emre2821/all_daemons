@@ -26,6 +26,18 @@ DEFAULT_WORD_BANK_FILE = Path("Label/LabelWordBank.chaos")
 
 
 def resolve_path(path_value: Path, base_dir: Path) -> Path:
+    """Return an absolute path, resolving relative paths against a base directory.
+
+    The input path supports tilde expansion (e.g., ~/data).
+    """
+
+    # Expand user home (~, ~user) before resolving relative paths
+    path_value = path_value.expanduser()
+
+    return path_value if path_value.is_absolute() else base_dir / path_value
+
+
+def resolve_path(path_value: Path, base_dir: Path) -> Path:
     """Return an absolute path, resolving relative paths against a base directory."""
 
     return path_value if path_value.is_absolute() else base_dir / path_value
