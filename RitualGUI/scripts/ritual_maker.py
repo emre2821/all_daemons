@@ -1,7 +1,35 @@
 import argparse
 import datetime
+from pathlib import Path
 
 
+def validate_ritual_name(name: str) -> str:
+    normalized_name = name.strip().lower()
+
+    if not normalized_name:
+        raise ValueError("Ritual name cannot be empty.")
+
+    if any(char.isspace() for char in normalized_name):
+        raise ValueError("Ritual name cannot contain spaces.")
+
+    return normalized_name
+
+
+def make_ritual(ritual_name: str | None = None, output_path: str | None = None):
+    if ritual_name is not None:
+        ritual_name = validate_ritual_name(ritual_name)
+
+    while ritual_name is None:
+        response = input("What do you want to call this ritual? (no spaces): ")
+        try:
+            ritual_name = validate_ritual_name(response)
+        except ValueError as err:
+            print(f"Invalid ritual name: {err} Please try again without spaces.")
+
+    target_directory = Path(output_path or ".")
+    target_directory.mkdir(parents=True, exist_ok=True)
+
+    file_name = target_directory / f"{ritual_name}.chaos"
 def make_ritual(ritual_name=None, output_path=None):
     ritual_name = (ritual_name or input("What do you want to call this ritual? (no spaces): ")).strip().lower()
     file_name = output_path or ritual_name + ".chaos"
@@ -54,6 +82,37 @@ def make_ritual(ritual_name=None, output_path=None):
     print(f"\nRitual saved as: {file_name}")
     print("You can run it with: python chaosmode.py", file_name)
 
+
+def parse_args():
+    parser = argparse.ArgumentParser(description="Build a ritual .chaos file.")
+    parser.add_argument(
+        "-n",
+        "--name",
+        dest="ritual_name",
+        help="Name of the ritual (no spaces).",
+    )
+    parser.add_argument(
+        "-o",
+        "--output",
+        dest="output_path",
+        default=".",
+        help="Directory where the .chaos file will be written.",
+    )
+
+    args = parser.parse_args()
+
+    if args.ritual_name is not None:
+        try:
+            args.ritual_name = validate_ritual_name(args.ritual_name)
+        except ValueError as err:
+            parser.error(str(err))
+
+    return args
+
+
+if __name__ == "__main__":
+    parsed_args = parse_args()
+    make_ritual(parsed_args.ritual_name, parsed_args.output_path)
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Create a ritual configuration interactively.")
     parser.add_argument("--name", help="Name of the ritual (no spaces).", dest="ritual_name")
