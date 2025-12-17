@@ -2,25 +2,28 @@ from __future__ import annotations
 
 """PattyMae sorts CHAOS files into labeled buckets.
 
+Paths can be configured via CLI flags or environment variables:
+- PATTYMAE_SOURCE_DIR: source directory containing CHAOS files
+- PATTYMAE_DEST_DIR: destination root for sorted output
+If not provided, defaults under the repository root are used.
+"""
+
+import argparse
+import logging
+import os
 import shutil
 from pathlib import Path
-import sys
 from typing import Iterable
 
+ENV_SOURCE = "PATTYMAE_SOURCE_DIR"
+ENV_DEST = "PATTYMAE_DEST_DIR"
 REPO_ROOT = Path(__file__).resolve().parents[1]
-if str(REPO_ROOT) not in sys.path:
-    sys.path.append(str(REPO_ROOT))
-
-from Daemon_tools.scripts.eden_paths import rhea_root  # noqa: E402
-
-INPUT_DIR = rhea_root() / "outputs" / "Janvier" / "chaos_threads"
-OUTPUT_ROOT = rhea_root() / "PattyMae" / "organized"
 DEFAULT_SOURCE_DIR = REPO_ROOT / "Rhea" / "outputs" / "Janvier" / "chaos_threads"
 DEFAULT_DEST_DIR = REPO_ROOT / "Rhea" / "PattyMae" / "organized"
 SUPPORTED_RELATED_EXTENSIONS: tuple[str, ...] = (".mirror.json", ".chaosmeta")
 
 
-def ensure_dir(path: Path):
+def ensure_dir(path: Path) -> None:
     path.mkdir(parents=True, exist_ok=True)
 
 
@@ -51,17 +54,6 @@ def categorize(fname: str) -> str:
     return "Unsorted"
 
 
-def main():
-    if not INPUT_DIR.exists():
-        print(f"⚠️ Input directory not found: {INPUT_DIR}")
-        return
-
-    for chaos_file in INPUT_DIR.glob("*.chaos"):
-        category = categorize(chaos_file.name)
-        dest_dir = OUTPUT_ROOT / category
-        ensure_dir(dest_dir)
-        shutil.copy2(chaos_file, dest_dir / chaos_file.name)
-        print(f"✅ PattyMae sorted {chaos_file.name} -> {category}/")
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Sort CHAOS files into labeled buckets.")
     parser.add_argument(
