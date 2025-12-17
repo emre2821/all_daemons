@@ -28,18 +28,18 @@ def ensure_dir(path: Path) -> None:
 
 
 def iter_chaos_files(source_dir: Path) -> Iterable[Path]:
-    return source_dir.rglob("*.chaos")
+    return (path for path in source_dir.rglob("*.chaos") if path.is_file())
 
 
 def find_related_files(chaos_file: Path, include_related: bool) -> list[Path]:
     if not include_related:
         return [chaos_file]
 
-    base_name = chaos_file.name[: -len(chaos_file.suffix)]
+    base_path = chaos_file.with_suffix("")
     related_candidates = [
-        chaos_file.with_name(f"{base_name}{ext}") for ext in SUPPORTED_RELATED_EXTENSIONS
+        base_path.with_suffix(ext) for ext in SUPPORTED_RELATED_EXTENSIONS
     ]
-    return [chaos_file, *[path for path in related_candidates if path.exists()]]
+    return [chaos_file, *[path for path in related_candidates if path.is_file()]]
 
 
 def categorize(fname: str) -> str:
