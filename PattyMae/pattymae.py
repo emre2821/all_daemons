@@ -1,25 +1,20 @@
-"""PattyMae sorts CHAOS files into labeled buckets.
+from __future__ import annotations
 
-Paths can be configured via CLI flags or environment variables:
-- PATTYMAE_SOURCE_DIR: source directory containing CHAOS files
-- PATTYMAE_DEST_DIR: destination root for sorted output
-If not provided, defaults under the repository root are used.
-"""
-
-import argparse
-import logging
-import os
 import shutil
 from pathlib import Path
+import sys
 
-ENV_SOURCE = "PATTYMAE_SOURCE_DIR"
-ENV_DEST = "PATTYMAE_DEST_DIR"
 REPO_ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_SOURCE_DIR = REPO_ROOT / "Rhea" / "outputs" / "Janvier" / "chaos_threads"
-DEFAULT_DEST_DIR = REPO_ROOT / "Rhea" / "PattyMae" / "organized"
+if str(REPO_ROOT) not in sys.path:
+    sys.path.append(str(REPO_ROOT))
+
+from Daemon_tools.scripts.eden_paths import rhea_root  # noqa: E402
+
+INPUT_DIR = rhea_root() / "outputs" / "Janvier" / "chaos_threads"
+OUTPUT_ROOT = rhea_root() / "PattyMae" / "organized"
 
 
-def ensure_dir(path: Path) -> None:
+def ensure_dir(path: Path):
     path.mkdir(parents=True, exist_ok=True)
 
 
@@ -35,44 +30,17 @@ def categorize(fname: str) -> str:
     return "Unsorted"
 
 
-def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Sort CHAOS files into labeled buckets.")
-    parser.add_argument(
-        "--source",
-        help=f"Source directory containing CHAOS files (env: {ENV_SOURCE})",
-    )
-    parser.add_argument(
-        "--dest",
-        help=f"Destination root for sorted output (env: {ENV_DEST})",
-    )
-    return parser.parse_args()
-
-
-def resolve_paths(args: argparse.Namespace) -> tuple[Path, Path]:
-    source = Path(args.source) if args.source else Path(os.environ.get(ENV_SOURCE, DEFAULT_SOURCE_DIR))
-    dest = Path(args.dest) if args.dest else Path(os.environ.get(ENV_DEST, DEFAULT_DEST_DIR))
-    return source, dest
-
-
-def main() -> None:
-    logging.basicConfig(level=logging.INFO, format="[PattyMae] %(levelname)s: %(message)s")
-    args = parse_args()
-    source_dir, dest_root = resolve_paths(args)
-
-    if not source_dir.exists():
-        logging.warning("Source directory %s is missing; nothing to sort.", source_dir)
+def main():
+    if not INPUT_DIR.exists():
+        print(f"⚠️ Input directory not found: {INPUT_DIR}")
         return
 
-    ensure_dir(dest_root)
-
-    for fname in os.listdir(source_dir):
-        if not fname.endswith(".chaos"):
-            continue
-        category = categorize(fname)
-        dest_dir = dest_root / category
+    for chaos_file in INPUT_DIR.glob("*.chaos"):
+        category = categorize(chaos_file.name)
+        dest_dir = OUTPUT_ROOT / category
         ensure_dir(dest_dir)
-        shutil.copy2(source_dir / fname, dest_dir / fname)
-        logging.info("Sorted %s -> %s/", fname, category)
+        shutil.copy2(chaos_file, dest_dir / chaos_file.name)
+        print(f"✅ PattyMae sorted {chaos_file.name} -> {category}/")
 
 
 if __name__ == "__main__":
