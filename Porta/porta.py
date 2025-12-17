@@ -4,12 +4,19 @@ Porta watches a source directory for new canvas-compatible files and moves
 them into a destination folder with timestamped filenames. The watcher uses
 ``watchdog`` as an optional dependency; install it with
 ``pip install -r requirements.txt`` when you want to run Porta.
+
+The source and destination paths can be overridden with the ``PORTA_SOURCE_DIR``
+and ``PORTA_DEST_DIR`` environment variables.
 """
 
-import time
+from __future__ import annotations
+
 import shutil
-from pathlib import Path
+import time
 from datetime import datetime
+from pathlib import Path
+
+from Porta.settings import PortaSettings, load_settings
 
 try:
     from watchdog.observers import Observer
@@ -27,24 +34,24 @@ WATCHDOG_HELP = (
     "Install it with `pip install watchdog` or `pip install -r requirements.txt`."
 )
 
-# Configuration
-SOURCE_DIR = Path(r"C:\Users\emmar\Desktop\Master_EdenOS\to_be_placed")
-DEST_DIR = Path(r"C:\Users\emmar\Documents\Obsidian Vault\Eden\07_Vas_Saves")
-SUPPORTED_EXTENSIONS = ['.asciidoc', '.py', '.md']
-
 
 def _require_watchdog():
     if not WATCHDOG_AVAILABLE:
         raise ImportError(WATCHDOG_HELP) from _WATCHDOG_IMPORT_ERROR
 
+
 class CanvasFileHandler(FileSystemEventHandler if WATCHDOG_AVAILABLE else object):
+    def __init__(self, settings: PortaSettings):
+        super().__init__()
+        self.settings = settings
+
     def on_created(self, event):
         if not event.is_directory:
             src_path = Path(event.src_path)
-            if src_path.suffix in SUPPORTED_EXTENSIONS:
+            if src_path.suffix.lower() in self.settings.supported_extensions:
                 timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
                 new_name = f"{timestamp}_{src_path.name}"
-                dest_path = DEST_DIR / new_name
+                dest_path = self.settings.dest_dir / new_name
                 try:
                     shutil.move(str(src_path), str(dest_path))
                     print(f"Moved: {src_path.name} -> {dest_path}")
@@ -52,22 +59,24 @@ class CanvasFileHandler(FileSystemEventHandler if WATCHDOG_AVAILABLE else object
                     print(f"Failed to move {src_path.name}: {e}")
 
 
-def start_observer():
+def start_observer(settings: PortaSettings | None = None):
     _require_watchdog()
 
-    print(f"Watching for new files in: {SOURCE_DIR}")
-    DEST_DIR.mkdir(parents=True, exist_ok=True)
+    resolved_settings = settings or load_settings()
 
-    event_handler = CanvasFileHandler()
+    print(f"Watching for new files in: {resolved_settings.source_dir}")
+    resolved_settings.dest_dir.mkdir(parents=True, exist_ok=True)
+
+    event_handler = CanvasFileHandler(resolved_settings)
     observer = Observer()
-    observer.schedule(event_handler, str(SOURCE_DIR), recursive=False)
+    observer.schedule(event_handler, str(resolved_settings.source_dir), recursive=False)
     observer.start()
 
     return observer
 
 
-def main():
-    observer = start_observer()
+def main(settings: PortaSettings | None = None):
+    observer = start_observer(settings)
 
     try:
         while True:
