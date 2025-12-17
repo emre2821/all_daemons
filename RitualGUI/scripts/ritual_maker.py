@@ -30,6 +30,9 @@ def make_ritual(ritual_name: str | None = None, output_path: str | None = None):
     target_directory.mkdir(parents=True, exist_ok=True)
 
     file_name = target_directory / f"{ritual_name}.chaos"
+def make_ritual(ritual_name=None, output_path=None):
+    ritual_name = (ritual_name or input("What do you want to call this ritual? (no spaces): ")).strip().lower()
+    file_name = output_path or ritual_name + ".chaos"
 
     steps = []
     step_num = 1
@@ -110,3 +113,14 @@ def parse_args():
 if __name__ == "__main__":
     parsed_args = parse_args()
     make_ritual(parsed_args.ritual_name, parsed_args.output_path)
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Create a ritual configuration interactively.")
+    parser.add_argument("--name", help="Name of the ritual (no spaces).", dest="ritual_name")
+    parser.add_argument(
+        "--output",
+        help="Path to save the ritual file. Defaults to '<name>.chaos' in the current directory.",
+        dest="output_path",
+    )
+
+    args = parser.parse_args()
+    make_ritual(ritual_name=args.ritual_name, output_path=args.output_path)

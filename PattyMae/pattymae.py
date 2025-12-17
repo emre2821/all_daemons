@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 """PattyMae sorts CHAOS files into labeled buckets.
 
 Paths can be configured via CLI flags or environment variables:
@@ -11,16 +13,33 @@ import logging
 import os
 import shutil
 from pathlib import Path
+from typing import Iterable
 
 ENV_SOURCE = "PATTYMAE_SOURCE_DIR"
 ENV_DEST = "PATTYMAE_DEST_DIR"
 REPO_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_SOURCE_DIR = REPO_ROOT / "Rhea" / "outputs" / "Janvier" / "chaos_threads"
 DEFAULT_DEST_DIR = REPO_ROOT / "Rhea" / "PattyMae" / "organized"
+SUPPORTED_RELATED_EXTENSIONS: tuple[str, ...] = (".mirror.json", ".chaosmeta")
 
 
 def ensure_dir(path: Path) -> None:
     path.mkdir(parents=True, exist_ok=True)
+
+
+def iter_chaos_files(source_dir: Path) -> Iterable[Path]:
+    return source_dir.rglob("*.chaos")
+
+
+def find_related_files(chaos_file: Path, include_related: bool) -> list[Path]:
+    if not include_related:
+        return [chaos_file]
+
+    base_name = chaos_file.name[: -len(chaos_file.suffix)]
+    related_candidates = [
+        chaos_file.with_name(f"{base_name}{ext}") for ext in SUPPORTED_RELATED_EXTENSIONS
+    ]
+    return [chaos_file, *[path for path in related_candidates if path.exists()]]
 
 
 def categorize(fname: str) -> str:
@@ -45,6 +64,20 @@ def parse_args() -> argparse.Namespace:
         "--dest",
         help=f"Destination root for sorted output (env: {ENV_DEST})",
     )
+    parser.add_argument(
+        "--mode",
+        choices=["copy", "move"],
+        default="copy",
+        help="Transfer mode for CHAOS files. Use 'move' to mimic legacy behavior.",
+    )
+    parser.add_argument(
+        "--include-related",
+        action="store_true",
+        help=(
+            "Include related CHAOS metadata files (e.g., .mirror.json, .chaosmeta) with the same"
+            " basename when transferring."
+        ),
+    )
     return parser.parse_args()
 
 
@@ -65,14 +98,19 @@ def main() -> None:
 
     ensure_dir(dest_root)
 
-    for fname in os.listdir(source_dir):
-        if not fname.endswith(".chaos"):
-            continue
-        category = categorize(fname)
+    for chaos_file in iter_chaos_files(source_dir):
+        related_files = find_related_files(chaos_file, args.include_related)
+        category = categorize(chaos_file.name)
         dest_dir = dest_root / category
         ensure_dir(dest_dir)
-        shutil.copy2(source_dir / fname, dest_dir / fname)
-        logging.info("Sorted %s -> %s/", fname, category)
+
+        for file_path in related_files:
+            dest_path = dest_dir / file_path.name
+            if args.mode == "move":
+                shutil.move(file_path, dest_path)
+            else:
+                shutil.copy2(file_path, dest_path)
+            logging.info("Sorted %s -> %s/ via %s", file_path.name, category, args.mode)
 
 
 if __name__ == "__main__":
