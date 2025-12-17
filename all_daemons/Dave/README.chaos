@@ -1,7 +1,0 @@
-::readme::
-[ABOUT]: Dave "Pyraxis" Smythe — Keeper of the Scale of Fire
-[STRUCTURE]:
-  - dave.chaos            (identity + role)
-  - dave_index.chaos      (scale, categories, weights)
-  - templates/            (scoring forms, empty by default)
-  - dave_reports/         (per-agent score outputs)
