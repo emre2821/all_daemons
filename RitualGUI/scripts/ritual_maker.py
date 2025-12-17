@@ -1,14 +1,16 @@
+import argparse
 import datetime
 
-def make_ritual():
-    ritual_name = input("What do you want to call this ritual? (no spaces): ").strip().lower()
-    file_name = ritual_name + ".chaos"
+
+def make_ritual(ritual_name=None, output_path=None):
+    ritual_name = (ritual_name or input("What do you want to call this ritual? (no spaces): ")).strip().lower()
+    file_name = output_path or ritual_name + ".chaos"
 
     steps = []
     step_num = 1
 
     print("\nOkay! Let’s build your ritual step-by-step.")
-    
+
     while True:
         action = input("\nWhat do you want to do? (say, wait, click, move_mouse, write_log, done): ").strip().lower()
 
@@ -52,5 +54,14 @@ def make_ritual():
     print(f"\nRitual saved as: {file_name}")
     print("You can run it with: python chaosmode.py", file_name)
 
-# Run it!
-make_ritual()
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Create a ritual configuration interactively.")
+    parser.add_argument("--name", help="Name of the ritual (no spaces).", dest="ritual_name")
+    parser.add_argument(
+        "--output",
+        help="Path to save the ritual file. Defaults to '<name>.chaos' in the current directory.",
+        dest="output_path",
+    )
+
+    args = parser.parse_args()
+    make_ritual(ritual_name=args.ritual_name, output_path=args.output_path)

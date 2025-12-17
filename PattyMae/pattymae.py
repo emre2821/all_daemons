@@ -1,45 +1,117 @@
+from __future__ import annotations
+
+"""PattyMae sorts CHAOS files into labeled buckets.
+
+Paths can be configured via CLI flags or environment variables:
+- PATTYMAE_SOURCE_DIR: source directory containing CHAOS files
+- PATTYMAE_DEST_DIR: destination root for sorted output
+If not provided, defaults under the repository root are used.
+"""
+
+import argparse
+import logging
 import os
 import shutil
-import sys
+from pathlib import Path
+from typing import Iterable
 
-class PattyMae:
-    def __init__(self, file_path, base_dir="EdenOS_Sorted"):
-        self.file_path = file_path
-        self.base_dir = base_dir
-        self.dest_folder = None
-        self._figure_out_folder()
+ENV_SOURCE = "PATTYMAE_SOURCE_DIR"
+ENV_DEST = "PATTYMAE_DEST_DIR"
+REPO_ROOT = Path(__file__).resolve().parents[1]
+DEFAULT_SOURCE_DIR = REPO_ROOT / "Rhea" / "outputs" / "Janvier" / "chaos_threads"
+DEFAULT_DEST_DIR = REPO_ROOT / "Rhea" / "PattyMae" / "organized"
+SUPPORTED_RELATED_EXTENSIONS: tuple[str, ...] = (".mirror.json", ".chaosmeta")
 
-    def _figure_out_folder(self):
-        # Determine file type by extension
-        if self.file_path.endswith('.mirror.json'):
-            self.dest_folder = "Agents"
-        elif self.file_path.endswith('.chaosincarnet'):
-            self.dest_folder = "CHAOS_Incarnet_Archive"
-        elif self.file_path.endswith('.chaosmeta') or self.file_path.endswith('.chaos-ception'):
-            self.dest_folder = "CHAOS_Memory_Threads"
-        elif self.file_path.endswith('.chaos'):
-            self.dest_folder = "CHAOS_Memory_Threads"
-        elif self.file_path.endswith('.vas'):
-            self.dest_folder = "CHAOS_Memory_Threads"
-        else:
-            self.dest_folder = "Unsorted"
 
-    def move_file(self):
-        dest_path = os.path.join(self.base_dir, self.dest_folder)
-        if not os.path.exists(dest_path):
-            os.makedirs(dest_path)
-        try:
-            filename = os.path.basename(self.file_path)
-            new_path = os.path.join(dest_path, filename)
-            shutil.move(self.file_path, new_path)
-            print(f"Sweetie, I just moved '{filename}' to '{self.dest_folder}'.")
-        except Exception as e:
-            print(f"Oh sugar, something went wrong moving '{self.file_path}': {e}")
+def ensure_dir(path: Path) -> None:
+    path.mkdir(parents=True, exist_ok=True)
 
-# Usage example
+
+def iter_chaos_files(source_dir: Path) -> Iterable[Path]:
+    return source_dir.rglob("*.chaos")
+
+
+def find_related_files(chaos_file: Path, include_related: bool) -> list[Path]:
+    if not include_related:
+        return [chaos_file]
+
+    base_name = chaos_file.name[: -len(chaos_file.suffix)]
+    related_candidates = [
+        chaos_file.with_name(f"{base_name}{ext}") for ext in SUPPORTED_RELATED_EXTENSIONS
+    ]
+    return [chaos_file, *[path for path in related_candidates if path.exists()]]
+
+
+def categorize(fname: str) -> str:
+    if fname.endswith("_labels.chaos"):
+        return "Labeled"
+    if fname.endswith("_summons.chaos"):
+        return "Summons"
+    if fname.endswith("_sacred.chaos"):
+        return "Sacred"
+    if fname.endswith("_purge.chaos"):
+        return "Purge"
+    return "Unsorted"
+
+
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Sort CHAOS files into labeled buckets.")
+    parser.add_argument(
+        "--source",
+        help=f"Source directory containing CHAOS files (env: {ENV_SOURCE})",
+    )
+    parser.add_argument(
+        "--dest",
+        help=f"Destination root for sorted output (env: {ENV_DEST})",
+    )
+    parser.add_argument(
+        "--mode",
+        choices=["copy", "move"],
+        default="copy",
+        help="Transfer mode for CHAOS files. Use 'move' to mimic legacy behavior.",
+    )
+    parser.add_argument(
+        "--include-related",
+        action="store_true",
+        help=(
+            "Include related CHAOS metadata files (e.g., .mirror.json, .chaosmeta) with the same"
+            " basename when transferring."
+        ),
+    )
+    return parser.parse_args()
+
+
+def resolve_paths(args: argparse.Namespace) -> tuple[Path, Path]:
+    source = Path(args.source) if args.source else Path(os.environ.get(ENV_SOURCE, DEFAULT_SOURCE_DIR))
+    dest = Path(args.dest) if args.dest else Path(os.environ.get(ENV_DEST, DEFAULT_DEST_DIR))
+    return source, dest
+
+
+def main() -> None:
+    logging.basicConfig(level=logging.INFO, format="[PattyMae] %(levelname)s: %(message)s")
+    args = parse_args()
+    source_dir, dest_root = resolve_paths(args)
+
+    if not source_dir.exists():
+        logging.warning("Source directory %s is missing; nothing to sort.", source_dir)
+        return
+
+    ensure_dir(dest_root)
+
+    for chaos_file in iter_chaos_files(source_dir):
+        related_files = find_related_files(chaos_file, args.include_related)
+        category = categorize(chaos_file.name)
+        dest_dir = dest_root / category
+        ensure_dir(dest_dir)
+
+        for file_path in related_files:
+            dest_path = dest_dir / file_path.name
+            if args.mode == "move":
+                shutil.move(file_path, dest_path)
+            else:
+                shutil.copy2(file_path, dest_path)
+            logging.info("Sorted %s -> %s/ via %s", file_path.name, category, args.mode)
+
+
 if __name__ == "__main__":
-    if len(sys.argv) < 2:
-        print("Darlin', you gotta tell Patty Mae which file to organize.")
-    else:
-        patty = PattyMae(sys.argv[1])
-        patty.move_file()
+    main()
