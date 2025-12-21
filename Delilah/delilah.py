@@ -11,6 +11,7 @@ from kivy.uix.button import Button
 from kivy.uix.scrollview import ScrollView
 from kivy.uix.filechooser import FileChooserListView
 from kivy.uix.popup import Popup
+from kivy.uix.treeview import TreeView, TreeViewLabel
 from kivy.clock import Clock
 import tkinter as tk
 from tkinter import filedialog
@@ -381,7 +382,7 @@ class EdenRecoveryUI(BoxLayout):
                 for f in root_files:
                     cat = decide_category(f)
                     root_cats[cat].append(f)
-                self.out.text += "\n".join([f"  {k:12} : {len(v)}" for k in sorted(root_cats.keys())])
+                self.out.text += "\n".join([f"  {k:12} : {len(root_cats[k])}" for k in sorted(root_cats.keys())])
                 self.out.text += f"\n  groups     : {sum(1 for t, ps in rec.groups.items() if any(root in p.parents for p in ps))}"
             self.out.text += f"\n  rhea_home  : {rhea}"
             if rec.errors:
@@ -791,7 +792,7 @@ class EdenRecoveryUI(BoxLayout):
                 for f in root_files:
                     cat = smarter_decide_category(f)
                     root_cats[cat].append(f)
-                self.out.text += "\n".join([f"  {k:12} : {len(v)}" for k in sorted(root_cats.keys())])
+                self.out.text += "\n".join([f"  {k:12} : {len(root_cats[k])}" for k in sorted(root_cats.keys())])
                 self.out.text += f"\n  groups     : {sum(1 for t, ps in rec.groups.items() if any(root in p.parents for p in ps))}"
             self.out.text += f"\n  rhea_home  : {rhea}"
             if rec.errors:
