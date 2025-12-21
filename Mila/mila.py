@@ -26,8 +26,20 @@ class Mila:
         "alignment": "grounded"
     }
 
-    def __init__(self, root="C:/EdenOS_Origin/all_daemons"):
-        self.root = Path(root)
+    def __init__(self, root=None):
+        if root is None:
+            # Try to use eden_paths helper for cross-platform support
+            try:
+                import sys
+                from pathlib import Path as P
+                sys.path.insert(0, str(P(__file__).resolve().parents[1]))
+                from Daemon_tools.scripts.eden_paths import daemons_root
+                self.root = daemons_root()
+            except ImportError:
+                # Fallback to environment variable or current directory
+                self.root = Path(os.environ.get("EDEN_ROOT", Path.cwd())) / "all_daemons"
+        else:
+            self.root = Path(root)
         self.rules = {
             "logs": ["*.log"],
             "configs": ["*.yaml", "*.json"],

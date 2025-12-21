@@ -11,6 +11,7 @@ from kivy.uix.button import Button
 from kivy.uix.scrollview import ScrollView
 from kivy.uix.filechooser import FileChooserListView
 from kivy.uix.popup import Popup
+from kivy.uix.treeview import TreeView, TreeViewLabel
 from kivy.clock import Clock
 import tkinter as tk
 from tkinter import filedialog
@@ -381,7 +382,7 @@ class EdenRecoveryUI(BoxLayout):
                 for f in root_files:
                     cat = decide_category(f)
                     root_cats[cat].append(f)
-                self.out.text += "\n".join([f"  {k:12} : {len(v)}" for k in sorted(root_cats.keys())])
+                self.out.text += "\n".join([f"  {k:12} : {len(root_cats[k])}" for k in sorted(root_cats.keys())])
                 self.out.text += f"\n  groups     : {sum(1 for t, ps in rec.groups.items() if any(root in p.parents for p in ps))}"
             self.out.text += f"\n  rhea_home  : {rhea}"
             if rec.errors:
@@ -791,7 +792,7 @@ class EdenRecoveryUI(BoxLayout):
                 for f in root_files:
                     cat = smarter_decide_category(f)
                     root_cats[cat].append(f)
-                self.out.text += "\n".join([f"  {k:12} : {len(v)}" for k in sorted(root_cats.keys())])
+                self.out.text += "\n".join([f"  {k:12} : {len(root_cats[k])}" for k in sorted(root_cats.keys())])
                 self.out.text += f"\n  groups     : {sum(1 for t, ps in rec.groups.items() if any(root in p.parents for p in ps))}"
             self.out.text += f"\n  rhea_home  : {rhea}"
             if rec.errors:
@@ -836,8 +837,11 @@ class EdenRecoveryUI(BoxLayout):
         except Exception as e:
             self.log(f"[!] Apply failed: {e}")
 
-    def
-rs)
+    def debug_state(self):
+        self.out.readonly = False
+        self.out.text = "[Debug State]\n"
+        self.out.text += f"Roots: {self.root_folders}\n"
+        self.out.text += f"Plan exists: {bool(self._plan)}\n"
         self.out.readonly = True
         print("[EdenRecovery] Debug state dumped.")
 
