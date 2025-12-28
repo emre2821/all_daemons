@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""
+r"""
 rhea_scaffold.py — scaffold EdenOS Rhea directory structure safely.
 
 - Creates directories only if missing (idempotent).
