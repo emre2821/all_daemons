@@ -58,6 +58,7 @@ def resolve_root(env: Mapping[str, str] | None = None) -> Path:
         candidate = Path(env_root).expanduser()
         if candidate.exists():
             return candidate
+        warn(f"EDEN_ROOT is set to {candidate}, but it does not exist. Falling back to PROJECT_ROOT.")
     return PROJECT_ROOT
 
 
@@ -73,6 +74,8 @@ def resolve_daemon_dir(root: Path, env: Mapping[str, str] | None = None) -> Path
     ]
 
     def _looks_like_daemon_home(path: Path) -> bool:
+        if not path.is_dir():
+            return False
         try:
             for child in path.iterdir():
                 if not child.is_dir():
@@ -81,7 +84,7 @@ def resolve_daemon_dir(root: Path, env: Mapping[str, str] | None = None) -> Path
                 alt_main = child / f"{child.name.lower()}_main.py"
                 if main_py.exists() or alt_main.exists():
                     return True
-        except FileNotFoundError:
+        except (FileNotFoundError, NotADirectoryError, PermissionError):
             return False
         return False
 
