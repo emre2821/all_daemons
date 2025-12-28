@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""
+r"""
 Ariane :: Pathkeeper & Auditor Daemon
 -------------------------------------
 Keeps daemons, configs, and registry aligned with canonical layout:
