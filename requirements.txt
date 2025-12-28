@@ -1,4 +1,4 @@
 flake8==7.3.0
 pytest==9.0.2
 stripe==14.1.0
-watchdog==4.0.1
+watchdog==6.0.0
