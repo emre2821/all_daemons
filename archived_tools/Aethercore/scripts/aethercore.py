@@ -12,8 +12,6 @@ from kivymd.uix.tab import MDTabsBase
 from kivymd.uix.tabs import MDTabs
 from kivymd.uix.toolbar import MDTopAppBar
 from kivymd.uix.card import MDCard
-from kivymd.uix.icon import MDIcon
-from kivymd.uix.card import MDCard
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Global font override
@@ -94,9 +92,45 @@ class ConsentScreen(MDScreen):
         card.add_widget(MDLabel(text="By continuing, you enter StillPoint Suites.", halign="center"))
         card.add_widget(MDRaisedButton(
             text="Continue",
-            on_release=lambda *_: setattr(self.manager, "current", "advocate"),
+            on_release=lambda *_: setattr(self.manager, "current", "main"),
         ))
         self.add_widget(card)
+
+
+class MainScreen(MDScreen):
+    def __init__(self, aether: AetherCore, **kwargs):
+        super().__init__(**kwargs)
+        self.aether = aether
+
+    def on_pre_enter(self, *args):
+        self.clear_widgets()
+        layout = MDBoxLayout(orientation="vertical", padding=dp(16), spacing=dp(12))
+        layout.add_widget(MDLabel(text="Aethercore — StillPoint Suites", halign="center", font_style="H5"))
+        layout.add_widget(MDLabel(
+            text="Choose a path: direct clinic flows or the tabbed hub.",
+            halign="center",
+        ))
+        layout.add_widget(MDRaisedButton(
+            text="Open Advocate (Clinic)",
+            on_release=lambda *_: setattr(self.manager, "current", "advocate"),
+        ))
+        layout.add_widget(MDRaisedButton(
+            text="Open Eden Wing (Rehab)",
+            on_release=lambda *_: setattr(self.manager, "current", "edenwing"),
+        ))
+        layout.add_widget(MDRaisedButton(
+            text="Open SOS (Standalone)",
+            on_release=lambda *_: setattr(self.manager, "current", "sos"),
+        ))
+        layout.add_widget(MDRaisedButton(
+            text="Tab Hub: StillPoint Suites",
+            on_release=lambda *_: setattr(self.manager, "current", "stillpoint"),
+        ))
+        layout.add_widget(MDRaisedButton(
+            text="SOS App (Flirt)",
+            on_release=lambda *_: setattr(self.manager, "current", "sos_app"),
+        ))
+        self.add_widget(layout)
 
 # ─────────────────────────────────────────────────────────────────────────────
 # App
@@ -208,6 +242,9 @@ class AetherCoreApp(MDApp):
         sm = ScreenManager()
         sm.add_widget(ConsentScreen(name="consent"))
         sm.add_widget(MainScreen(self.aether, name="main"))
+        sm.add_widget(AdvocateScreen(name="advocate"))
+        sm.add_widget(EdenWingScreen(name="edenwing"))
+        sm.add_widget(SOSScreen(name="sos"))
         sm.add_widget(StillpointHubScreen(self.aether, name="stillpoint"))
         sm.add_widget(FlirtScreen(self.aether, name="sos_app"))
         return sm
