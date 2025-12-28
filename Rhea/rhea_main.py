@@ -30,7 +30,7 @@ import time
 from dataclasses import dataclass, field
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Mapping, Optional, Tuple
 
 # -----------------------------
 # Custom palette (for logs/UI)
@@ -47,9 +47,56 @@ PALETTE = {
 # -----------------------------
 # Eden paths & defaults
 # -----------------------------
-ROOT = Path(r"C:\EdenOS_Origin")
-DAEMON_DIR = ROOT / "01_Daemon_Core_Agents"
-RHEA_DIR = DAEMON_DIR / "Rhea"
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+
+
+def resolve_root(env: Mapping[str, str] | None = None) -> Path:
+    """Find the Eden root in a cross-platform, repo-friendly way."""
+    env = env or os.environ
+    env_root = env.get("EDEN_ROOT")
+    if env_root:
+        candidate = Path(env_root).expanduser()
+        if candidate.exists():
+            return candidate
+    return PROJECT_ROOT
+
+
+def resolve_daemon_dir(root: Path, env: Mapping[str, str] | None = None) -> Path:
+    """Pick a daemon directory that actually exists, with sensible fallbacks."""
+    env = env or os.environ
+    env_daemons = env.get("EDEN_DAEMONS_DIR")
+    candidates = [
+        Path(env_daemons).expanduser() if env_daemons else None,
+        root / "01_Daemon_Core_Agents",
+        root,
+        root / "all_daemons",
+    ]
+
+    def _looks_like_daemon_home(path: Path) -> bool:
+        try:
+            for child in path.iterdir():
+                if not child.is_dir():
+                    continue
+                main_py = child / f"{child.name.lower()}.py"
+                alt_main = child / f"{child.name.lower()}_main.py"
+                if main_py.exists() or alt_main.exists():
+                    return True
+        except FileNotFoundError:
+            return False
+        return False
+
+    first_existing: Optional[Path] = None
+    for candidate in candidates:
+        if candidate and candidate.exists():
+            first_existing = first_existing or candidate
+            if _looks_like_daemon_home(candidate):
+                return candidate
+    return first_existing or root
+
+
+ROOT = resolve_root()
+DAEMON_DIR = resolve_daemon_dir(ROOT)
+RHEA_DIR = Path(__file__).resolve().parent
 REGISTRY_PATH = RHEA_DIR / "rhea_registry.json"
 BACKUP_PATH = RHEA_DIR / f"rhea_registry.{int(time.time())}.bak.json"
 
