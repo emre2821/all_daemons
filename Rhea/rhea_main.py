@@ -45,6 +45,50 @@ PALETTE = {
 }
 
 # -----------------------------
+# Util
+# -----------------------------
+def log(msg: str, color: Optional[str] = None) -> None:
+    prefix = "[Rhea]"
+    print(f"{prefix} {msg}")
+
+def warn(msg: str) -> None:
+    print(f"[Rhea][WARN] {msg}")
+
+def err(msg: str) -> None:
+    print(f"[Rhea][ERROR] {msg}")
+
+def ts() -> str:
+    return datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+def safe_read_json(path: Path, default: Any) -> Any:
+    try:
+        if not path.exists():
+            return default
+        with path.open("r", encoding="utf-8") as f:
+            return json.load(f)
+    except Exception as e:
+        err(f"Failed to read JSON {path}: {e}")
+        return default
+
+def safe_write_json(path: Path, data: Any) -> bool:
+    try:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        with path.open("w", encoding="utf-8") as f:
+            json.dump(data, f, indent=2, ensure_ascii=False)
+        return True
+    except Exception as e:
+        err(f"Failed to write JSON {path}: {e}")
+        return False
+
+def backup(path: Path, dest: Path) -> None:
+    if path.exists():
+        try:
+            shutil.copy2(path, dest)
+            log(f"Backed up {path.name} -> {dest.name}")
+        except Exception as e:
+            warn(f"Backup failed ({path}): {e}")
+
+# -----------------------------
 # Eden paths & defaults
 # -----------------------------
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -108,50 +152,6 @@ SHEELE_DEFAULT_INPUT = ROOT / "data" / "exports" / "openai_exports" / "conversat
 
 # Name patterns
 PY_NAME = re.compile(r"^[a-zA-Z_][a-zA-Z0-9_]*\.py$")
-
-# -----------------------------
-# Util
-# -----------------------------
-def log(msg: str, color: Optional[str] = None) -> None:
-    prefix = "[Rhea]"
-    print(f"{prefix} {msg}")
-
-def warn(msg: str) -> None:
-    print(f"[Rhea][WARN] {msg}")
-
-def err(msg: str) -> None:
-    print(f"[Rhea][ERROR] {msg}")
-
-def ts() -> str:
-    return datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-
-def safe_read_json(path: Path, default: Any) -> Any:
-    try:
-        if not path.exists():
-            return default
-        with path.open("r", encoding="utf-8") as f:
-            return json.load(f)
-    except Exception as e:
-        err(f"Failed to read JSON {path}: {e}")
-        return default
-
-def safe_write_json(path: Path, data: Any) -> bool:
-    try:
-        path.parent.mkdir(parents=True, exist_ok=True)
-        with path.open("w", encoding="utf-8") as f:
-            json.dump(data, f, indent=2, ensure_ascii=False)
-        return True
-    except Exception as e:
-        err(f"Failed to write JSON {path}: {e}")
-        return False
-
-def backup(path: Path, dest: Path) -> None:
-    if path.exists():
-        try:
-            shutil.copy2(path, dest)
-            log(f"Backed up {path.name} -> {dest.name}")
-        except Exception as e:
-            warn(f"Backup failed ({path}): {e}")
 
 # -----------------------------
 # Data structures
