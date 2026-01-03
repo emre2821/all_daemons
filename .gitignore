@@ -1,8 +1,6 @@
 # Build artifacts and binaries
 __pycache__/
 *.pyc
-*.pyo
-*.pyd
 *.db
 *.log
 *.out
@@ -11,46 +9,12 @@ __pycache__/
 *.pak
 *.dll
 *.exe
-# Note: .bat and .sh files are legitimate scripts, not excluded
+*.bat
+*.sh
 *.lnk
 *.shortcut
 *.zip
 *.enc
 *.key
 *.lock
-
-# Environment
-.env
-.venv/
-venv/
-env/
-ENV/
-
-# IDE and editor files
-.idea/
-*.swp
-*.swo
-*~
-.DS_Store
-Thumbs.db
-
-# Test and coverage
-.pytest_cache/
-.coverage
-htmlcov/
-*.cover
-.hypothesis/
-
-# Distribution / packaging
-dist/
-build/
-*.egg-info/
-*.egg
-.eggs/
-
-# Jupyter
-.ipynb_checkpoints/
-
-# Project specific
 /01_Daemon_Core_Agents/Lyss/ffmpeg
-/Lyss/ffmpeg
