@@ -18,3 +18,5 @@ __pycache__/
 *.key
 *.lock
 /01_Daemon_Core_Agents/Lyss/ffmpeg
+/Lyss/ffmpeg
+Lyra/.env
