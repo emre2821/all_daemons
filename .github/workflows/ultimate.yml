@@ -1,0 +1,42 @@
+name: Ultimate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Test (Python ${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12"]
+
+    steps:
+      - name: Check out repository
+        # actions/checkout v4.1.4
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+
+      - name: Set up Python ${{ matrix.python-version }}
+        # actions/setup-python v5.1.0
+        uses: actions/setup-python@0b93645e9fea7318e160c6172ebabf029f23bfb5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          [ -f requirements.txt ] && pip install -r requirements.txt
+
+      - name: Run tests
+        run: |
+          echo "::notice::Running pytest..."
+          pytest --ignore=all_daemons -v
+          echo "::notice::Tests completed"
