@@ -1,0 +1,14 @@
+{
+  "name": "John",
+  "version": "2.1",
+  "role": "Device & Shell Integrity",
+  "pid": 15856,
+  "time": "2025-11-13T05:03:40.623547",
+  "uptime_sec": 1161,
+  "explorer_running": true,
+  "paths": {
+    "root": "C:\\EdenOS_Root\\The_Troubles\\John",
+    "logs": "C:\\EdenOS_Root\\The_Troubles\\John\\logs",
+    "crash_dumps": "C:\\EdenOS_Root\\The_Troubles\\John\\crash_dumps"
+  }
+}

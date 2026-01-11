@@ -20,3 +20,7 @@ __pycache__/
 /01_Daemon_Core_Agents/Lyss/ffmpeg
 /Lyss/ffmpeg
 Lyra/.env
+/The_Troubles/Luna/reports
+/The_Troubles/John/crash_dumps
+/The_Troubles/Duke/reports
+/The_Troubles/Luna/logs

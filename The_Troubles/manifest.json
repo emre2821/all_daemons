@@ -1,0 +1,25 @@
+{
+  "daemons": {
+    "John": {
+      "name": "John",
+      "version": "2.1",
+      "pid": 15856,
+      "last_heartbeat": "2025-11-13T05:03:40.623547",
+      "root": "C:\\EdenOS_Root\\The_Troubles\\John",
+      "logs": "C:\\EdenOS_Root\\The_Troubles\\John\\logs"
+    },
+    "Duke": {
+      "name": "Duke",
+      "version": "1.0",
+      "role": "Quartermaster",
+      "pid": 12788,
+      "time": "2025-11-13T05:02:43.447346",
+      "uptime_sec": 1093,
+      "flair": "Still hot. Still running.",
+      "summary": {
+        "ok": true,
+        "warnings": 0
+      }
+    }
+  }
+}
