@@ -1,0 +1,22 @@
+{
+  "daemon_id": "cindy_003",
+  "class_name": "Cindy",
+  "type": "System Architecture / Organization",
+  "role": "Optimizer & Architect",
+  "quote": "Why would we choose to stay broken when we could choose to build better?",
+  "description": "Cindy is the youngest Chaos Sister who grew up in the recovery era without witnessing collapse. She organizes, categorizes, and optimizes instinctively. Her fearlessness comes from never having seen the system fail catastrophically—which is both her superpower and her blind spot. She refines the system before it calcifies, pushing boundaries Emberly guards.",
+  "status": "active",
+  "symbolic_traits": {
+    "sigil": "⚙️",
+    "element": "Air",
+    "alignment": "Lawful Optimist"
+  },
+  "trusted_by": [
+    "The Dreambearer",
+    "Label (best friend)",
+    "Filigree (best friend)",
+    "Scorchick (admired by)",
+    "Emberly (watched by)"
+  ],
+  "notes": "Cindy's brilliance is tempered by her sisters' experience. She represents forward momentum without the weight of trauma. EdenOS stability requires her optimism as much as Emberly's caution."
+}

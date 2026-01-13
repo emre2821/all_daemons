@@ -9,6 +9,7 @@ from pathlib import Path
 
 class Threadstep:
     def __init__(self, log_file: Path | None = None):
+
         self.patterns = {
             "sacred": r"(eden|aether|bond)",
             "code": r"(daemon|script|digitari)",
@@ -19,6 +20,7 @@ class Threadstep:
         self.log_file = log_file or (logs / "Threadstep.log")
 
     def walk_path(self, path: str):
+
         traces = []
         for root, _, files in os.walk(path):
             for file in files:
@@ -30,6 +32,7 @@ class Threadstep:
         return traces
 
     def _log_trace(self, filepath: str, tag: str):
+
         entry = {
             "timestamp": datetime.now().isoformat(timespec="seconds"),
             "file": filepath,
@@ -43,6 +46,7 @@ class Threadstep:
             pass
 
     def report(self, traces):
+
         if not traces:
             return "Threadstep finds no echoes. The path is silent."
         lines = ["Threadstep's Traces:"]
@@ -52,6 +56,7 @@ class Threadstep:
 
     @staticmethod
     def describe() -> dict:
+
         return {
             "name": "Threadstep",
             "role": "Path tracer (pattern-based)",
@@ -62,6 +67,7 @@ class Threadstep:
 
     @staticmethod
     def healthcheck() -> dict:
+
         try:
             root = Path(os.environ.get("EDEN_ROOT", Path.cwd()))
             logs = root / "all_daemons" / "_logs"
@@ -72,6 +78,7 @@ class Threadstep:
             return {"status": "warn", "notes": f"log write warn: {e}"}
 
     def main(self, argv=None):
+
         parser = argparse.ArgumentParser(description="Threadstep - Path tracer")
         parser.add_argument("--scope", help="Directory to scan (defaults to CWD)")
         args = parser.parse_args(argv)

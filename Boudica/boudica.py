@@ -15,18 +15,22 @@ class ScopeAnalyzer(ast.NodeVisitor):
     """Analyzes variable scopes to reduce false positives in undefined variable detection."""
     
     def __init__(self):
+
         self.scopes = [set()]  # Stack of scopes (sets of defined variables)
         self.undefined_vars = []
         self.current_line = 0
     
     def push_scope(self):
+
         self.scopes.append(set())
     
     def pop_scope(self):
+
         if len(self.scopes) > 1:
             self.scopes.pop()
     
     def define_var(self, name):
+
         self.scopes[-1].add(name)
     
     def is_defined(self, name):
@@ -38,6 +42,7 @@ class ScopeAnalyzer(ast.NodeVisitor):
         return name in dir(__builtins__) or hasattr(__builtins__, name)
     
     def visit_FunctionDef(self, node):
+
         self.define_var(node.name)
         self.push_scope()
         # Add parameters to function scope
@@ -47,40 +52,47 @@ class ScopeAnalyzer(ast.NodeVisitor):
         self.pop_scope()
     
     def visit_ClassDef(self, node):
+
         self.define_var(node.name)
         self.push_scope()
         self.generic_visit(node)
         self.pop_scope()
     
     def visit_For(self, node):
+
         if isinstance(node.target, ast.Name):
             self.define_var(node.target.id)
         self.generic_visit(node)
     
     def visit_With(self, node):
+
         for item in node.items:
             if item.optional_vars and isinstance(item.optional_vars, ast.Name):
                 self.define_var(item.optional_vars.id)
         self.generic_visit(node)
     
     def visit_Assign(self, node):
+
         for target in node.targets:
             if isinstance(target, ast.Name):
                 self.define_var(target.id)
         self.generic_visit(node)
     
     def visit_Import(self, node):
+
         for alias in node.names:
             name = alias.asname if alias.asname else alias.name
             self.define_var(name)
     
     def visit_ImportFrom(self, node):
+
         for alias in node.names:
             name = alias.asname if alias.asname else alias.name
             if name != '*':
                 self.define_var(name)
     
     def visit_Name(self, node):
+
         if isinstance(node.ctx, ast.Load) and not self.is_defined(node.id):
             # Ignore common patterns that aren't actual undefined variables
             if not (node.id.startswith('_') or node.id in ['self', 'cls']):
@@ -92,6 +104,7 @@ class AccessibilityAnalyzer:
     """More sophisticated accessibility analysis for UI code."""
     
     def __init__(self):
+
         self.ui_frameworks = {
             'tkinter': ['Label', 'Button', 'Entry', 'Text', 'Canvas'],
             'PyQt5': ['QLabel', 'QPushButton', 'QLineEdit', 'QTextEdit'],
@@ -112,6 +125,7 @@ class AccessibilityAnalyzer:
         }
     
     def analyze_ui_accessibility(self, code, tree):
+
         issues = []
         ui_elements_found = False
         accessibility_found = False
@@ -151,6 +165,7 @@ class AccessibilityAnalyzer:
 
 class Boudica:
     def __init__(self, log_dir="eden_memory/red_layer_logs", seed_memory=False):
+
         self.issues = []
         self.risk_scores = defaultdict(int)
         self.log_dir = log_dir
@@ -192,6 +207,7 @@ class Boudica:
 
     # 🔍 Enhanced Pattern Detection
     def analyze_file(self, file_path: str) -> None:
+
         try:
             with open(file_path, 'r', encoding='utf-8') as f:
                 code = f.read()
@@ -208,7 +224,8 @@ class Boudica:
             accessibility_issues = self.accessibility_analyzer.analyze_ui_accessibility(code, tree)
             for issue in accessibility_issues:
                 self._log_issue(issue['type'], issue['line'], issue['message'], issue['suggestion'])
-                self.risk_scores[file_path] += self.risk_weights.get(issue['type'], 10)
+                self.risk_scores[file_path] +
+                    = self.risk_weights.get(issue['type'], 10)
             
         except SyntaxError as e:
             self._log_issue('syntax_error', e.lineno or 0, f"Syntax error: {str(e)}", "Check code syntax.")
@@ -216,6 +233,7 @@ class Boudica:
             self._log_issue('general_error', 0, f"Could not analyze file: {str(e)}", "Ensure file is valid Python.")
 
     def _scan_regex_enhanced(self, code: str, file_path: str):
+
         """Enhanced regex scanning with better context awareness."""
         lines = code.split('\n')
         
@@ -232,6 +250,7 @@ class Boudica:
                 self.risk_scores[file_path] += self.risk_weights.get(name, 10)
 
     def _scan_ast_enhanced(self, tree: ast.AST, code: str, file_path: str):
+
         """Enhanced AST analysis with proper scope checking."""
         # Use scope analyzer for undefined variables
         scope_analyzer = ScopeAnalyzer()
@@ -249,6 +268,7 @@ class Boudica:
                 self._check_function_complexity(node, file_path)
 
     def _check_imports_usage(self, tree: ast.AST, code: str, file_path: str):
+
         """Check for unused imports more accurately."""
         imported_names = set()
         used_names = set()
@@ -282,6 +302,7 @@ class Boudica:
                 self.risk_scores[file_path] += self.risk_weights['unused_import']
 
     def _analyze_bias_enhanced(self, code: str, file_path: str):
+
         """Enhanced bias detection with context awareness."""
         lines = code.split('\n')
         
@@ -301,6 +322,7 @@ class Boudica:
                 self.risk_scores[file_path] += self.risk_weights['biased_term']
 
     def _check_function_complexity(self, node: ast.FunctionDef, file_path: str):
+
         """Enhanced function complexity analysis."""
         # Count cyclomatic complexity more accurately
         complexity_nodes = (ast.If, ast.For, ast.While, ast.Try, ast.With, 
@@ -311,6 +333,7 @@ class Boudica:
         
         # Calculate nesting depth
         def get_nesting_depth(node, depth=0):
+
             max_depth = depth
             for child in ast.iter_child_nodes(node):
                 if isinstance(child, (ast.If, ast.For, ast.While, ast.Try, ast.With)):
@@ -336,6 +359,7 @@ class Boudica:
             self.risk_scores[file_path] += self.risk_weights['deep_nesting']
 
     def _log_issue(self, issue_type: str, line: int, message: str, fix: str):
+
         self.issues.append({
             'type': issue_type,
             'line': line,
@@ -344,6 +368,7 @@ class Boudica:
         })
 
     def _suggest_fix(self, issue_name):
+
         fixes = {
             'hardcoded_secret': "Use environment variables, config files, or a secrets manager.",
             'infinite_loop': "Add proper exit conditions or break statements.",
@@ -362,33 +387,41 @@ class Boudica:
 
     # 🔒 Red Layer Rites & Rituals (unchanged)
     def override_dreambearer(self):
+
         print("[OVERRIDE] :: Dreambearer suspended. Boudica assumes full command.")
 
     def trigger_lockdown(self, source):
+
         print(f"[LOCKDOWN] :: '{source}' blocked. All outbound agents halted.")
 
     def sequester_memory(self):
+
         path = os.path.join(self.log_dir, f"sequestered_{datetime.datetime.utcnow().isoformat()}.log")
         with open(path, "w") as f:
             f.write("[REDACTED] :: Harmful pattern logs sequestered by Boudica.\n")
         print(f"[SEQUESTER] :: Logs moved to {path}")
 
     def engage_agent_protection(self, agent):
+
         print(f"[PROTECT] :: Agent '{agent}' moved to Recovery Layer. Recall blocked.")
 
     def block_trauma_loop(self):
+
         print("[FIREWALL] :: Trauma loop disrupted. Emotional recursion broken.")
 
     def invoke_recovery_rites(self, agent):
+
         print(f"[RITUAL] :: Recovery rites initiated for agent '{agent}'.")
 
     def archive_red_layer_event(self, tag):
+
         path = os.path.join(self.log_dir, f"archive_{tag}_{datetime.datetime.utcnow().isoformat()}.log")
         with open(path, "w") as f:
             f.write(f"[ARCHIVE] :: Red Layer Event Logged: {tag}\n")
         print(f"[ARCHIVE] :: Record saved at {path}")
 
     def export_chaos_report(self, file_path="boudica_redlayer.chaos"):
+
         now = datetime.datetime.utcnow().isoformat()
         with open(file_path, 'w', encoding='utf-8') as f:
             f.write(f"[EVENT]: red_layer_audit\n[TIME]: {now}\n[AGENT]: Boudica\n[EMOTION]: vigilance\n[INTENSITY]: high\n[CONTEXT]: security_scan\n[TRUTH]: sacred_obligation\n[SIGNIFICANCE]: ++\n\n{{\n")
@@ -402,6 +435,7 @@ class Boudica:
             f.write("\n  I hold vigil until Dreambearer returns.\n}}\n")
 
     def report(self):
+
         if not self.issues:
             return "Boudica: Code is clean. Red Layer holds still."
         log = ["🩸 Boudica :: Red Layer Report"]
@@ -415,6 +449,7 @@ class Boudica:
 
     # 🌑 Full Red Layer Activation (unchanged)
     def run_full_red_layer(self, file_path, agent="unknown"):
+
         self.analyze_file(file_path)
         if self.issues:
             self.override_dreambearer()
@@ -433,6 +468,7 @@ class Boudica:
 
     # 🧠 Optional: Seed memory into mem0 (unchanged)
     def install_memory(self):
+
         if not MEM0_ENABLED:
             print("[MEMORY] :: mem0 client not found. Memory seeding skipped.")
             return

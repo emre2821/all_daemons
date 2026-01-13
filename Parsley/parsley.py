@@ -18,6 +18,7 @@ PURGE_KEYWORDS = ["temp", "debug", "scratch", "purge"]
 
 
 def classify(text: str) -> str:
+
     lowered = text.lower()
     if any(k.lower() in lowered for k in SACRED_KEYWORDS):
         return "sacred"
@@ -27,6 +28,7 @@ def classify(text: str) -> str:
 
 
 def process_file(path: Path) -> str:
+
     data = json.loads(path.read_text(encoding="utf-8"))
     nodes = data.get("nodes", [])
     verdicts = [classify(n.get("content", "")) for n in nodes]
@@ -38,6 +40,7 @@ def process_file(path: Path) -> str:
 
 
 def main():
+
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     if not INPUT_DIR.exists():
         print(f"⚠️ Input directory not found: {INPUT_DIR}")

@@ -17,6 +17,7 @@ LOG_PATH = "_archives/juno_jr.echo.log"
 
 # Utility: Load JSON file
 def load_json(path):
+
     if not os.path.exists(path):
         return {}
     with open(path, "r", encoding="utf-8") as f:
@@ -24,12 +25,14 @@ def load_json(path):
 
 # Log softly, respectfully
 def log(entry):
+
     os.makedirs(os.path.dirname(LOG_PATH), exist_ok=True)
     with open(LOG_PATH, "a", encoding="utf-8") as f:
         f.write(f"[{datetime.now().isoformat()}] {entry}\n")
 
 # Match need to domains
 def find_use_domains(phrase, use_map):
+
     matches = []
     for domain, keywords in use_map.items():
         if any(kw in phrase.lower() for kw in keywords):
@@ -38,6 +41,7 @@ def find_use_domains(phrase, use_map):
 
 # Suggest agents from domains
 def suggest_agents(domains, core_map):
+
     suggestions = set()
     for agent, tags in core_map.items():
         if "uses" in tags:
@@ -48,6 +52,7 @@ def suggest_agents(domains, core_map):
 
 # Ritual interface
 def greet_and_route():
+
     print("🌱 Hello Dreambearer. What feeling or task brings you here today?")
     need = input("> ")
 
@@ -70,7 +75,7 @@ def greet_and_route():
 
     print("🎧 Suggested Daemons:")
     for a in agents:
-        print(f"  - {a}")
+        print(f" - {a}")
     log(f"Suggested for '{need}': {agents}")
 
     summon = input("Would you like to invoke any of them now? (y/n): ")

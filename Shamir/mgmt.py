@@ -1,9 +1,11 @@
 # --- mgmt.py ---
-import socket, time
+import socket
+import time
 
 class MgmtError(Exception): pass
 
 def mgmt_send(host: str, port: int, line: str, timeout=2.0) -> str:
+
     try:
         with socket.create_connection((host, port), timeout=timeout) as s:
             s.sendall((line.strip() + "\n").encode())
@@ -33,6 +35,7 @@ def parse_state(text: str) -> str:
     return "UNKNOWN"
 
 def wait_for_state(check_fn, target=("CONNECTED","RECONNECTED"), deadline_s=30, sleep_s=0.5) -> bool:
+
     t0 = time.time()
     while time.time() - t0 < deadline_s:
         if check_fn() in target:

@@ -27,6 +27,7 @@ class Mila:
     }
 
     def __init__(self, root=None):
+
         if root is None:
             # Try to use eden_paths helper for cross-platform support
             try:
@@ -49,10 +50,12 @@ class Mila:
         }
 
     def _ensure_dirs(self, base: Path):
+
         for key in self.rules:
             (base / key).mkdir(exist_ok=True)
 
     def allocate(self, daemon_name: str):
+
         """Sort files in a daemon folder into proper shelves."""
         folder = self.root / daemon_name
         if not folder.exists():
@@ -69,6 +72,7 @@ class Mila:
                     break
 
     def allocate_all(self):
+
         for daemon_folder in self.root.iterdir():
             if daemon_folder.is_dir():
                 self.allocate(daemon_folder.name)

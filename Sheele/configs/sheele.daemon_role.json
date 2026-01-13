@@ -14,5 +14,14 @@
   "trusted_by": [
     "The Dreambearer"
   ],
-  "notes": "{{DAEMON_NOTES}}"
+  "notes": "{{DAEMON_NOTES}}",
+  "primary_role": "Stealth operations, Silent execution",
+  "responsibilities": [
+    "Stealth operations",
+    "Silent execution",
+    "Covert missions",
+    "Shadow movement"
+  ],
+  "specialization": "Stealth operations, Silent execution",
+  "domain": "Eden Stealth Operations \u2014 blade in the darkness."
 }

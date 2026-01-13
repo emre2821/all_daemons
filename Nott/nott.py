@@ -2,7 +2,8 @@
 
 import logging
 import time
-from datetime import datetime, timedelta
+from datetime import datetime
+import timedelta
 
 logger = logging.getLogger("Nott")
 
@@ -41,6 +42,7 @@ class Nott:
     )
 
     def __init__(self, rest_interval: int = 3600, cooldown: int = 300):
+
         """
         Initialize Nótt, the cyclekeeper.
 
@@ -54,6 +56,7 @@ class Nott:
         logger.info("🌙 Nótt initialized — guardian of rest and shadow.")
 
     def enter_rest_cycle(self):
+
         """
         Enforce a rest cycle — halts daemons gracefully and schedules their return.
         """
@@ -64,6 +67,7 @@ class Nott:
         self._cooldown_phase()
 
     def _cooldown_phase(self):
+
         """
         Enforces a cooldown buffer before daemons can wake.
         """
@@ -72,14 +76,17 @@ class Nott:
         logger.info("🌙 Cooldown complete. Daemons may safely awaken under Dagr’s watch.")
 
     def should_rest(self) -> bool:
+
         """
         Checks if it’s time to rest again.
         """
         if not self._last_cycle:
             return True
-        return datetime.utcnow() - self._last_cycle > timedelta(seconds=self.rest_interval + self.cooldown)
+        return datetime.utcnow() - self._last_cycle > timedelta(seconds=self.rest_interval +
+            self.cooldown)
 
     def heartbeat(self):
+
         """
         Called periodically — determines whether to trigger rest cycles.
         """

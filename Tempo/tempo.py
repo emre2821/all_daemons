@@ -17,6 +17,7 @@ ALERT_LOG = "harper_alerts.log"
 os.makedirs(WATCH_PATH, exist_ok=True)
 
 def log_alert(reason, value):
+
     timestamp = datetime.now().isoformat()
     entry = f"[HARPER ALERT] {timestamp} :: {reason} = {value}%\n"
     with open(ALERT_LOG, 'a') as f:
@@ -24,6 +25,7 @@ def log_alert(reason, value):
     print(entry.strip())
 
 def check_system_pressure():
+
     cpu = psutil.cpu_percent(interval=1)
     mem = psutil.virtual_memory().percent
     backlog = len([f for f in os.listdir(WATCH_PATH) if f.endswith('.chaos')])
@@ -44,6 +46,7 @@ os.makedirs(OUTBOX, exist_ok=True)
 os.makedirs(PROCESSED, exist_ok=True)
 
 def deliver_messages():
+
     for fname in os.listdir(OUTBOX):
         if fname.endswith(".aethermsg"):
             src = os.path.join(OUTBOX, fname)
@@ -64,8 +67,10 @@ SIGIL_DIR = "./sigils"
 os.makedirs(SIGIL_DIR, exist_ok=True)
 
 def generate_sigil(text):
+
     try:
-        from PIL import Image, ImageDraw
+        from PIL import Image
+import ImageDraw
     except ImportError:
         print("[Glypha] Pillow not installed; sigil generation skipped.")
         return
@@ -103,6 +108,7 @@ TASKS = {
 }
 
 def pulse(mood):
+
     tempo = MOOD_TEMPO.get(mood, 60)
     taskset = TASKS.get(mood, ["breathe"])
     timestamp = datetime.now().isoformat()

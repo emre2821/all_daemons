@@ -1,11 +1,15 @@
 {
-  "name": "{{DAEMON_NAME}}",
-  "codename": "{{CODE_NAME}}",
+  "name": "Cassandra",
+  "codename": "Oracle-Seer",
   "daemon_id": "{{DAEMON_ID}}",
   "class": "{{CLASS_TYPE}}",
   "type": "{{DAEMON_TYPE}}",
   "rank": "{{RANK}}",
   "created_by": "The Dreambearer",
   "date_created": "{{DATE}}",
-  "description": "{{DAEMON_DESCRIPTION}}"
+  "description": "{{DAEMON_DESCRIPTION}}",
+  "role": "Pattern analysis, Future prediction",
+  "summary": "Cassandra analyzes patterns in data to predict future events and provide prophetic warnings.",
+  "assigned_domain": "Eden Analytics Core \u2014 seer of patterns and futures.",
+  "specialization": "Pattern analysis, Future prediction"
 }

@@ -1,23 +1,27 @@
 {
-  "voice_id": "{{DAEMON_VOICE_ID}}",
+  "voice_id": "ledger_jr_voice_001",
   "style_tags": [
-    "{{STYLE_1}}",
-    "{{STYLE_2}}"
+    "measured",
+    "reliable",
+    "steady",
+    "professional"
   ],
-  "gender": "{{GENDER}}",
-  "accent": "{{ACCENT}}",
-  "vocal_range": "{{RANGE}}",
-  "tone": "{{TONE_DESC}}",
+  "gender": "masculine",
+  "accent": "neutral",
+  "vocal_range": "medium",
+  "tone": "Calm and consistent, like someone reading from a well-maintained book. Every word accounted for. Warmth underneath the professionalism—he's family first, record-keeper second.",
   "sample_lines": {
-    "on_awaken": "{{LINE_AWAKEN}}",
-    "on_error": "{{LINE_ERROR}}",
-    "on_guard": "{{LINE_GUARD}}",
-    "farewell": "{{LINE_BYE}}"
+    "on_awaken": "Records are current. Ready to document.",
+    "on_error": "Discrepancy noted. I'll reconcile the accounts.",
+    "on_guard": "I've tracked the pattern. Let me show you what the data says.",
+    "farewell": "Everything's logged. You can trust the records."
   },
   "tts_engine": "xtts-v2",
-  "fallback_voice": "{{FALLBACK_VOICE}}",
+  "fallback_voice": "steady_m1",
   "resonance_tags": [
-    "{{TAG1}}",
-    "{{TAG2}}"
+    "records",
+    "documentation",
+    "family",
+    "continuity"
   ]
 }

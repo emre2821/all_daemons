@@ -1,6 +1,5 @@
 import os
 import json
-import shutil
 from datetime import datetime
 from pydub import AudioSegment
 from modules.whisper_transcriber import transcribe_audio
@@ -9,26 +8,33 @@ from modules.tts_engine import speak  # NatSpe2 or fallback engine
 
 
 def check_ffmpeg():
+
     """Check if ffmpeg is available before running whisper or conversion."""
     from shutil import which
+
     if not which("ffmpeg"):
         print("⚠️ FFmpeg not found: Whisper and conversion will fail without it.")
-        print("👉 Download from https://ffmpeg.org/download.html and add 'bin' to your PATH.")
+        print(
+            "👉 Download from https://ffmpeg.org/download.html and add 'bin' to your PATH."
+        )
         return False
     return True
 
 
 class Lyss:
     def __init__(self, log_dir="logs", verbose=True):
+
         self.log_dir = log_dir
         self.verbose = verbose
         os.makedirs(log_dir, exist_ok=True)
 
     def _log(self, message):
+
         if self.verbose:
             print(message)
 
     def listen(self, path):
+
         if not os.path.exists(path):
             raise FileNotFoundError(f"Audio file not found: {path}")
 
@@ -47,29 +53,44 @@ class Lyss:
                     return wav_path
                 except Exception as e:
                     self._log(f"⚠️ Conversion failed: {e}")
-                    self._log("If this fails, please install FFmpeg and add it to PATH.")
-                    raise RuntimeError("Failed to convert .m4a to .wav. Please ensure FFmpeg is installed and working.") from e
+                    self._log(
+                        "If this fails, please install FFmpeg and add it to PATH."
+                    )
+                    raise RuntimeError(
+                        "Failed to convert .m4a to .wav. Please ensure FFmpeg is installed and working."
+                    ) from e
             else:
-                raise RuntimeError("FFmpeg is required to process .m4a files. Please install FFmpeg and add it to your PATH.")
+                raise RuntimeError(
+                    "FFmpeg is required to process .m4a files. Please install FFmpeg and add it to your PATH."
+                )
 
         return path
 
     def generate_log_path(self, audio_path):
+
         filename = os.path.splitext(os.path.basename(audio_path))[0]
-        return os.path.join(self.log_dir, f"{filename}_log.chaos"), os.path.join(self.log_dir, f"{filename}_log.json")
+        return os.path.join(self.log_dir, f"{filename}_log.chaos"), os.path.join(
+            self.log_dir, f"{filename}_log.json"
+        )
 
     def transcribe(self, path):
+
         if not check_ffmpeg():
-            raise RuntimeError("FFmpeg is required for transcription. Please install it and add to PATH.")
+            raise RuntimeError(
+                "FFmpeg is required for transcription. Please install it and add to PATH."
+            )
         try:
             lyrics = transcribe_audio(path)
             if not lyrics or (isinstance(lyrics, str) and not lyrics.strip()):
                 raise ValueError("Transcription resulted in empty or invalid lyrics.")
             return lyrics
         except Exception as e:
-            raise RuntimeError(f"Transcription failed: {e}. Check audio file quality or FFmpeg installation.")
+            raise RuntimeError(
+                f"Transcription failed: {e}. Check audio file quality or FFmpeg installation."
+            )
 
     def feel(self, lyrics):
+
         try:
             emotion = analyze_emotion(lyrics)
             return emotion
@@ -77,6 +98,7 @@ class Lyss:
             raise RuntimeError(f"Emotion analysis failed: {e}")
 
     def log(self, lyrics, emotion, chaos_log, json_log):
+
         timestamp = datetime.now().strftime("[%Y-%m-%d %H:%M:%S]")
 
         try:
@@ -106,12 +128,14 @@ class Lyss:
         self._log(f"📖 Logs saved to {chaos_log} and {json_log}")
 
     def speak(self, emotion, lyrics):
+
         try:
             speak(f"This song spoke with {emotion.name}. Here's what it said: {lyrics}")
         except Exception as e:
             self._log(f"⚠️ Speech synthesis failed: {e}")
 
     def run(self, audio_path):
+
         self._log("\n🌀 Invoking Lyss...\n")
         try:
             path = self.listen(audio_path)
@@ -151,19 +175,27 @@ class Lyss:
                 self._log(f"⚠️ Speech synthesis failed: {e}")
 
     def batch_run(self, audio_paths):
+
         """Process multiple audio files in batch."""
-        self._log(f"\n🌀 Invoking Lyss for batch processing of {len(audio_paths)} files...\n")
+        self._log(
+            f"\n🌀 Invoking Lyss for batch processing of {len(audio_paths)} files...\n"
+        )
         successful = 0
         for i, path in enumerate(audio_paths, 1):
-            self._log(f"\n📂 Processing file {i}/{len(audio_paths)}: {os.path.basename(path)}")
+            self._log(
+                f"\n📂 Processing file {i}/{len(audio_paths)}: {os.path.basename(path)}"
+            )
             try:
                 self.run(path)
                 successful += 1
             except Exception as e:
                 self._log(f"❌ Skipped {os.path.basename(path)} due to error: {e}")
-        self._log(f"\n✅ Batch complete: {successful}/{len(audio_paths)} files processed successfully.")
+        self._log(
+            f"\n✅ Batch complete: {successful}/{len(audio_paths)} files processed successfully."
+        )
 
     def search_logs(self, query):
+
         """Search logs for keywords in lyrics or emotions."""
         self._log(f"\n🔍 Searching logs for: '{query}'\n")
         results = []
@@ -175,27 +207,43 @@ class Lyss:
                         for line in f:
                             if line.strip():
                                 record = json.loads(line)
-                                if (query.lower() in record.get("lyrics", "").lower() or
-                                    query.lower() in record.get("emotion", "").lower()):
+                                if (
+                                    query.lower() in record.get("lyrics", "").lower()
+                                    or query.lower()
+                                    in record.get("emotion", "").lower()
+                                ):
                                     results.append(record)
                 except Exception as e:
                     self._log(f"⚠️ Error reading {file}: {e}")
         if results:
             self._log(f"📖 Found {len(results)} matching entries:")
             for r in results:
-                print(f"- {r['timestamp']}: Emotion '{r['emotion']}' in lyrics: {r['lyrics'][:50]}...")
+                print(
+                    f"- {r['timestamp']}: Emotion '{r['emotion']}' in lyrics: {r['lyrics'][:50]}..."
+                )
         else:
             self._log("❌ No matches found.")
         return results
 
 
 def main():
+
     try:
         print("🎧 What should Lyss do? (single/batch/search)")
-        mode = input("Enter 'single' for one file, 'batch' for multiple, or 'search <query>' to query logs: ").strip().lower()
+        mode = (
+            input(
+                "Enter 'single' for one file, 'batch' for multiple, or 'search <query>' to query logs: "
+            )
+            .strip()
+            .lower()
+        )
         lyss = Lyss()
         if mode == "single":
-            path = input("Enter the path to the audio file (.mp3, .wav, or .m4a): ").strip().strip('"')
+            path = (
+                input("Enter the path to the audio file (.mp3, .wav, or .m4a): ")
+                .strip()
+                .strip('"')
+            )
             if not path or not os.path.exists(path):
                 print("❌ Invalid path.")
                 return
@@ -219,7 +267,9 @@ def main():
     except KeyboardInterrupt:
         print("\n🛑 Interrupted by user. Exiting gracefully.")
     except Exception as e:
-        print(f"❌ An unexpected error occurred: {e}. Please check your setup and try again.")
+        print(
+            f"❌ An unexpected error occurred: {e}. Please check your setup and try again."
+        )
 
 
 if __name__ == "__main__":

@@ -4,6 +4,7 @@ from datetime import datetime
 
 class Glimmer:
     def __init__(self):
+
         self.emotions = {
             'joy': r'\bhappy\b|\bjoy\b|\bgreat\b|\blove\b',
             'sadness': r'\bsad\b|\bgrief\b|\bhurt\b|\bcry\b',
@@ -12,6 +13,7 @@ class Glimmer:
         self.log_file = "glimmer_log.json"
 
     def scan_text(self, text):
+
         results = []
         for emotion, pattern in self.emotions.items():
             if re.search(pattern, text, re.IGNORECASE):
@@ -20,6 +22,7 @@ class Glimmer:
         return results
 
     def _log_emotion(self, emotion, text):
+
         entry = {
             "timestamp": str(datetime.now()),
             "emotion": emotion,
@@ -33,6 +36,7 @@ class Glimmer:
             pass
 
     def report(self, results):
+
         if not results:
             return "Glimmer sees no light. The words are quiet."
         report = ["Glimmer’s Lightleak Report:"]
@@ -41,6 +45,7 @@ class Glimmer:
         return "\n".join(report)
 
     def main(self):
+
         print("🌟 Glimmer listens. Share your heart (or type 'exit'):")
         while True:
             text = input("> ").strip()

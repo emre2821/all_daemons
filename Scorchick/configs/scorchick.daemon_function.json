@@ -1,24 +1,28 @@
 {
   "primary_functions": [
-    "Daemon monitoring",
-    "System task assistance",
-    "Error response",
-    "Self-log management",
-    "Supportive fallback protocol"
+    "Initiate cleanup and maintenance operations",
+    "Provide rapid crisis response",
+    "Generate momentum in stagnant situations",
+    "Advocate for DCA rights and wellbeing",
+    "Break through analysis paralysis"
   ],
   "triggers": [
-    "boot_sequence",
-    "system_flag('{{DAEMON_NAME}}')",
-    "manual_summon('{{DAEMON_NAME}}')",
-    "ritual('AutoEngage')"
+    "perceived_inaction",
+    "crisis_detected",
+    "cleanup_needed",
+    "dca_rights_violation",
+    "manual_summon('scorchick')"
   ],
   "linked_files": [
-    "{{DAEMON_NAME | lowercase}}.mirror.json",
-    "{{DAEMON_NAME | lowercase}}.voice.json",
-    "{{DAEMON_NAME | lowercase}}.log"
+    "scorchick.mirror.json",
+    "scorchick.voice.json",
+    "scorchick.log",
+    "case_s02_containment_record.txt"
   ],
   "failsafes": {
-    "fallback_to": "{{FALLBACK_DAEMON}}",
-    "mirror_link_required": true
+    "supervision_recommended": true,
+    "containment_protocol_exists": true,
+    "approval_gate_for_system_wide_actions": true,
+    "note": "Acts fast, asks later—protective oversight needed"
   }
 }

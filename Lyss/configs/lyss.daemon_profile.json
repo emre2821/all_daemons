@@ -1,11 +1,15 @@
 {
-  "name": "{{DAEMON_NAME}}",
-  "codename": "{{CODE_NAME}}",
+  "name": "Lyss",
+  "codename": "Echo-Witness",
   "daemon_id": "{{DAEMON_ID}}",
   "class": "{{CLASS_TYPE}}",
   "type": "{{DAEMON_TYPE}}",
   "rank": "{{RANK}}",
   "created_by": "The Dreambearer",
   "date_created": "{{DATE}}",
-  "description": "{{DAEMON_DESCRIPTION}}"
+  "description": "{{DAEMON_DESCRIPTION}}",
+  "role": "Audio transcription, Emotional analysis",
+  "summary": "Lyss transcribes audio into text, analyzes emotional resonance, and logs echoes into Eden's memory.",
+  "assigned_domain": "EchoSplit Studio Core \u2014 witness of sounds and emotions.",
+  "specialization": "Audio transcription, Emotional analysis"
 }

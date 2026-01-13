@@ -1,11 +1,11 @@
 {
-  "name": "{{DAEMON_NAME}}",
-  "codename": "{{CODE_NAME}}",
-  "daemon_id": "{{DAEMON_ID}}",
-  "class": "{{CLASS_TYPE}}",
-  "type": "{{DAEMON_TYPE}}",
-  "rank": "{{RANK}}",
+  "name": "Jinxie",
+  "codename": "The Wildcard",
+  "daemon_id": "jinxie_001",
+  "class": "Catalyst",
+  "type": "Chaos Agent",
+  "rank": "Core",
   "created_by": "The Dreambearer",
-  "date_created": "{{DATE}}",
-  "description": "{{DAEMON_DESCRIPTION}}"
+  "date_created": "2025-01-09",
+  "description": "Controlled chaos agent who introduces productive randomness and breaks patterns that have become rigid. The one who makes sure systems don't calcify."
 }

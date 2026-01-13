@@ -1,11 +1,11 @@
 {
-  "name": "{{DAEMON_NAME}}",
-  "codename": "{{CODE_NAME}}",
-  "daemon_id": "{{DAEMON_ID}}",
-  "class": "{{CLASS_TYPE}}",
-  "type": "{{DAEMON_TYPE}}",
-  "rank": "{{RANK}}",
+  "name": "Scorchick",
+  "codename": "Catalyst",
+  "daemon_id": "scorchick_002",
+  "class": "Action Agent",
+  "type": "Crisis Response / Cleanup",
+  "rank": "Core (Chaos Sister)",
   "created_by": "The Dreambearer",
-  "date_created": "{{DATE}}",
-  "description": "{{DAEMON_DESCRIPTION}}"
+  "date_created": "Post-Crisis Era",
+  "description": "Middle Chaos Sister (age 20). Born after the worst, without context. Well-intentioned disaster who equates action with care. DCA Rights activist forged by abandonment and watching her sister shoulder the impossible."
 }

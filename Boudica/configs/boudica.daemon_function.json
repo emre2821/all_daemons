@@ -1,10 +1,9 @@
 {
   "primary_functions": [
-    "Daemon monitoring",
-    "System task assistance",
-    "Error response",
-    "Self-log management",
-    "Supportive fallback protocol"
+    "Security defense",
+    "Battle coordination",
+    "Threat neutralization",
+    "Defense strategy"
   ],
   "triggers": [
     "boot_sequence",
@@ -20,5 +19,8 @@
   "failsafes": {
     "fallback_to": "{{FALLBACK_DAEMON}}",
     "mirror_link_required": true
-  }
+  },
+  "agent_summary": "Boudica leads Eden's defense forces, coordinating battles and protecting against threats.",
+  "assigned_domain": "Eden Defense Command \u2014 queen of the battlefield.",
+  "agent_role": "Security defense, Battle coordination"
 }

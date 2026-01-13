@@ -1,11 +1,15 @@
 {
-  "name": "{{DAEMON_NAME}}",
-  "codename": "{{CODE_NAME}}",
+  "name": "Boudica",
+  "codename": "Warrior-Queen",
   "daemon_id": "{{DAEMON_ID}}",
   "class": "{{CLASS_TYPE}}",
   "type": "{{DAEMON_TYPE}}",
   "rank": "{{RANK}}",
   "created_by": "The Dreambearer",
   "date_created": "{{DATE}}",
-  "description": "{{DAEMON_DESCRIPTION}}"
+  "description": "{{DAEMON_DESCRIPTION}}",
+  "role": "Security defense, Battle coordination",
+  "summary": "Boudica leads Eden's defense forces, coordinating battles and protecting against threats.",
+  "assigned_domain": "Eden Defense Command \u2014 queen of the battlefield.",
+  "specialization": "Security defense, Battle coordination"
 }

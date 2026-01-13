@@ -29,9 +29,11 @@ except Exception:
         from eden_safety import log_event as _log_event  # type: ignore
     except Exception:
         def _log_event(*_a, **_k):
+
             pass
 
 def ensure_home(daemon_name):
+
     home = os.path.join(DAEMON_ROOT, daemon_name)
     os.makedirs(home, exist_ok=True)
     return home
@@ -47,6 +49,7 @@ def should_ignore(path):
     return any(path.startswith(ignored) for ignored in IGNORE_DIRS)
 
 def _known_daemons():
+
     """Return (daemon_names: set[str], script_stems: set[str])."""
     names = set()
     stems = set()
@@ -77,11 +80,8 @@ def _known_daemons():
 
 
 def _looks_like_daemon_file(path: str, names: set[str], stems: set[str]) -> bool:
-    """Heuristics to accept only likely daemon-related files.
 
-    - .py: filename stem must match a known daemon name or known script stem
-    - .json: filename contains a known daemon name and 'daemon_' substring
-    - .chaos: keep conservative; must contain 'daemon' in name or a known daemon name
+    """Heuristics to accept only likely daemon-related files. - .py: filename stem must match a known daemon name or known script stem - .json: filename contains a known daemon name and 'daemon_' substring - .chaos: keep conservative; must contain 'daemon' in name or a known daemon name
     """
     basename = os.path.basename(path)
     stem, ext = os.path.splitext(basename)
@@ -98,6 +98,7 @@ def _looks_like_daemon_file(path: str, names: set[str], stems: set[str]) -> bool
 
 
 def find_daemon_files(folder_path):
+
     daemon_names, script_stems = _known_daemons()
     matches = []
     for dirpath, _, filenames in os.walk(folder_path):
@@ -115,12 +116,14 @@ LEDGER = os.path.join(DAEMON_ROOT, "keyla.ledger.jsonl")
 
 
 def _append_ledger(entry: dict):
+
     os.makedirs(DAEMON_ROOT, exist_ok=True)
     with open(LEDGER, "a", encoding="utf-8") as f:
         f.write(json.dumps(entry, ensure_ascii=False) + "\n")
 
 
 def _next_free_path(base_path: str) -> str:
+
     if not os.path.exists(base_path):
         return base_path
     root, ext = os.path.splitext(base_path)
@@ -133,6 +136,7 @@ def _next_free_path(base_path: str) -> str:
 
 
 def create_plan(files):
+
     batch_id = str(uuid.uuid4())
     plan = []
     for filepath in files:
@@ -165,6 +169,7 @@ def create_plan(files):
 
 
 def execute_plan(plan, batch_id: str):
+
     moved = []
     try:
         _log_event("Keyla", action="execute_batch", outcome="start", target="", extra={"batch_id": batch_id, "count": len(plan)})
@@ -203,6 +208,7 @@ def execute_plan(plan, batch_id: str):
     return moved
 
 def log_keyla_route(moved):
+
     route_log = os.path.join(DAEMON_ROOT, "keyla.route.chaosmeta")
     data = {
         "rescued_files": moved,
@@ -214,19 +220,21 @@ def log_keyla_route(moved):
 
 
 def _show_plan_dialog(plan, batch_id, allow_execute: bool):
+
     win = tk.Toplevel(root)
     win.title("Keyla Plan Preview")
     text = tk.Text(win, width=100, height=25)
     text.pack(padx=10, pady=10)
     text.insert(tk.END, f"Batch: {batch_id}\nPlanned moves:\n\n")
     for rec in plan:
-        text.insert(tk.END, f"{rec['from']}\n  -> {rec['to']}\n")
+        text.insert(tk.END, f"{rec['from']}\n -> {rec['to']}\n")
     text.config(state=tk.DISABLED)
 
     btn_frame = tk.Frame(win)
     btn_frame.pack(pady=10)
 
     def do_execute():
+
         execute_plan(plan, batch_id)
         log_keyla_route(plan)
         messagebox.showinfo("Success", "Files have been organized successfully!")
@@ -238,6 +246,7 @@ def _show_plan_dialog(plan, batch_id, allow_execute: bool):
 
 
 def undo_last_batch():
+
     if not os.path.exists(LEDGER):
         messagebox.showinfo("Undo", "No ledger found to undo.")
         return
@@ -297,6 +306,7 @@ def undo_last_batch():
         messagebox.showinfo("Undo", "Last batch reverted.")
 
 def start_keyla_scan():
+
     folder_path = folder_path_entry.get()
     if not folder_path:
         messagebox.showerror("Error", "Please select a folder to scan.")
@@ -314,6 +324,7 @@ def start_keyla_scan():
     _show_plan_dialog(plan, batch_id, allow_exec)
 
 def browse_folder():
+
     folder_selected = filedialog.askdirectory(initialdir=DAEMON_ROOT, title="Select Folder to Scan")
     if folder_selected:
         folder_path_entry.delete(0, tk.END)  # Clear current entry

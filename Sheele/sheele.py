@@ -3,13 +3,19 @@ import os
 from collections import defaultdict
 from datetime import datetime
 from difflib import SequenceMatcher
+from pathlib import Path
 
-DEFAULT_RAW = r"C:\EdenOS_Origin\all_daemons\Rhea\inputs\conversations.json"
+# Get paths relative to script location
+SCRIPT_DIR = Path(__file__).parent
+BASE_DIR = SCRIPT_DIR.parent
+RHEA_DIR = BASE_DIR / "Rhea"
+DEFAULT_RAW = str(RHEA_DIR / "inputs" / "conversations.json")
 RAW_FILE = os.environ.get("SHEELE_RAW_FILE", DEFAULT_RAW)
-OUTPUT_DIR = r"C:\EdenOS_Origin\all_daemons\Rhea\outputs\Sheele\split_conversations"
+OUTPUT_DIR = str(RHEA_DIR / "outputs" / "Sheele" / "split_conversations")
 FRACTURE_LOG = os.path.join(OUTPUT_DIR, "sheele_fracture_log.json")
 
 def similar(a, b):
+
     return SequenceMatcher(None, a, b).ratio()
 
 def group_by_conversation(data):
@@ -21,20 +27,15 @@ def group_by_conversation(data):
         if not conv_id:
             fractures.append(entry)
             continue
-        threads[conv_id].append(entry)
 
-    merged_threads = {}
-    for conv_id, entries in threads.items():
-        all_messages = []
-        for e in entries:
-            msgs = e.get("messages") or e.get("conversations") or []
-            all_messages.extend(msgs)
-        unique_msgs = {json.dumps(m, sort_keys=True): m for m in all_messages}
-        merged_threads[conv_id] = list(unique_msgs.values())
+        # For now, just store the conversation entry itself
+        # The actual message extraction can be improved later
+        threads[conv_id] = [entry]  # Store the whole entry as a single "message"
 
-    return merged_threads, fractures
+    return threads, fractures
 
 def extract_title(messages):
+
     for m in messages:
         if 'metadata' in m and 'title' in m['metadata']:
             return m['metadata']['title']
@@ -47,6 +48,7 @@ def extract_title(messages):
     return None
 
 def try_assign_fractures(fractures, conversations):
+
     assigned = []
     unassigned = []
     for f in fractures:
@@ -67,6 +69,7 @@ def try_assign_fractures(fractures, conversations):
     return conversations, unassigned
 
 def save_conversations(conversations):
+
     os.makedirs(OUTPUT_DIR, exist_ok=True)
     for cid, messages in conversations.items():
         date_str = datetime.now().strftime("%Y-%m-%d")
@@ -82,6 +85,18 @@ def save_conversations(conversations):
             }, f, indent=2)
 
 def main():
+    import sys
+
+    # Get limit from command line args or environment
+    limit = None
+    if len(sys.argv) > 1:
+        try:
+            limit = int(sys.argv[1])
+        except ValueError:
+            pass
+    if limit is None:
+        limit = int(os.environ.get("SHEELE_LIMIT", "0"))
+
     os.makedirs(os.path.dirname(RAW_FILE), exist_ok=True)
     if not os.path.exists(RAW_FILE):
         print(f"? Sheele: RAW_FILE not found at {RAW_FILE}. Set SHEELE_RAW_FILE or place conversations.json.")
@@ -91,11 +106,19 @@ def main():
 
     grouped, fractures = group_by_conversation(data)
     grouped, lost = try_assign_fractures(fractures, grouped)
-    save_conversations(grouped)
+
+    # Apply limit if specified
+    if limit > 0:
+        limited_grouped = dict(list(grouped.items())[:limit])
+        print(f"[Sheele] Limiting to {limit} conversations (was {len(grouped)})")
+        save_conversations(limited_grouped)
+        print(f"Sheele saved {limit} threads with {len(lost)} unassigned fragments.")
+    else:
+        save_conversations(grouped)
+        print(f"Sheele saved {len(grouped)} threads with {len(lost)} unassigned fragments.")
 
     with open(FRACTURE_LOG, 'w', encoding='utf-8') as f:
         json.dump(lost, f, indent=2)
-    print(f"✅ Sheele saved {len(grouped)} threads with {len(lost)} unassigned fragments.")
 
 if __name__ == "__main__":
     main()

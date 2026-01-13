@@ -3,10 +3,12 @@ from datetime import datetime
 
 class Toto:
     def __init__(self):
+
         self.log_file = "toto_log.json"
         self.milestones = []
 
     def add_milestone(self, event):
+
         entry = {
             "timestamp": str(datetime.now()),
             "event": event
@@ -15,6 +17,7 @@ class Toto:
         self._log_milestone(entry)
 
     def _log_milestone(self, entry):
+
         try:
             with open(self.log_file, 'a') as f:
                 json.dump(entry, f)
@@ -23,6 +26,7 @@ class Toto:
             pass
 
     def list_milestones(self):
+
         if not self.milestones:
             return "Toto guards no cairns yet. Mark a moment."
         report = ["Toto’s Cairns:"]
@@ -31,6 +35,7 @@ class Toto:
         return "\n".join(report)
 
     def main(self):
+
         print("🐾 Toto waits. Mark milestones (type 'list' to see, 'exit' to quit):")
         while True:
             event = input("> ").strip()

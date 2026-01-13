@@ -28,10 +28,12 @@ QUARANTINE_DIR = os.path.join(FINDINGS_DIR, "alfie_quarantined_duplicates")
 
 # --- Helper Functions ---
 def is_eden_file(file):
+
     """Checks if a file has one of the target extensions."""
     return any(file.endswith(ext) for ext in TARGET_EXTENSIONS)
 
 def file_hash(path):
+
     """Calculates the MD5 hash of a file."""
     try:
         with open(path, "rb") as f:
@@ -41,11 +43,13 @@ def file_hash(path):
         return None
 
 def ensure_log_dir():
+
     """Ensures the directory for storing findings and quarantine exists."""
     os.makedirs(FINDINGS_DIR, exist_ok=True)
     os.makedirs(QUARANTINE_DIR, exist_ok=True)
 
 def scan_system():
+
     """
     Scans the folders listed in TARGET_DIRS for files with specified extensions,
     ignoring any __pycache__ directories.
@@ -76,6 +80,7 @@ def scan_system():
     return found
 
 def generate_tree_output(node, prefix=""):
+
     """
     Recursively generates a string representation of the file tree using
     ├──, └──, and │ characters.
@@ -100,6 +105,7 @@ def generate_tree_output(node, prefix=""):
 
 # --- NEW: Scan Summary Function ---
 def generate_scan_summary(findings):
+
     """
     Generates a summary report of the scan findings.
     Returns a formatted string.
@@ -137,6 +143,7 @@ def generate_scan_summary(findings):
     return "\n".join(summary_lines)
 
 def write_log(entries, event_type="Scan", summary_report=""):
+
     """
     Builds a tree from the findings and writes it to the log file.
     Added event_type and summary_report parameters.
@@ -174,12 +181,14 @@ class AlfieEventHandler(FileSystemEventHandler):
     _known_hashes = set() 
 
     def __init__(self, initial_findings_hashes):
+
         super().__init__()
         for _, h, _ in initial_findings_hashes:
             if h:
                 self._known_hashes.add(h)
 
     def _process_file_event(self, src_path, event_name):
+
         if not os.path.exists(src_path) or os.path.isdir(src_path):
             return 
 
@@ -201,12 +210,15 @@ class AlfieEventHandler(FileSystemEventHandler):
                     quarantine_file(src_path, h)
 
     def on_created(self, event):
+
         self._process_file_event(event.src_path, "Created")
 
     def on_modified(self, event):
+
         self._process_file_event(event.src_path, "Modified")
 
     def on_deleted(self, event):
+
         if not event.is_directory and is_eden_file(event.src_path):
             print(f"[Alfie] Detected DELETED file: {event.src_path}")
             # For deleted files, we don't hash, just log the event.
@@ -219,6 +231,7 @@ class AlfieEventHandler(FileSystemEventHandler):
 
 # --- Duplicate Management Function ---
 def quarantine_file(file_path, file_hashing, event_type="Quarantined Duplicate"):
+
     """Moves a given file to the quarantine directory."""
     ensure_log_dir() 
     
@@ -247,6 +260,7 @@ def quarantine_file(file_path, file_hashing, event_type="Quarantined Duplicate")
 
 # --- Main Function ---
 def main():
+
     """Main function to run the scanner and start the real-time observer."""
     ensure_log_dir()
 

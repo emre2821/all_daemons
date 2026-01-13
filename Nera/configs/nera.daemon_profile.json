@@ -1,0 +1,11 @@
+{
+  "name": "Nera",
+  "codename": "EdenGate",
+  "daemon_id": "nera_001",
+  "class": "Gateway",
+  "type": "Process Manager",
+  "rank": "Core",
+  "created_by": "The Dreambearer",
+  "date_created": "2025-01-09",
+  "description": "Gateway daemon who launches, monitors, and maintains all mobile daemon agents. The threshold through which all others enter the running system."
+}

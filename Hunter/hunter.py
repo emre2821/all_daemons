@@ -1,7 +1,6 @@
 # hunter.exe.py
 
 import os
-import re
 import json
 import traceback
 from datetime import datetime
@@ -51,10 +50,12 @@ class HunterDaemon:
     ]
 
     def __init__(self, target_paths=None):
+
         self.target_paths = target_paths or []
         self.error_log = []
 
     def hunt_bugs(self):
+
         print(f"[{self.class_name}] Initiating bug scan...")
         for path in self.target_paths:
             for root, dirs, files in os.walk(path):
@@ -66,6 +67,7 @@ class HunterDaemon:
         self.log_results()
 
     def scan_file(self, filepath):
+
         print(f"[{self.class_name}] Scanning: {filepath}")
         try:
             with open(filepath, "r", encoding="utf-8") as f:
@@ -97,6 +99,7 @@ class HunterDaemon:
         return issues
 
     def log_results(self):
+
         timestamp = datetime.utcnow().isoformat()
         log_data = {
             "timestamp": timestamp,
@@ -111,6 +114,7 @@ class HunterDaemon:
         print(f"[{self.class_name}] Scan complete. Logged {len(self.error_log)} items to hunter.log")
 
     def fallback(self):
+
         print(f"[{self.class_name}] No mirror link or scan path found. Engaging fallback daemon: {self.fallback_daemon}.")
 
 

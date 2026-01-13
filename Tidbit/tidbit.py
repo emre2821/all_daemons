@@ -3,9 +3,18 @@
 # Purpose: Watch folders, hash new/changed files, and move duplicates to a dump folder.
 #          Keeps a SQLite index so it survives restarts and doesn’t rehash forever.
 
-import os, sys, time, hashlib, sqlite3, shutil, logging, threading, signal
+import os
+import sys
+import time
+import hashlib
+import sqlite3
+import shutil
+import logging
+import threading
+import signal
 from pathlib import Path
-from queue import Queue, Empty
+from queue import Queue
+import Empty
 
 # ========= USER SETTINGS =========
 WATCH_FOLDERS = [
@@ -13,7 +22,7 @@ WATCH_FOLDERS = [
     r"C:\Path\To\Folder2",
 ]
 DUMP_FOLDER = r"C:\Path\To\waste_of_my_goddamned_time_and_space"
-LOG_FILE    = r"C:\Path\To\dedupe_watchdog.log"
+LOG_FILE = r"C:\Path\To\dedupe_watchdog.log"
 
 # File types to ignore (extensions lowercased, incl. the dot)
 IGNORE_EXTS = {".tmp", ".part", ".crdownload", ".bak", ".lnk"}
@@ -76,14 +85,17 @@ conn.commit()
 
 # -------- Helpers --------
 def norm(p: str) -> str:
+
     """Normalize path for stable comparisons on Windows."""
     return os.path.normcase(os.path.abspath(p))
 
 def is_ignored_dir(path: str) -> bool:
+
     parts = [seg.lower() for seg in Path(path).parts]
     return any(seg in IGNORE_DIR_NAMES for seg in parts)
 
 def wait_until_readable(path: str, tries=5, delay=0.6) -> bool:
+
     """Retry opening a file briefly to avoid hashing partial writes/locks."""
     for _ in range(tries):
         try:
@@ -94,6 +106,7 @@ def wait_until_readable(path: str, tries=5, delay=0.6) -> bool:
     return False
 
 def sha256_file(path: str, block=1024*1024) -> str:
+
     """Full SHA-256 hash of a file."""
     h = hashlib.sha256()
     with open(path, "rb") as f:
@@ -102,6 +115,7 @@ def sha256_file(path: str, block=1024*1024) -> str:
     return h.hexdigest()
 
 def quick_fingerprint(path: str, head_bytes=1024*1024):
+
     """Return (size, head_sha256) for quick pre-check to avoid full hashing repeats."""
     size = os.path.getsize(path)
     h = hashlib.sha256()
@@ -110,6 +124,7 @@ def quick_fingerprint(path: str, head_bytes=1024*1024):
     return (size, h.hexdigest())
 
 def get_or_compute_full_hash(path: str) -> str:
+
     """Use quick_cache to avoid re-hashing identical files repeatedly."""
     size, head = quick_fingerprint(path)
     cur = conn.execute(
@@ -138,6 +153,7 @@ def get_or_compute_full_hash(path: str) -> str:
     return full
 
 def policy_for(path: str) -> str:
+
     ap = norm(path)
     for base, pol in FOLDER_POLICY.items():
         if ap.startswith(norm(base) + os.sep):
@@ -145,6 +161,7 @@ def policy_for(path: str) -> str:
     return "move"
 
 def move_duplicate(src_path: str, dump_dir: str, keeper: str):
+
     base = os.path.basename(src_path)
     target = os.path.join(dump_dir, base)
     root, ext = os.path.splitext(base)
@@ -164,6 +181,7 @@ pending = {}            # path -> last_event_time
 pending_lock = threading.Lock()
 
 def enqueue(path: str):
+
     try:
         if not os.path.isfile(path):
             return
@@ -179,6 +197,7 @@ def enqueue(path: str):
         return
 
 def debouncer():
+
     while True:
         now = time.time()
         to_process = []
@@ -197,17 +216,21 @@ from watchdog.events import FileSystemEventHandler
 
 class Handler(FileSystemEventHandler):
     def on_created(self, event):
+
         if not event.is_directory:
             enqueue(event.src_path)
     def on_modified(self, event):
+
         if not event.is_directory:
             enqueue(event.src_path)
     def on_moved(self, event):
+
         if not event.is_directory:
             # only need to hash the new destination
             enqueue(event.dest_path)
 
 def scanner_worker():
+
     while True:
         try:
             path = q.get(timeout=1)
@@ -270,6 +293,7 @@ def scanner_worker():
         q.task_done()
 
 def initial_walk():
+
     """Seed the DB and catch existing dupes on startup."""
     log.info("[STARTUP] Initial crawl…")
     for root_folder in WATCH_FOLDERS:
@@ -302,6 +326,7 @@ def main():
 
     # Handle Ctrl+C / SIGTERM gracefully
     def shutdown(signum=None, frame=None):
+
         log.info("[SHUTDOWN] Stopping observer and closing DB…")
         try:
             obs.stop()

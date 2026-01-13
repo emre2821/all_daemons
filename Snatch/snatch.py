@@ -1,5 +1,9 @@
 # C:\EdenOS_Origin\all_daemons\Snatch\snatch.py
-import os, shutil, time, traceback, argparse
+import os
+import shutil
+import time
+import traceback
+import argparse
 try:
     from Daemon_tools.scripts.eden_safety import log_event
 except Exception:
@@ -7,6 +11,7 @@ except Exception:
         from eden_safety import log_event
     except Exception:
         def log_event(*_a, **_k):
+
             pass
 
 # --- Eden path bootstrap ------------------------------------------------------
@@ -14,7 +19,7 @@ EDEN_ROOT = os.environ.get("EDEN_ROOT", r"C:\EdenOS_Origin")
 RHEA_BASE = os.path.join(EDEN_ROOT, "all_daemons", "Rhea")
 
 # Override with env vars if you want:
-SOURCE_DIR   = os.environ.get("EDEN_APP_WATCH",    os.path.join(RHEA_BASE, "_inbox", "apps"))
+SOURCE_DIR = os.environ.get("EDEN_APP_WATCH",    os.path.join(RHEA_BASE, "_inbox", "apps"))
 try:
     import sys as _sys
     _sys.path.append(os.path.join(EDEN_ROOT, "all_daemons", "Daemon_tools", "scripts"))
@@ -22,8 +27,8 @@ try:
     PRESERVE_DIR = os.environ.get("EDEN_APP_PRESERVE", str(_daemon_out_dir("Snatch")))
 except Exception:
     PRESERVE_DIR = os.environ.get("EDEN_APP_PRESERVE", os.path.join(RHEA_BASE, "_outbox", "Snatch"))
-LOGS_DIR     = os.path.join(RHEA_BASE, "_logs")
-TMP_DIR      = os.path.join(RHEA_BASE, "_tmp")
+LOGS_DIR = os.path.join(RHEA_BASE, "_logs")
+TMP_DIR = os.path.join(RHEA_BASE, "_tmp")
 
 for d in (SOURCE_DIR, PRESERVE_DIR, LOGS_DIR, TMP_DIR):
     try:
@@ -34,6 +39,7 @@ for d in (SOURCE_DIR, PRESERVE_DIR, LOGS_DIR, TMP_DIR):
 LOG_FILE = os.path.join(LOGS_DIR, "snatch_daemon.log")
 
 def log_line(msg: str):
+
     ts = time.strftime("%Y-%m-%d %H:%M:%S")
     line = f"{ts} {msg}"
     print(line)
@@ -54,6 +60,7 @@ SIGNATURE_DIRS = {"bin", "src", "lib", "venv", "node_modules", ".git", ".venv"}
 MIN_CONTENTS = 6
 
 def is_app_folder(folder_path: str) -> bool:
+
     try:
         contents = os.listdir(folder_path)
         if len(contents) < MIN_CONTENTS:
@@ -65,6 +72,7 @@ def is_app_folder(folder_path: str) -> bool:
         return False
 
 def folder_size(path: str) -> int:
+
     total = 0
     for root, dirs, files in os.walk(path):
         for name in files:
@@ -75,6 +83,7 @@ def folder_size(path: str) -> int:
     return total
 
 def is_stable(folder_path: str, dwell_seconds: float = 2.0) -> bool:
+
     """
     Consider a folder “stable” if its size and mtime don’t change across a short dwell window.
     Prevents grabbing a folder that’s still being written.
@@ -90,6 +99,7 @@ def is_stable(folder_path: str, dwell_seconds: float = 2.0) -> bool:
         return False
 
 def safe_move_folder(src: str, dst_root: str):
+
     """
     Move to PRESERVE_DIR via a temp staging name to avoid collisions.
     """
@@ -117,13 +127,14 @@ def safe_move_folder(src: str, dst_root: str):
     return candidate
 
 def _plan_or_move(path: str, dry_run: bool = True):
+
     name = os.path.basename(path.rstrip("\\/"))
     if dry_run:
         log_line(f"[Snatch] PLAN preserve: {name}")
         return None
     try:
         dest = safe_move_folder(path, PRESERVE_DIR)
-        log_line(f"[Snatch] Preserved app folder: {name}  ->  {dest}")
+        log_line(f"[Snatch] Preserved app folder: {name} ->  {dest}")
         return dest
     except Exception as e:
         log_line(f"[Snatch] Error preserving '{path}': {e}")
@@ -131,6 +142,7 @@ def _plan_or_move(path: str, dry_run: bool = True):
         return None
 
 def main_loop(dry_run: bool = True):
+
     log_line(f"[Snatch] Watching for app folders in: {SOURCE_DIR} (dry_run={dry_run})")
     while True:
         try:
@@ -172,6 +184,7 @@ def main_loop(dry_run: bool = True):
             time.sleep(5)
 
 def main(argv=None):
+
     ap = argparse.ArgumentParser(description="Snatch - App Preserver")
     ap.add_argument("--watch", action="store_true", help="Watch for app folders (default action)")
     ap.add_argument("--once", action="store_true", help="Process once and exit")
@@ -191,7 +204,7 @@ def main(argv=None):
                     else:
                         try:
                             dest = safe_move_folder(path, PRESERVE_DIR)
-                            log_line(f"[Snatch] Preserved app folder: {name}  ->  {dest}")
+                            log_line(f"[Snatch] Preserved app folder: {name} ->  {dest}")
                         except Exception as e:
                             log_line(f"[Snatch] Error preserving '{path}': {e}")
                             traceback.print_exc()
@@ -204,6 +217,7 @@ if __name__ == "__main__":
     main()
 
 def describe() -> dict:
+
     return {
         "name": "Snatch",
         "role": "App folder preserver",
@@ -215,6 +229,7 @@ def describe() -> dict:
 
 
 def healthcheck() -> dict:
+
     status = "ok"; notes = []
     for p in (SOURCE_DIR, PRESERVE_DIR, LOGS_DIR, TMP_DIR):
         try:

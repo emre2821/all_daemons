@@ -14,16 +14,20 @@ SAFE_KEYWORDS = [
 ]
 DRY_RUN = True
 try:
-    from Daemon_tools.scripts.eden_paths import logs_dir as _logs_dir, eden_root as _eden_root
+    from Daemon_tools.scripts.eden_paths import logs_dir as _logs_dir
+import eden_root as _eden_root
     from Daemon_tools.scripts.eden_paths import daemon_out_dir as _daemon_out_dir
 except Exception:
     def _eden_root():
+
         return os.environ.get("EDEN_ROOT", os.getcwd())
     def _logs_dir():
+
         p = os.path.join(_eden_root(), "all_daemons", "_logs")
         os.makedirs(p, exist_ok=True)
         return p
     def _daemon_out_dir(name: str):
+
         p = os.path.join(_eden_root(), "all_daemons", "Rhea", "_outbox", name)
         os.makedirs(p, exist_ok=True)
         return p
@@ -36,9 +40,11 @@ SANDBOX_MODE = False
 FAKE_PATHS = [f"C:/FakePath/File_{i}.txt" for i in range(1, 21)]
 
 def is_safe(entry):
+
     return any(keyword.lower() in entry.lower() for keyword in SAFE_KEYWORDS)
 
 def move_to_delete(path):
+
     try:
         if not os.path.exists(TO_DELETE_FOLDER):
             os.makedirs(TO_DELETE_FOLDER)
@@ -49,16 +55,19 @@ def move_to_delete(path):
         return False, f"Move failed: {e}"
 
 def log_action(entry, action, status):
+
     with open(LOG_PATH, "a", encoding="utf-8") as log:
         log.write(f"{datetime.now()} | {action}: {entry} | {status}\n")
 
 def print_burn_summary():
+
     print("\n===== BURN SUMMARY =====")
     print(f"Files moved: {FILES_MOVED}")
     print(f"Survivors: {SURVIVORS}")
     print("========================\n")
 
 def main_menu():
+
     print("\nScorchick Cleanup Utility")
     print("1. Run Safe Cleanup")
     print("2. Enable Sandbox Mode")
@@ -66,6 +75,7 @@ def main_menu():
     return input("Select an option: ").strip()
 
 def interactive_main():
+
     global SANDBOX_MODE, FILES_MOVED, SURVIVORS
     while True:
         choice = main_menu()
@@ -102,6 +112,7 @@ def interactive_main():
             print("Invalid option.")
 
 def run_noninteractive(list_file: str, dry_run: bool = True) -> int:
+
     global FILES_MOVED, SURVIVORS
     try:
         entries = [l.strip() for l in open(list_file, 'r', encoding='utf-8').read().splitlines() if l.strip()]
@@ -145,6 +156,7 @@ def run_noninteractive(list_file: str, dry_run: bool = True) -> int:
 
 
 def main(argv=None):
+
     parser = argparse.ArgumentParser(description="Scorchick - Risky file mover (To_Delete)")
     parser.add_argument("--list-file", default="eden_delete_list.txt", help="Path to file list")
     parser.add_argument("--dry-run", action="store_true", help="Plan only (default unless --confirm)")
@@ -159,6 +171,7 @@ if __name__ == "__main__":
     raise SystemExit(main())
 
 def describe() -> dict:
+
     return {
         "name": "Scorchick",
         "role": "Risky file mover (To_Delete)",
@@ -170,6 +183,7 @@ def describe() -> dict:
 
 
 def healthcheck() -> dict:
+
     status = "ok"; notes = []
     try:
         os.makedirs(TO_DELETE_FOLDER, exist_ok=True)

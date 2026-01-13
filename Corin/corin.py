@@ -1,5 +1,9 @@
 
-import json, time, logging, ast, threading
+import json
+import time
+import logging
+import ast
+import threading
 from pathlib import Path
 
 try:
@@ -13,12 +17,14 @@ except ImportError:
 # Config loader
 # --------------------------
 def load_config():
+
     cfg = Path(__file__).parent / "config.json"
     with open(cfg, "r", encoding="utf-8") as f:
         return json.load(f)
 
 class CorinSentinel:
     def __init__(self, config):
+
         self.config = config
         self.home_dir = Path(config["HOME_DIR"])
         self.dca_dir = Path(config["ALL_DCA_DIR"])
@@ -31,6 +37,7 @@ class CorinSentinel:
         self._debounce_timer = None
 
     def _ensure_paths(self):
+
         self.home_dir.mkdir(parents=True, exist_ok=True)
         self.dca_dir.mkdir(parents=True, exist_ok=True)
         self.aoe_dir.mkdir(parents=True, exist_ok=True)
@@ -41,6 +48,7 @@ class CorinSentinel:
             log_path.touch()
 
     def _setup_logging(self):
+
         logger = logging.getLogger("Corin")
         logger.setLevel(logging.INFO)
         fmt = logging.Formatter("%(asctime)s [%(levelname)s] - %(message)s")
@@ -56,6 +64,7 @@ class CorinSentinel:
         return logger
 
     def _validate_json_file(self, file_path: Path):
+
         try:
             with open(file_path, "r", encoding="utf-8") as f:
                 json.load(f)
@@ -66,6 +75,7 @@ class CorinSentinel:
             return False, f"READ_ERROR: {e}"
 
     def _validate_py_file(self, file_path: Path):
+
         try:
             with open(file_path, "r", encoding="utf-8") as f:
                 ast.parse(f.read())
@@ -76,6 +86,7 @@ class CorinSentinel:
             return False, f"READ_ERROR: {e}"
 
     def _check_entity_integrity(self, root_dir: Path, entity_type: str):
+
         issues = []
         patterns_groups = self.requirements.get(entity_type, [])
         if not root_dir.is_dir():
@@ -120,6 +131,7 @@ class CorinSentinel:
         return issues
 
     def run_deep_look(self):
+
         self.logger.info("--- Deep Look Integrity Scan ---")
         dca_issues = self._check_entity_integrity(self.dca_dir, "DCA")
         aoe_issues = self._check_entity_integrity(self.aoe_dir, "AoE")
@@ -141,6 +153,7 @@ class CorinSentinel:
 
     # ---- Monitoring modes ----
     def start_polling(self):
+
         interval = int(self.config.get("SCAN_INTERVAL_SECONDS", 300))
         self.logger.info(f"Polling mode: scan every {interval}s.")
         while True:
@@ -148,6 +161,7 @@ class CorinSentinel:
             time.sleep(interval)
 
     def _debounced_scan(self, delay=2.0):
+
         with self._debounce_lock:
             if self._debounce_timer and self._debounce_timer.is_alive():
                 self._debounce_timer.cancel()
@@ -156,6 +170,7 @@ class CorinSentinel:
             self._debounce_timer.start()
 
     def start_watching(self):
+
         if not WATCHDOG_AVAILABLE:
             self.logger.error("watchdog not installed. Falling back to polling.")
             return self.start_polling()
@@ -163,6 +178,7 @@ class CorinSentinel:
         self.logger.info("Watch mode: real-time file change monitoring.")
         class ChangeHandler(FileSystemEventHandler):
             def __init__(self, sentinel):
+
                 self.sentinel = sentinel
             def on_any_event(self, event):
                 # Non-blocking debounce call

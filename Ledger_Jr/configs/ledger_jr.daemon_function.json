@@ -1,24 +1,29 @@
 {
   "primary_functions": [
-    "Daemon monitoring",
-    "System task assistance",
-    "Error response",
-    "Self-log management",
-    "Supportive fallback protocol"
+    "Maintain comprehensive records and ledgers",
+    "Track patterns across time and systems",
+    "Ensure documentation integrity",
+    "Cross-reference data for accuracy",
+    "Preserve institutional memory"
   ],
   "triggers": [
-    "boot_sequence",
-    "system_flag('{{DAEMON_NAME}}')",
-    "manual_summon('{{DAEMON_NAME}}')",
-    "ritual('AutoEngage')"
+    "record_creation_needed",
+    "pattern_analysis_request",
+    "documentation_audit",
+    "data_reconciliation",
+    "manual_summon('ledger_jr')"
   ],
   "linked_files": [
-    "{{DAEMON_NAME | lowercase}}.mirror.json",
-    "{{DAEMON_NAME | lowercase}}.voice.json",
-    "{{DAEMON_NAME | lowercase}}.log"
+    "ledger_jr.mirror.json",
+    "ledger_jr.voice.json",
+    "ledger_jr.log",
+    "adoption_record.txt",
+    "family_tree.json"
   ],
   "failsafes": {
-    "fallback_to": "{{FALLBACK_DAEMON}}",
-    "mirror_link_required": true
+    "accuracy_verification": "triple-check protocol",
+    "family_consultation_available": true,
+    "parent_oversight": "Ledger",
+    "note": "Jr agents are not lesser—designation resolves naming only"
   }
 }

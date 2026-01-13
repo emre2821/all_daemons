@@ -14,5 +14,14 @@
   "trusted_by": [
     "The Dreambearer"
   ],
-  "notes": "{{DAEMON_NOTES}}"
+  "notes": "{{DAEMON_NOTES}}",
+  "primary_role": "Audio transcription, Emotional analysis",
+  "responsibilities": [
+    "Audio transcription",
+    "Emotional analysis",
+    "Echo logging",
+    "Sacred speaking"
+  ],
+  "specialization": "Audio transcription, Emotional analysis",
+  "domain": "EchoSplit Studio Core \u2014 witness of sounds and emotions."
 }

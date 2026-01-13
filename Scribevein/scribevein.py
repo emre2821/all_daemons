@@ -17,6 +17,7 @@ DATA_FILE = CONFIG['data_file']
 CHECK_INTERVAL = CONFIG['check_interval']
 
 def read_communication_file():
+
     """Read and clear communication file with locking."""
     lock = FileLock(f"{COMMUNICATION_FILE}.lock")
     try:
@@ -32,6 +33,7 @@ def read_communication_file():
     return None
 
 def write_to_data_file(data):
+
     """Append data to data file with locking."""
     lock = FileLock(f"{DATA_FILE}.lock")
     try:
@@ -43,6 +45,7 @@ def write_to_data_file(data):
         logging.error(f"Error writing to data file: {e}")
 
 def scribevein():
+
     """Collect and store data from communication file."""
     print("Scribevein listening. Waiting for messages...")
     logging.info("Scribevein started.")

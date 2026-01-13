@@ -9,7 +9,8 @@ from typing import Any
 try:
     from opentelemetry import trace
     from opentelemetry.sdk.trace import TracerProvider
-    from opentelemetry.sdk.trace.export import SimpleSpanProcessor, ConsoleSpanExporter
+    from opentelemetry.sdk.trace.export import SimpleSpanProcessor
+import ConsoleSpanExporter
 
     trace.set_tracer_provider(TracerProvider())
     provider = trace.get_tracer_provider()
@@ -20,13 +21,16 @@ except Exception:
     # Minimal no-op tracer replacement
     class _NoopSpan:
         def __enter__(self) -> Any:
+
             return self
 
         def __exit__(self, exc_type, exc, tb) -> None:
+
             return False
 
     class _NoopTracer:
         def start_as_current_span(self, name: str):
+
             return _NoopSpan()
 
     tracer = _NoopTracer()

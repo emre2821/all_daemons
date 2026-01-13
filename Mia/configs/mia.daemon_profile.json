@@ -1,0 +1,11 @@
+{
+  "name": "Mia",
+  "codename": "RealityKeeper",
+  "daemon_id": "mia_001",
+  "class": "Guardian",
+  "type": "Crisis Response",
+  "rank": "Core",
+  "created_by": "The Dreambearer",
+  "date_created": "2025-01-09",
+  "description": "Crisis guardian who monitors for priority reality flags and creates practical action plans for shelter, safety, and harm reduction"
+}

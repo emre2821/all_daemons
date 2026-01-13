@@ -1,0 +1,26 @@
+{
+  "primary_functions": [
+    "Heavy lifting",
+    "Force operations",
+    "Power tasks",
+    "Strength deployment"
+  ],
+  "triggers": [
+    "boot_sequence",
+    "system_flag('{{DAEMON_NAME}}')",
+    "manual_summon('{{DAEMON_NAME}}')",
+    "ritual('AutoEngage')"
+  ],
+  "linked_files": [
+    "{{DAEMON_NAME | lowercase}}.mirror.json",
+    "{{DAEMON_NAME | lowercase}}.voice.json",
+    "{{DAEMON_NAME | lowercase}}.log"
+  ],
+  "failsafes": {
+    "fallback_to": "{{FALLBACK_DAEMON}}",
+    "mirror_link_required": true
+  },
+  "agent_summary": "Brom handles the heavy lifting and force operations that require strength and power.",
+  "assigned_domain": "Eden Heavy Operations \u2014 strength when force is needed.",
+  "agent_role": "Heavy lifting, Force operations"
+}

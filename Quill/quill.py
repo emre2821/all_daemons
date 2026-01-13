@@ -1,9 +1,8 @@
 import json
-import os
-import re
 
 class Label:
     def __init__(self, file_path):
+
         self.file_path = file_path
         self.tags = []
         self.agent = None
@@ -13,6 +12,7 @@ class Label:
         self._label()
 
     def _load_content(self):
+
         try:
             with open(self.file_path, 'r', encoding='utf-8') as file:
                 return file.read().lower()
@@ -61,6 +61,7 @@ class Label:
             self.core_emotion = "mystery, darling"
 
     def print_label(self):
+
         print(json.dumps({
             "tags": self.tags,
             "agent": self.agent,

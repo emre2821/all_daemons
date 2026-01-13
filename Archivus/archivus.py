@@ -20,17 +20,20 @@ os.makedirs(os.path.dirname(LOG_FILE), exist_ok=True)
 
 
 def is_chaos_file(filename):
+
     lowered = filename.lower()
     return any(ext in lowered for ext in CHAOS_EXTENSIONS)
 
 
 def log_discovery(path):
+
     timestamp = datetime.datetime.now().isoformat()
     with open(LOG_FILE, "a", encoding="utf-8") as log:
         log.write(f"[{timestamp}] {path}\n")
 
 
 def recover_file(full_path):
+
     try:
         filename = os.path.basename(full_path)
         target_path = os.path.join(OUTPUT_FOLDER, filename)
@@ -47,6 +50,7 @@ def recover_file(full_path):
 
 
 def scan_for_chaos_files():
+
     print("🔍 Archivus scanning for lost CHAOS files...")
     for root, dirs, files in os.walk(SEARCH_ROOT):
         for file in files:

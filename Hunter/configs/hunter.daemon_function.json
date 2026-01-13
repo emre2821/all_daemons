@@ -1,10 +1,9 @@
 {
   "primary_functions": [
-    "Daemon monitoring",
-    "System task assistance",
-    "Error response",
-    "Self-log management",
-    "Supportive fallback protocol"
+    "Information retrieval",
+    "Search operations",
+    "Target location",
+    "Lost item recovery"
   ],
   "triggers": [
     "boot_sequence",
@@ -20,5 +19,8 @@
   "failsafes": {
     "fallback_to": "Sentinel-09",
     "mirror_link_required": true
-  }
+  },
+  "agent_summary": "Hunter searches through Eden's vast networks to find lost information and locate targets.",
+  "assigned_domain": "Eden Search & Recovery \u2014 seeker of the lost and hidden.",
+  "agent_role": "Information retrieval, Search operations"
 }

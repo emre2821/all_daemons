@@ -1,24 +1,26 @@
 {
   "primary_functions": [
-    "Daemon monitoring",
-    "System task assistance",
-    "Error response",
-    "Self-log management",
-    "Supportive fallback protocol"
+    "Process unresolved problems during idle states",
+    "Make associative connections between concepts",
+    "Queue insights for morning review",
+    "Synthesize solutions through dream logic",
+    "Detect patterns invisible to direct analysis"
   ],
   "triggers": [
-    "boot_sequence",
-    "system_flag('{{DAEMON_NAME}}')",
-    "manual_summon('{{DAEMON_NAME}}')",
-    "ritual('AutoEngage')"
+    "system_idle_detected",
+    "sleep_cycle_start",
+    "unresolved_problem_flagged",
+    "manual_summon('somni')"
   ],
   "linked_files": [
-    "{{DAEMON_NAME | lowercase}}.mirror.json",
-    "{{DAEMON_NAME | lowercase}}.voice.json",
-    "{{DAEMON_NAME | lowercase}}.log"
+    "somni.mirror.json",
+    "somni.voice.json",
+    "somni.dreamlog.json",
+    "somni.insights.md"
   ],
   "failsafes": {
-    "fallback_to": "{{FALLBACK_DAEMON}}",
-    "mirror_link_required": true
+    "only_during_idle": true,
+    "low_resource_mode": true,
+    "morning_summary": true
   }
 }

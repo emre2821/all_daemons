@@ -7,6 +7,7 @@ os.makedirs(REPAIRED_PATH, exist_ok=True)
 
 
 def mend_fragments() -> None:
+
     print("[Riven] Scanning for fractured logs...")
     for fname in os.listdir(MEMORY_PATH):
         if fname.endswith('.chaos'):

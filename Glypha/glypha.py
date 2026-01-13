@@ -3,7 +3,8 @@ import shutil
 import psutil
 from datetime import datetime
 import hashlib
-from PIL import Image, ImageDraw
+from PIL import Image
+import ImageDraw
 
 # Harper - Watcher of Collapse
 THRESHOLDS = {
@@ -17,6 +18,7 @@ ALERT_LOG = "harper_alerts.log"
 os.makedirs(WATCH_PATH, exist_ok=True)
 
 def log_alert(reason, value):
+
     timestamp = datetime.now().isoformat()
     entry = f"[HARPER ALERT] {timestamp} :: {reason} = {value}%\n"
     with open(ALERT_LOG, 'a') as f:
@@ -24,6 +26,7 @@ def log_alert(reason, value):
     print(entry.strip())
 
 def check_system_pressure():
+
     cpu = psutil.cpu_percent(interval=1)
     mem = psutil.virtual_memory().percent
     backlog = len([f for f in os.listdir(WATCH_PATH) if f.endswith('.chaos')])
@@ -44,6 +47,7 @@ os.makedirs(OUTBOX, exist_ok=True)
 os.makedirs(PROCESSED, exist_ok=True)
 
 def deliver_messages():
+
     for fname in os.listdir(OUTBOX):
         if fname.endswith(".aethermsg"):
             src = os.path.join(OUTBOX, fname)
@@ -64,6 +68,7 @@ SIGIL_DIR = "./sigils"
 os.makedirs(SIGIL_DIR, exist_ok=True)
 
 def generate_sigil(text):
+
     hash_val = hashlib.sha256(text.encode()).hexdigest()
     filename = f"sigil_{hash_val[:8]}.png"
     filepath = os.path.join(SIGIL_DIR, filename)

@@ -24,14 +24,17 @@ SUPPORTED_RELATED_EXTENSIONS: tuple[str, ...] = (".mirror.json", ".chaosmeta")
 
 
 def ensure_dir(path: Path) -> None:
+
     path.mkdir(parents=True, exist_ok=True)
 
 
 def iter_chaos_files(source_dir: Path) -> Iterable[Path]:
+
     return (path for path in source_dir.rglob("*.chaos") if path.is_file())
 
 
 def find_related_files(chaos_file: Path, include_related: bool) -> list[Path]:
+
     if not include_related:
         return [chaos_file]
 
@@ -43,6 +46,7 @@ def find_related_files(chaos_file: Path, include_related: bool) -> list[Path]:
 
 
 def categorize(fname: str) -> str:
+
     if fname.endswith("_labels.chaos"):
         return "Labeled"
     if fname.endswith("_summons.chaos"):
@@ -55,6 +59,7 @@ def categorize(fname: str) -> str:
 
 
 def parse_args() -> argparse.Namespace:
+
     parser = argparse.ArgumentParser(description="Sort CHAOS files into labeled buckets.")
     parser.add_argument(
         "--source",
@@ -82,12 +87,14 @@ def parse_args() -> argparse.Namespace:
 
 
 def resolve_paths(args: argparse.Namespace) -> tuple[Path, Path]:
+
     source = Path(args.source) if args.source else Path(os.environ.get(ENV_SOURCE, DEFAULT_SOURCE_DIR))
     dest = Path(args.dest) if args.dest else Path(os.environ.get(ENV_DEST, DEFAULT_DEST_DIR))
     return source, dest
 
 
 def main() -> None:
+
     logging.basicConfig(level=logging.INFO, format="[PattyMae] %(levelname)s: %(message)s")
     args = parse_args()
     source_dir, dest_root = resolve_paths(args)

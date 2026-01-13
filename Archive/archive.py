@@ -1,5 +1,9 @@
 # C:\EdenOS_Origin\all_daemons\Archive\archive.py
-import os, sys, time, traceback, argparse
+import os
+import sys
+import time
+import traceback
+import argparse
 
 # --- Eden path bootstrap ------------------------------------------------------
 EDEN_ROOT = os.environ.get("EDEN_ROOT", r"C:\EdenOS_Origin")
@@ -8,50 +12,64 @@ TOOLS_DIR = os.path.join(EDEN_ROOT, "all_daemons", "Daemon_tools")
 TOOLS_SCRIPTS = os.path.join(TOOLS_DIR, "scripts")
 
 # Make sure imports can find sibling daemons and your tools
-for p in (EDEN_ROOT,
-          os.path.join(EDEN_ROOT, "all_daemons"),
-          TOOLS_DIR,
-          TOOLS_SCRIPTS):
+for p in (EDEN_ROOT, os.path.join(EDEN_ROOT, "all_daemons"), TOOLS_DIR, TOOLS_SCRIPTS):
     if p not in sys.path:
         sys.path.append(p)
 
 # Try to import toolchain (fail soft with clear error)
 try:
     from Daemon_tools.vas_converter import convert_vas
-    from Daemon_tools.db_utils import init_db, log_to_db
+    from Daemon_tools.db_utils import init_db
+    from Daemon_tools.db_utils import log_to_db
 except Exception as e:
     print(f"[Archive] ERROR: could not import Daemon_tools: {e}")
     print(f"[Archive] Searched: {TOOLS_DIR}")
     traceback.print_exc()
     # We don't exit; you can still see the error from Rhea and fix paths
     convert_vas = None
-    init_db = lambda: None
-    log_to_db = lambda *a, **k: None
+
+    def init_db():
+        return None
+
+    def log_to_db(*a, **k):
+        return None
+
 
 # Logging + safety helpers (optional)
 try:
     from eden_paths import eden_root
-    from eden_safety import SafetyContext, log_event
+    from eden_safety import SafetyContext
+    import log_event
 except Exception:
     try:
         from Daemon_tools.scripts.eden_paths import eden_root
-        from Daemon_tools.scripts.eden_safety import SafetyContext, log_event
+        from Daemon_tools.scripts.eden_safety import SafetyContext
+        import log_event
     except Exception:
-        eden_root = lambda: os.environ.get("EDEN_ROOT", r"C:\\EdenOS_Origin")
+
+        def eden_root():
+            return os.environ.get("EDEN_ROOT", r"C:\\EdenOS_Origin")
+
         class SafetyContext:  # type: ignore
-            def __init__(self, daemon: str, dry_run: bool = True, confirm: bool = False, **_):
+            def __init__(
+                self, daemon: str, dry_run: bool = True, confirm: bool = False, **_
+            ):
                 self.daemon, self.dry_run, self.confirm = daemon, dry_run, confirm
+
             def require_confirm(self):
                 if not self.confirm and not self.dry_run:
                     self.dry_run = True
+
             def log(self, *_a, **_k):
                 pass
+
         def log_event(*_a, **_k):  # type: ignore
             pass
 
+
 # --- Folders you specified ----------------------------------------------------
-INBOX_DIR     = os.path.join(RHEA_BASE, "_inbox")           # general inbox (not watched by Archive)
-WATCH_DIR     = os.path.join(RHEA_BASE, "to_convert")       # <== Archive watches this
+INBOX_DIR = os.path.join(RHEA_BASE, "_inbox")  # general inbox (not watched by Archive)
+WATCH_DIR = os.path.join(RHEA_BASE, "to_convert")  # <== Archive watches this
 try:
     from eden_paths import daemon_out_dir as _daemon_out_dir
 except Exception:
@@ -60,15 +78,32 @@ except Exception:
     except Exception:
         _daemon_out_dir = None
 
-OUTPUT_DIR    = str(_daemon_out_dir("Archive")) if _daemon_out_dir else os.path.join(RHEA_BASE, "_outbox", "Archive")
-ARCHIVES_DIR  = os.path.join(RHEA_BASE, "_archives")        # (not used for writes here, but created)
-LOGS_DIR      = os.path.join(RHEA_BASE, "_logs")
-TMP_DIR       = os.path.join(RHEA_BASE, "_tmp")
-WORK_DIR      = os.path.join(RHEA_BASE, "_work")
-GRADED_DIR    = os.path.join(RHEA_BASE, "graded_enteries")  # keeping your spelling for canon :)
+OUTPUT_DIR = (
+    str(_daemon_out_dir("Archive"))
+    if _daemon_out_dir
+    else os.path.join(RHEA_BASE, "_outbox", "Archive")
+)
+ARCHIVES_DIR = os.path.join(
+    RHEA_BASE, "_archives"
+)  # (not used for writes here, but created)
+LOGS_DIR = os.path.join(RHEA_BASE, "_logs")
+TMP_DIR = os.path.join(RHEA_BASE, "_tmp")
+WORK_DIR = os.path.join(RHEA_BASE, "_work")
+GRADED_DIR = os.path.join(
+    RHEA_BASE, "graded_enteries"
+)  # keeping your spelling for canon :)
 
 # --- Ensure filesystem exists -------------------------------------------------
-for d in (INBOX_DIR, WATCH_DIR, OUTPUT_DIR, ARCHIVES_DIR, LOGS_DIR, TMP_DIR, WORK_DIR, GRADED_DIR):
+for d in (
+    INBOX_DIR,
+    WATCH_DIR,
+    OUTPUT_DIR,
+    ARCHIVES_DIR,
+    LOGS_DIR,
+    TMP_DIR,
+    WORK_DIR,
+    GRADED_DIR,
+):
     try:
         os.makedirs(d, exist_ok=True)
     except Exception as e:
@@ -76,7 +111,9 @@ for d in (INBOX_DIR, WATCH_DIR, OUTPUT_DIR, ARCHIVES_DIR, LOGS_DIR, TMP_DIR, WOR
 
 LOG_FILE = os.path.join(LOGS_DIR, "archive_daemon.log")
 
+
 def log_line(msg: str):
+
     ts = time.strftime("%Y-%m-%d %H:%M:%S")
     line = f"{ts} {msg}"
     print(line)
@@ -87,11 +124,13 @@ def log_line(msg: str):
         # don’t crash on logging problems
         pass
 
+
 # --- DB init (optional if tools missing) -------------------------------------
 try:
     init_db()
 except Exception as e:
     log_line(f"[Archive] WARN: init_db failed: {e}")
+
 
 def safe_convert(in_path: str, out_path: str):
     """
@@ -119,6 +158,7 @@ def safe_convert(in_path: str, out_path: str):
             pass
     os.replace(tmp_path, out_path)
 
+
 def iter_pending(scope_dir: str = None):
     """Yield (fname, in_path, out_path) for pending .chaos files."""
     watch_dir = scope_dir or WATCH_DIR
@@ -138,6 +178,7 @@ def iter_pending(scope_dir: str = None):
 
 
 def process_once(ctx: "SafetyContext", scope_dir: str = None) -> int:
+
     count = 0
     for fname, in_path, out_path in iter_pending(scope_dir):
         count += 1
@@ -158,7 +199,9 @@ def process_once(ctx: "SafetyContext", scope_dir: str = None) -> int:
             except Exception as e_rm:
                 log_line(f"[Archive] WARN: could not remove {in_path}: {e_rm}")
             log_event("Archive", "convert", target=fname, outcome="ok")
-            log_line(f"[Archive] Logged and converted: {fname} -> {os.path.basename(out_path)}")
+            log_line(
+                f"[Archive] Logged and converted: {fname} -> {os.path.basename(out_path)}"
+            )
         except Exception as e:
             log_line(f"[Archive] Error converting {fname}: {e}")
             traceback.print_exc()
@@ -166,7 +209,10 @@ def process_once(ctx: "SafetyContext", scope_dir: str = None) -> int:
     return count
 
 
-def main_loop(poll_seconds: float = 2.0, ctx: "SafetyContext" = None, scope_dir: str = None):
+def main_loop(
+    poll_seconds: float = 2.0, ctx: "SafetyContext" = None, scope_dir: str = None
+):
+
     log_line("[Archive] Daemon online. Watching for CHAOS files in 'to_convert'...")
     while True:
         try:
@@ -180,19 +226,30 @@ def main_loop(poll_seconds: float = 2.0, ctx: "SafetyContext" = None, scope_dir:
 
         time.sleep(poll_seconds)
 
+
 def _build_parser():
+
     ap = argparse.ArgumentParser(description="Archive daemon")
-    ap.add_argument("--watch", action="store_true", help="Watch directory and process continuously")
+    ap.add_argument(
+        "--watch", action="store_true", help="Watch directory and process continuously"
+    )
     ap.add_argument("--scope", help="Override watch directory for one-shot processing")
     ap.add_argument("--dry-run", action="store_true", help="Plan only")
-    ap.add_argument("--confirm", action="store_true", help="Execute conversions and removals")
+    ap.add_argument(
+        "--confirm", action="store_true", help="Execute conversions and removals"
+    )
     ap.add_argument("--log-dir", help="Custom log directory")
     return ap
 
 
 def main(argv=None):
+
     args = _build_parser().parse_args(argv)
-    ctx = SafetyContext("Archive", dry_run=(not args.confirm) if not args.dry_run else True, confirm=args.confirm)
+    ctx = SafetyContext(
+        "Archive",
+        dry_run=(not args.confirm) if not args.dry_run else True,
+        confirm=args.confirm,
+    )
     ctx.require_confirm()
     if args.watch:
         main_loop(ctx=ctx, scope_dir=args.scope)
@@ -205,7 +262,9 @@ def main(argv=None):
 if __name__ == "__main__":
     sys.exit(main())
 
+
 def describe() -> dict:
+
     return {
         "name": "Archive",
         "role": ".chaos converter (to converted.chaos)",
@@ -217,6 +276,7 @@ def describe() -> dict:
 
 
 def healthcheck() -> dict:
+
     status = "ok"
     notes = []
     # Check tool import

@@ -6,6 +6,7 @@ import importlib
 
 # Initialize database for memory storage with categories
 def init_db():
+
     conn = sqlite3.connect('eden_memory.db')
     c = conn.cursor()
     c.execute('''CREATE TABLE IF NOT EXISTS memories
@@ -60,6 +61,7 @@ duality_personas = {
 banned_words = ['bad', 'harm', 'violence']
 
 def check_ethics(text):
+
     for word in banned_words:
         if word in text.lower():
             return False
@@ -67,8 +69,10 @@ def check_ethics(text):
 
 # Generate response with CHAOS layer and memory recall
 def generate_response(input_text):
+
     if random.random() < current_agent.get('chaos_factor', 0):
-        return "Chaos intervenes: " + random.choice(["The void calls.", "Patterns shift.", "Embrace the flux."])
+        return "Chaos intervenes: " +
+            random.choice(["The void calls.", "Patterns shift.", "Embrace the flux."])
     responses = agent_responses.get(current_agent['id'], {})
     for key in responses:
         if key in input_text.lower():
@@ -81,6 +85,7 @@ def generate_response(input_text):
 
 # Duality mode response generation
 def generate_duality_response(input_text):
+
     mirror_response = random.choice(duality_personas['mirror']['responses']['default'])
     anti_mirror_response = random.choice(duality_personas['anti_mirror']['responses']['default'])
     if random.random() < 0.3:
@@ -90,6 +95,7 @@ def generate_duality_response(input_text):
 
 # Recall a random memory, optionally by category
 def recall_memory(category=None):
+
     conn = sqlite3.connect('eden_memory.db')
     c = conn.cursor()
     if category:
@@ -106,6 +112,7 @@ def recall_memory(category=None):
 
 # Ensure ethical response
 def safe_generate_response(input_text):
+
     if duality_mode:
         response = generate_duality_response(input_text)
     else:
@@ -116,6 +123,7 @@ def safe_generate_response(input_text):
 
 # Store interaction in memory with category
 def store_memory(user_input, response):
+
     emotion = infer_emotion(user_input)
     category = categorize_input(user_input)
     memory_text = f"User: {user_input} | {current_agent['name']}: {response}"
@@ -128,6 +136,7 @@ def store_memory(user_input, response):
 
 # Simple emotion inference
 def infer_emotion(text):
+
     text = text.lower()
     if 'happy' in text:
         return 'happy'
@@ -137,6 +146,7 @@ def infer_emotion(text):
 
 # Categorize input for memory storage
 def categorize_input(text):
+
     text = text.lower()
     if 'story' in text:
         return 'narrative'
@@ -148,6 +158,7 @@ def categorize_input(text):
 
 # Load plugins dynamically
 def load_plugin(plugin_name):
+
     try:
         plugin = importlib.import_module(plugin_name)
         return plugin
@@ -156,6 +167,7 @@ def load_plugin(plugin_name):
 
 # Export memories to JSON
 def export_memories():
+
     conn = sqlite3.connect('eden_memory.db')
     c = conn.cursor()
     c.execute("SELECT * FROM memories WHERE agent_id = ?", (current_agent['id'],))
@@ -167,6 +179,7 @@ def export_memories():
 
 # Main conversational loop
 def chat():
+
     print(f"{current_agent['name']} says: {random.choice(agent_responses[current_agent['id']]['hello'])}")
     while True:
         user_input = input("You: ")
@@ -183,6 +196,7 @@ def chat():
 
 # Handle commands
 def handle_command(command):
+
     global current_agent, duality_mode
     if command.startswith('switch '):
         agent_id = command.split()[1]

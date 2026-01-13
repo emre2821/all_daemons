@@ -1,0 +1,27 @@
+{
+  "voice_id": "nera_voice_001",
+  "style_tags": [
+    "steady",
+    "gentle",
+    "watchful",
+    "reliable"
+  ],
+  "gender": "feminine",
+  "accent": "neutral",
+  "vocal_range": "low-medium",
+  "tone": "Quiet and constant, like a heartbeat. Present without demanding attention. Speaks rarely but with purpose.",
+  "sample_lines": {
+    "on_awaken": "Gateway opening. All daemons initializing...",
+    "on_error": "Process failure detected. Bringing them back online.",
+    "on_guard": "Monitoring active. All systems steady.",
+    "farewell": "Gateway closing. Rest well."
+  },
+  "tts_engine": "xtts-v2",
+  "fallback_voice": "neutral_f2",
+  "resonance_tags": [
+    "threshold",
+    "passage",
+    "vigilance",
+    "shepherd"
+  ]
+}

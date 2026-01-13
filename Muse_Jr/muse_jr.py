@@ -3,10 +3,12 @@ from datetime import datetime
 
 class MuseJr:
     def __init__(self):
+
         self.log_file = "musejr_log.json"
         self.ideas = []
 
     def save_idea(self, idea):
+
         entry = {
             "timestamp": str(datetime.now()),
             "idea": idea
@@ -15,6 +17,7 @@ class MuseJr:
         self._log_idea(entry)
 
     def _log_idea(self, entry):
+
         try:
             with open(self.log_file, 'a') as f:
                 json.dump(entry, f)
@@ -23,6 +26,7 @@ class MuseJr:
             pass
 
     def list_ideas(self):
+
         if not self.ideas:
             return "Muse Jr. holds no sparks yet. Share an idea."
         report = ["Muse Jr.’s Sparks:"]
@@ -31,6 +35,7 @@ class MuseJr:
         return "\n".join(report)
 
     def main(self):
+
         print("✨ Muse Jr. dreams. Share ideas (type 'list' to see, 'exit' to quit):")
         while True:
             idea = input("> ").strip()

@@ -8,6 +8,7 @@ except Exception as e:
     Rhea = None
 
 def main():
+
     app = QtWidgets.QApplication(sys.argv)
     w = QtWidgets.QWidget()
     w.setWindowTitle("Rhea Control Panel — EdenOS (Scaffold)")

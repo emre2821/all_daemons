@@ -42,6 +42,7 @@ class Sothis:
     notes = "Only Rhea or admin can trigger a full rewind event. Always watching quietly."
 
     def __init__(self, max_snapshots=10, interval=30):
+
         """
         Args:
             max_snapshots (int): Maximum number of snapshots to keep.
@@ -54,6 +55,7 @@ class Sothis:
         self._thread = None
 
     def start(self, get_state_callback):
+
         """
         Begin periodic snapshotting.
         Args:
@@ -66,6 +68,7 @@ class Sothis:
         logging.info(f"{self.symbolic_traits['sigil']} Sothis awakens: quietly watching time.")
 
     def stop(self):
+
         """Stop snapshotting thread."""
         self._running = False
         if self._thread:
@@ -73,11 +76,13 @@ class Sothis:
         logging.info(f"{self.symbolic_traits['sigil']} Sothis rests—time unobserved.")
 
     def _run(self):
+
         while self._running:
             self.snapshot()
             time.sleep(self.interval)
 
     def snapshot(self):
+
         """Take a snapshot of current state."""
         if not hasattr(self, "get_state_callback"):
             logging.error("No state callback registered for Sothis.")
@@ -88,10 +93,12 @@ class Sothis:
         logging.info(f"{self.symbolic_traits['sigil']} Snapshot taken at {snap[0]} (stored {len(self.snapshots)}/{self.max_snapshots}).")
 
     def list_snapshots(self):
+
         """Return available snapshot timestamps."""
         return [ts for ts, _ in self.snapshots]
 
     def rollback(self, index=-1, actor="unknown"):
+
         """
         Roll back to a chosen snapshot.
         Args:
@@ -116,6 +123,7 @@ if __name__ == "__main__":
     system_state = {"daemons": {"alpha": "active", "beta": "sleeping"}}
 
     def get_state():
+
         return system_state
 
     sothis = Sothis(max_snapshots=5, interval=5)

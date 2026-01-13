@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 # MoodMancer GUI - A customizable magical mood analyzer with graphical interface
 import tkinter as tk
-from tkinter import ttk, colorchooser, scrolledtext, messagebox
+from tkinter import ttk
+import colorchooser, scrolledtext, messagebox
 import json
 import os
 import re
@@ -12,6 +13,7 @@ from pathlib import Path
 
 class MoodMancerGUI:
     def __init__(self, root):
+
         self.root = root
         self.root.title("✨ MoodMancer ✨")
         self.root.geometry("800x700")
@@ -96,6 +98,7 @@ class MoodMancerGUI:
         self.apply_theme()
 
     def load_config(self):
+
         """Load configuration from file or create default"""
         config_file = "moodmancer_config.json"
         if os.path.exists(config_file):
@@ -111,12 +114,14 @@ class MoodMancerGUI:
             return self.default_config
             
     def save_config(self):
+
         """Save configuration to file"""
         with open("moodmancer_config.json", "w") as f:
             json.dump(self.config, f, indent=4)
         messagebox.showinfo("Success", "Settings saved successfully!")
             
     def setup_main_frame(self):
+
         """Set up the main mood analysis frame"""
         # Configure main frame with padding and background
         self.main_frame.configure(padding="20")
@@ -165,6 +170,7 @@ class MoodMancerGUI:
         self.log_status.pack(pady=(10, 0))
     
     def setup_settings_frame(self):
+
         """Set up the settings frame for customization"""
         # Create notebook for settings sections
         settings_notebook = ttk.Notebook(self.settings_frame)
@@ -212,6 +218,7 @@ class MoodMancerGUI:
         reset_button.pack(pady=10)
         
     def setup_words_settings(self, parent_frame):
+
         """Setup the keywords settings tab"""
         # Create frames for each word category
         positive_frame = tk.LabelFrame(parent_frame, text="Positive Words", padx=10, pady=10)
@@ -237,6 +244,7 @@ class MoodMancerGUI:
         self.neutral_words_text.insert(tk.END, ", ".join(self.config["neutral_words"]))
         
     def setup_titles_settings(self, parent_frame):
+
         """Setup the titles settings tab"""
         # Create frames for each title category
         positive_frame = tk.LabelFrame(parent_frame, text="Positive Titles", padx=10, pady=10)
@@ -262,6 +270,7 @@ class MoodMancerGUI:
         self.neutral_titles_text.insert(tk.END, "\n".join(self.config["neutral_titles"]))
     
     def setup_mantras_settings(self, parent_frame):
+
         """Setup the mantras settings tab"""
         mantras_label = tk.Label(parent_frame, text="Enter one mantra per line:")
         mantras_label.pack(anchor='w', padx=10, pady=5)
@@ -271,6 +280,7 @@ class MoodMancerGUI:
         self.mantras_text.insert(tk.END, "\n".join(self.config["mantras"]))
     
     def setup_emojis_settings(self, parent_frame):
+
         """Setup the emojis settings tab"""
         # Create frames for each emoji category
         positive_frame = tk.LabelFrame(parent_frame, text="Positive Emoji Combinations", padx=10, pady=10)
@@ -300,6 +310,7 @@ class MoodMancerGUI:
         self.neutral_emojis_text.insert(tk.END, "\n".join(self.config["neutral_emojis"]))
     
     def setup_colors_settings(self, parent_frame):
+
         """Setup the colors settings tab"""
         # Create color picker frames
         color_options = [
@@ -323,7 +334,9 @@ class MoodMancerGUI:
             color_display.pack(side=tk.LEFT, padx=(0, 10))
             
             color_button = tk.Button(frame, text="Choose Color", 
-                                   command=lambda key=color_key, display=color_display: self.choose_color(key, display))
+def command(key=color_key, display=color_display):
+
+    return  self.choose_color(key, display))
             color_button.pack(side=tk.LEFT)
             
             self.color_buttons[color_key] = (color_display, color_button)
@@ -340,6 +353,7 @@ class MoodMancerGUI:
         self.log_file_entry.insert(0, self.config["log_file"])
     
     def setup_history_frame(self):
+
         """Set up the mood history frame"""
         # Instructions label
         instructions = tk.Label(self.history_frame, text="View your mood history from the log file:", 
@@ -361,6 +375,7 @@ class MoodMancerGUI:
         self.refresh_history()
     
     def refresh_history(self):
+
         """Refresh the history text widget with contents from log file"""
         log_file = self.config["log_file"]
         
@@ -385,6 +400,7 @@ class MoodMancerGUI:
         self.history_text.config(state=tk.DISABLED)
     
     def choose_color(self, color_key, display_frame):
+
         """Open color chooser dialog and update the color"""
         current_color = self.config["colors"][color_key]
         color_code = colorchooser.askcolor(color=current_color, title=f"Choose {color_key.capitalize()} Color")
@@ -394,6 +410,7 @@ class MoodMancerGUI:
             display_frame.config(bg=color_code[1])
     
     def save_settings(self):
+
         """Save all settings from UI to config"""
         # Save keywords
         self.config["positive_words"] = [word.strip() for word in self.positive_words_text.get("1.0", tk.END).replace("\n", "").split(",") if word.strip()]
@@ -423,6 +440,7 @@ class MoodMancerGUI:
         self.apply_theme()
     
     def reset_settings(self):
+
         """Reset settings to defaults"""
         if messagebox.askyesno("Reset Settings", "Are you sure you want to reset all settings to defaults?"):
             self.config = self.default_config.copy()
@@ -437,6 +455,7 @@ class MoodMancerGUI:
             messagebox.showinfo("Reset Complete", "Settings have been reset to defaults.")
     
     def apply_theme(self):
+
         """Apply the current theme colors to the UI"""
         bg_color = self.config["colors"]["background"]
         text_color = self.config["colors"]["text"]
@@ -453,10 +472,13 @@ class MoodMancerGUI:
                 widget.configure(bg=bg_color, fg=text_color)
     
     def analyze_sentiment(self, text):
+
         """Analyze the sentiment of the input text based on keyword matching"""
         text = text.lower()
         
-        positive_count = sum(1 for word in self.config["positive_words"] if re.search(r'\b' + word + r'\b', text))
+        positive_count = sum(1 for word in self.config["positive_words"] if re.search(r'\b' +
+            word +
+            r'\b', text))
         negative_count = sum(1 for word in self.config["negative_words"] if re.search(r'\b' + word + r'\b', text))
         neutral_count = sum(1 for word in self.config["neutral_words"] if re.search(r'\b' + word + r'\b', text))
         
@@ -469,6 +491,7 @@ class MoodMancerGUI:
             return "neutral"
     
     def generate_title(self, mood):
+
         """Generate a magical mood title based on the detected sentiment"""
         if mood == "positive":
             return random.choice(self.config["positive_titles"])
@@ -478,6 +501,7 @@ class MoodMancerGUI:
             return random.choice(self.config["neutral_titles"])
     
     def get_emoji_combo(self, mood):
+
         """Get a color-coded emoji combination based on mood"""
         if mood == "positive":
             return random.choice(self.config["positive_emojis"])
@@ -487,10 +511,12 @@ class MoodMancerGUI:
             return random.choice(self.config["neutral_emojis"])
     
     def get_mantra(self):
+
         """Get a random mood-boosting mantra"""
         return random.choice(self.config["mantras"])
     
     def log_mood(self, description, mood, title):
+
         """Log the mood entry with timestamp to mood_log.txt"""
         timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         log_file = self.config["log_file"]
@@ -507,6 +533,7 @@ class MoodMancerGUI:
             return False
     
     def analyze_mood(self):
+
         """Main method to analyze mood and display results"""
         # Get user input
         user_description = self.description_text.get("1.0", tk.END).strip()

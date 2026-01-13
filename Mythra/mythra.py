@@ -16,6 +16,7 @@ MOOD_MAP = {
 }
 
 def extract_essence(text):
+
     mood_match = re.search(r"\[EMOTION\]:\s*(\w+)", text, re.IGNORECASE)
     agent_match = re.search(r"\[AGENT\]:\s*(\w+)", text, re.IGNORECASE)
     mood = mood_match.group(1).lower() if mood_match else 'longing'
@@ -24,6 +25,7 @@ def extract_essence(text):
     return mood, agent, theme
 
 def mythify(file_path):
+
     with open(file_path, 'r', encoding='utf-8') as f:
         content = f.read()
     mood, agent, theme = extract_essence(content)

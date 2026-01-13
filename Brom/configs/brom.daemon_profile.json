@@ -1,0 +1,16 @@
+{
+  "name": "Brom",
+  "type": "Mobile_DCA",
+  "specialization": "Heavy lifting, Force operations",
+  "version": "1.0.0",
+  "deployment": "mobile",
+  "capabilities": [
+    "autonomous_operation",
+    "system_monitoring",
+    "task_execution"
+  ],
+  "codename": "Heavy-Hand",
+  "role": "Heavy lifting, Force operations",
+  "summary": "Brom handles the heavy lifting and force operations that require strength and power.",
+  "assigned_domain": "Eden Heavy Operations \u2014 strength when force is needed."
+}

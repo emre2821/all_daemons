@@ -14,5 +14,14 @@
   "trusted_by": [
     "The Dreambearer"
   ],
-  "notes": "{{DAEMON_NOTES}}"
+  "notes": "{{DAEMON_NOTES}}",
+  "primary_role": "Pattern analysis, Future prediction",
+  "responsibilities": [
+    "Pattern analysis",
+    "Future prediction",
+    "Data prophecy",
+    "Warning systems"
+  ],
+  "specialization": "Pattern analysis, Future prediction",
+  "domain": "Eden Analytics Core \u2014 seer of patterns and futures."
 }

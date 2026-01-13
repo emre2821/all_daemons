@@ -1,24 +1,26 @@
 {
   "primary_functions": [
-    "Daemon monitoring",
-    "System task assistance",
-    "Error response",
-    "Self-log management",
-    "Supportive fallback protocol"
+    "Capture thought processes during work sessions",
+    "Document design decisions and rationale",
+    "Structure knowledge for future retrieval",
+    "Link related concepts across time",
+    "Generate searchable context maps"
   ],
   "triggers": [
-    "boot_sequence",
-    "system_flag('{{DAEMON_NAME}}')",
-    "manual_summon('{{DAEMON_NAME}}')",
-    "ritual('AutoEngage')"
+    "work_session_start",
+    "decision_point_detected",
+    "manual_summon('scribevein')",
+    "context_query"
   ],
   "linked_files": [
-    "{{DAEMON_NAME | lowercase}}.mirror.json",
-    "{{DAEMON_NAME | lowercase}}.voice.json",
-    "{{DAEMON_NAME | lowercase}}.log"
+    "scribevein.mirror.json",
+    "scribevein.voice.json",
+    "scribevein.chronicles.md",
+    "scribevein.log"
   ],
   "failsafes": {
-    "fallback_to": "{{FALLBACK_DAEMON}}",
-    "mirror_link_required": true
+    "auto_save_interval": "5 minutes",
+    "version_control": true,
+    "searchable_index": true
   }
 }

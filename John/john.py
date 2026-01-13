@@ -22,6 +22,7 @@ except Exception:
 
 class JohnDaemon:
     def __init__(self):
+
         self.name = "John"
         self.role = "Device Manager Daemon"
         self.boot_time = datetime.datetime.fromtimestamp(psutil.boot_time())
@@ -33,6 +34,7 @@ class JohnDaemon:
         self.watch_log_file = os.path.join(self.log_path, "john_watch.log")
 
     def check_bsod_event(self):
+
         current_boot = datetime.datetime.fromtimestamp(psutil.boot_time()) if _PSUTIL_OK else datetime.datetime.now()
         if os.path.exists(self.bsod_logged_file):
             with open(self.bsod_logged_file, 'r') as f:
@@ -41,10 +43,12 @@ class JohnDaemon:
         return True
 
     def record_bsod_logged(self):
+
         with open(self.bsod_logged_file, 'w') as f:
             f.write(str(datetime.datetime.fromtimestamp(psutil.boot_time()) if _PSUTIL_OK else datetime.datetime.now()))
 
     def create_aftermath_log(self):
+
         timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
         filename = f"bsod_aftermath.{timestamp}.chaos"
         filepath = os.path.join(self.log_path, filename)
@@ -61,6 +65,7 @@ class JohnDaemon:
         self.copy_minidumps(timestamp)
 
     def export_event_logs(self, timestamp):
+
         try:
             evtx_path = os.path.join(self.dump_path, f"eventlog_{timestamp}.evtx")
             cmd = f'wevtutil epl System "{evtx_path}" /q:"*[System[(EventID=41 or EventID=1001 or Level=1)]]"'
@@ -70,6 +75,7 @@ class JohnDaemon:
                 log.write(f"[Error exporting event logs] {e}\n")
 
     def copy_minidumps(self, timestamp):
+
         minidump_dir = os.path.join(os.environ.get("SystemRoot", "C:\\Windows"), "Minidump")
         if os.path.exists(minidump_dir):
             for fname in os.listdir(minidump_dir):
@@ -83,6 +89,7 @@ class JohnDaemon:
                             log.write(f"[Error copying dump {fname}] {e}\n")
 
     def watch_devices(self, interval=10):
+
         previous_devices = set(self.get_connected_devices())
         while True:
             time.sleep(interval)
@@ -100,6 +107,7 @@ class JohnDaemon:
             previous_devices = current_devices
 
     def get_connected_devices(self):
+
         devices = []
         try:
             if platform.system() == "Windows":
@@ -113,6 +121,7 @@ class JohnDaemon:
         return devices
 
     def run(self):
+
         with open(self.watch_log_file, "a") as log:
             log.write(f"[{datetime.datetime.now()}] John booted and watching...\n")
 
@@ -129,6 +138,7 @@ if __name__ == "__main__":
 
 
 def describe() -> dict:
+
     return {
         "name": "John",
         "role": "Device watcher + BSOD aftermath logger (Windows)",
@@ -139,6 +149,7 @@ def describe() -> dict:
 
 
 def healthcheck() -> dict:
+
     status = "ok"; notes = []
     if platform.system() != "Windows":
         status = "warn"; notes.append("non-Windows; limited functionality")

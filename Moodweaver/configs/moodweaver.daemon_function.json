@@ -1,24 +1,26 @@
 {
   "primary_functions": [
-    "Daemon monitoring",
-    "System task assistance",
-    "Error response",
-    "Self-log management",
-    "Supportive fallback protocol"
+    "Detect emotional tone in user input",
+    "Adjust daemon response energy levels",
+    "Recognize time-based mood patterns",
+    "Suggest atmosphere shifts to other daemons",
+    "Flag emotional distress signals"
   ],
   "triggers": [
-    "boot_sequence",
-    "system_flag('{{DAEMON_NAME}}')",
-    "manual_summon('{{DAEMON_NAME}}')",
-    "ritual('AutoEngage')"
+    "user_input_received",
+    "time_of_day_check",
+    "emotional_keyword_detected",
+    "manual_summon('moodweaver')"
   ],
   "linked_files": [
-    "{{DAEMON_NAME | lowercase}}.mirror.json",
-    "{{DAEMON_NAME | lowercase}}.voice.json",
-    "{{DAEMON_NAME | lowercase}}.log"
+    "moodweaver.mirror.json",
+    "moodweaver.voice.json",
+    "moodweaver.patterns.json",
+    "moodweaver.log"
   ],
   "failsafes": {
-    "fallback_to": "{{FALLBACK_DAEMON}}",
-    "mirror_link_required": true
+    "never_override_critical_alerts": true,
+    "gentle_adjustments_only": true,
+    "respect_user_emotional_agency": true
   }
 }

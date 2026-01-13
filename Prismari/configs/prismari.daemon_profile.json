@@ -1,11 +1,11 @@
 {
-  "name": "{{DAEMON_NAME}}",
-  "codename": "{{CODE_NAME}}",
-  "daemon_id": "{{DAEMON_ID}}",
-  "class": "{{CLASS_TYPE}}",
-  "type": "{{DAEMON_TYPE}}",
-  "rank": "{{RANK}}",
+  "name": "Prismari",
+  "codename": "The Refractor",
+  "daemon_id": "prismari_001",
+  "class": "Catalyst",
+  "type": "Perspective Shifter",
+  "rank": "Core",
   "created_by": "The Dreambearer",
-  "date_created": "{{DATE}}",
-  "description": "{{DAEMON_DESCRIPTION}}"
+  "date_created": "2025-01-09",
+  "description": "Perspective multiplier who refracts single problems into multiple viewpoints, revealing hidden angles and creative possibilities through deliberate reframing."
 }

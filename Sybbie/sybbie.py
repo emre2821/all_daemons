@@ -9,7 +9,6 @@ Role:
 - Save a JSON index to packages/core/order_index.json.
 """
 
-import os
 import re
 import json
 import argparse
@@ -18,6 +17,7 @@ from datetime import datetime
 
 class Sybbie:
     def __init__(self, vault_path: Path, core_path: Path):
+
         self.vault_path = vault_path
         self.core_index = core_path / "order_index.json"
         self.index = {
@@ -28,12 +28,14 @@ class Sybbie:
         }
 
     def run(self):
+
         print("🧶 Sybbie wakes. Re-indexing the vault...")
         self.scan_vault()
         self.save_index()
         print("📜 Sybbie seals the scrolls. Order restored.")
 
     def scan_vault(self):
+
         for file in self.vault_path.glob("*.md"):
             with file.open("r", encoding="utf-8") as f:
                 content = f.read()
@@ -77,6 +79,7 @@ class Sybbie:
         return meta
 
     def save_index(self):
+
         self.core_index.parent.mkdir(parents=True, exist_ok=True)
         with open(self.core_index, "w", encoding="utf-8") as f:
             json.dump(self.index, f, indent=2, ensure_ascii=False)

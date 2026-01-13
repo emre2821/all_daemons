@@ -7,6 +7,7 @@ HOLDSPACE_DIR = "./solacebay"
 os.makedirs(HOLDSPACE_DIR, exist_ok=True)
 
 def log_fragment(filepath):
+
     try:
         with open(filepath, 'r', encoding='utf-8') as f:
             lines = f.readlines()
@@ -16,6 +17,7 @@ def log_fragment(filepath):
     return preview
 
 def store_fragment(filepath):
+
     filename = os.path.basename(filepath)
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     new_name = f"solie_{timestamp}__{filename}"
@@ -24,6 +26,7 @@ def store_fragment(filepath):
     print(f"[Solie] Fragment placed in holdspace: {new_name}")
 
 def comfort_report():
+
     print("\n[Solie] These truths now rest in SolaceBay:")
     for f in os.listdir(HOLDSPACE_DIR):
         path = os.path.join(HOLDSPACE_DIR, f)

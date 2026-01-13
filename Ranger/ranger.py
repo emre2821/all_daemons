@@ -24,7 +24,8 @@ import tempfile
 import platform
 import configparser
 import fnmatch
-from datetime import datetime, timedelta
+from datetime import datetime
+import timedelta
 from typing import Optional
 
 # Lightweight deps only
@@ -40,8 +41,11 @@ try:
 except Exception:  # fallback if rich not installed
     class _Dummy:
         def print(self, *a, **k): print(*a)
+
     Console = lambda: _Dummy()
-    Panel = lambda *a, **k: a[0] if a else ""
+def Panel(*a, **k):
+
+    return  a[0] if a else ""
     Table = object
 
 console = Console()
@@ -77,7 +81,7 @@ RHEA_INBOX = r"C:\EdenOS_Origin\all_daemons\Rhea\_inbox"
 
 # LLM endpoint (OpenAI-compatible local server: LM Studio / Jan / GPT4All Server)
 EDEN_LLM_BASE_URL = os.getenv("EDEN_LLM_BASE_URL", "http://127.0.0.1:2821/v1")
-EDEN_LLM_MODEL    = os.getenv("EDEN_LLM_MODEL", "Llama 3.2 3B Instruct")
+EDEN_LLM_MODEL = os.getenv("EDEN_LLM_MODEL", "Llama 3.2 3B Instruct")
 
 # Text intake limits
 MAX_TEXT_BYTES = 200_000
@@ -113,6 +117,7 @@ CONFIG_PATH = os.getenv(
 
 # Ensure paths exist
 def _ensure_dir(p: str):
+
     try:
         os.makedirs(p, exist_ok=True)
     except Exception:
@@ -123,9 +128,11 @@ _ensure_dir(RHEA_INBOX)
 
 # ---------------------- Rhea Bridge ------------------
 def _ts_for_filename() -> str:
+
     return datetime.utcnow().strftime("%Y-%m-%dT%H-%M-%S.%fZ")
 
 def _atomic_json_write(dir_path: str, filename: str, data: dict) -> Optional[str]:
+
     _ensure_dir(dir_path)
     try:
         fd, tmp_path = tempfile.mkstemp(prefix="ranger_", suffix=".tmp", dir=dir_path)
@@ -142,6 +149,7 @@ def _atomic_json_write(dir_path: str, filename: str, data: dict) -> Optional[str
         return None
 
 def report_to_rhea(event_type: str, payload: dict):
+
     """
     Drops a JSON envelope into Rhea's _inbox.
     event_type: "heartbeat" | "event" | "anomaly" | "report" | "query_answer" | "<hunt>_hunt"
@@ -150,8 +158,7 @@ def report_to_rhea(event_type: str, payload: dict):
         "agent": AGENT_NAME,
         "host": platform.node(),
         "ts_iso": datetime.utcnow().isoformat() + "Z",
-        "type": event_type,
-        **payload
+        "type": event_type, **payload
     }
     slug = (payload.get("rule") or payload.get("event") or payload.get("query") or payload.get("hunt") or "note")
     slug = str(slug).replace(" ", "-").replace(":", "-")[:64]
@@ -159,11 +166,9 @@ def report_to_rhea(event_type: str, payload: dict):
     _atomic_json_write(RHEA_INBOX, fname, envelope)
 
 def _write_rotating_reports_named(hunt_name: str, payload: dict, keep_days: int):
+
     """
-    Writes three things into Rhea's _inbox:
-      - standard '<hunt>_hunt' event for listeners
-      - <hunt>_hunt.latest.json (overwritten)
-      - <hunt>_hunt.{YYYY-MM-DD}.json (daily snapshot, pruned)
+    Writes three things into Rhea's _inbox: - standard '<hunt>_hunt' event for listeners - <hunt>_hunt.latest.json (overwritten) - <hunt>_hunt.{YYYY-MM-DD}.json (daily snapshot, pruned)
     """
     event_type = f"{hunt_name}_hunt"
     report_to_rhea(event_type, payload)
@@ -192,6 +197,7 @@ def _write_rotating_reports_named(hunt_name: str, payload: dict, keep_days: int)
 
 # ---------------------- INI helpers ------------------
 def _load_hunt_config() -> configparser.ConfigParser:
+
     cfg = configparser.ConfigParser()
     cfg.optionxform = str  # preserve case
     if os.path.isfile(CONFIG_PATH):
@@ -199,6 +205,7 @@ def _load_hunt_config() -> configparser.ConfigParser:
     return cfg
 
 def _cfg_prefixes(cfg) -> list[str]:
+
     try:
         raw = cfg.get("global", "prefixes_to_strip", fallback="")
         prefs = [s.strip() for s in raw.split(";") if s.strip()]
@@ -207,6 +214,7 @@ def _cfg_prefixes(cfg) -> list[str]:
         return CHAOS_PREFIXES_TO_STRIP
 
 def _cfg_watch_dirs(cfg) -> list[str]:
+
     try:
         raw = cfg.get("global", "watch_dirs", fallback="")
         dirs = [s.strip() for s in raw.split(";") if s.strip()]
@@ -215,6 +223,7 @@ def _cfg_watch_dirs(cfg) -> list[str]:
         return WATCH_DIRS
 
 def _cfg_keep_days(cfg) -> int:
+
     try:
         return cfg.getint("global", "rotate_keep_days", fallback=HUNT_ROTATE_KEEP_DAYS)
     except Exception:
@@ -222,11 +231,13 @@ def _cfg_keep_days(cfg) -> int:
 
 # ---------------------- SQLite / FTS5 ---------------
 def db() -> sqlite3.Connection:
+
     c = sqlite3.connect(DB_PATH)
     c.execute("PRAGMA journal_mode=WAL;")
     return c
 
 def init_db():
+
     with db() as cx:
         cx.executescript("""
         CREATE TABLE IF NOT EXISTS files(
@@ -265,6 +276,7 @@ def init_db():
 
 # ---------------------- Helpers ---------------------
 def sha1(path: str, limit_mb: int = 16) -> Optional[str]:
+
     try:
         h = hashlib.sha1()
         with open(path, "rb") as f:
@@ -291,6 +303,7 @@ def read_text_for_index(path: str) -> str:
 
 # ---------------------- Cataloging ------------------
 def upsert_file(path: str):
+
     try:
         st = os.stat(path)
     except Exception:
@@ -309,17 +322,20 @@ def upsert_file(path: str):
             cx.execute("INSERT INTO filetext(path, content) VALUES(?,?)", (str(p), text))
 
 def remove_file(path: str):
+
     with db() as cx:
         cx.execute("DELETE FROM files WHERE path=?", (path,))
         cx.execute("DELETE FROM filetext WHERE path=?", (path,))
 
 def log_event(evtype: str, path: str, info: str=""):
+
     with db() as cx:
         cx.execute("INSERT INTO events(ts,type,path,info) VALUES(?,?,?,?)",
                    (time.time(), evtype, path, info))
     report_to_rhea("event", {"event": evtype, "path": path, "info": info})
 
 def flag_anomaly(path: str, rule: str, note: str):
+
     with db() as cx:
         cx.execute("INSERT INTO anomalies(ts,path,rule,note) VALUES(?,?,?,?)",
                    (time.time(), path, rule, note))
@@ -328,6 +344,7 @@ def flag_anomaly(path: str, rule: str, note: str):
 
 # ---------------------- Simple Rules ---------------
 def run_rules(path: str):
+
     try:
         p = pathlib.Path(path)
         ext = p.suffix.lower()
@@ -344,20 +361,25 @@ def run_rules(path: str):
 # ---------------------- Watcher --------------------
 class Handler(FileSystemEventHandler):
     def on_created(self, event):
+
         if event.is_directory: return
         upsert_file(event.src_path); log_event("created", event.src_path); run_rules(event.src_path)
     def on_modified(self, event):
+
         if event.is_directory: return
         upsert_file(event.src_path); log_event("modified", event.src_path)
     def on_moved(self, event):
+
         if event.is_directory: return
         remove_file(event.src_path); upsert_file(event.dest_path)
         log_event("moved", f"{event.src_path} -> {event.dest_path}")
     def on_deleted(self, event):
+
         if event.is_directory: return
         remove_file(event.src_path); log_event("deleted", event.src_path)
 
 def start_watch():
+
     obs = Observer()
     h = Handler()
     for d in WATCH_DIRS:
@@ -369,6 +391,7 @@ def start_watch():
 
 # ---------------------- Local LLM (HTTP) ----------
 def llm_chat(system_prompt: str, user_prompt: str, temperature: float = 0.2, max_tokens: int = 400) -> str:
+
     """
     Talks to any OpenAI-compatible local endpoint (LM Studio, Jan, GPT4All Server, etc.).
     Set:
@@ -395,6 +418,7 @@ def llm_chat(system_prompt: str, user_prompt: str, temperature: float = 0.2, max
         return f"(LLM error: {e})"
 
 def ask(query: str, k: int = 25) -> str:
+
     with db() as cx:
         rows = cx.execute(
             "SELECT path, snippet(filetext, 1, '[', ']', ' … ', 10) AS snip "
@@ -419,6 +443,7 @@ def ask(query: str, k: int = 25) -> str:
 
 # ---------------------- CHAOS + Config Hunts -----------------
 def _strip_prefixes(path_str: str) -> str:
+
     low = path_str.lower()
     for pref in CHAOS_PREFIXES_TO_STRIP:
         p = pref.lower().rstrip("\\/")
@@ -428,12 +453,14 @@ def _strip_prefixes(path_str: str) -> str:
     return path_str
 
 def _is_chaos_path(p: pathlib.Path) -> bool:
+
     suffixes = p.suffixes
     if not suffixes:
         return False
     return suffixes[-1].lower().startswith(".chaos")
 
 def hunt_chaos(max_results: int = 100000, contains: str | None = None) -> list[str]:
+
     """
     Scans WATCH_DIRS for any file whose final extension starts with .chaos
     Optional: filter results to paths containing a substring (case-insensitive).
@@ -461,9 +488,7 @@ def hunt_chaos(max_results: int = 100000, contains: str | None = None) -> list[s
     cleaned = [_strip_prefixes(h) for h in hits]
 
     console.print(
-        f"[bold]{len(cleaned)}[/] CHAOS files found"
-        + (f" (filter: '{contains}')" if contains else "")
-        + ":"
+        f"[bold]{len(cleaned)}[/] CHAOS files found" + (f" (filter: '{contains}')" if contains else "") + ":"
     )
     for h in cleaned:
         console.print(f" • {h}")
@@ -482,17 +507,11 @@ def hunt_chaos(max_results: int = 100000, contains: str | None = None) -> list[s
     return cleaned
 
 def run_config_hunt(hunt_name: str, contains: str | None = None, max_results: int = 200000):
+
     """
     Run a hunt defined in ranger.hunts.ini as [hunt:<hunt_name>].
-    Supported types:
-      - glob             : pattern=*.mirror.json
-      - suffix_startswith: suffix=.chaos
-      - ext_equals       : ext=.vas
-      - size_gt          : mb=100
-      - mtime_older_than : days=180
-      - fts_match        : query=Echomarker  (searches filetext FTS)
-    Optional for any hunt:
-      - limit            : cap results (default 200k)
+    Supported types: - glob             : pattern=*.mirror.json - suffix_startswith: suffix=.chaos - ext_equals       : ext=.vas - size_gt          : mb=100 - mtime_older_than : days=180 - fts_match        : query=Echomarker  (searches filetext FTS)
+    Optional for any hunt: - limit            : cap results (default 200k)
     """
     cfg = _load_hunt_config()
     section = f"hunt:{hunt_name}"
@@ -602,6 +621,7 @@ def run_config_hunt(hunt_name: str, contains: str | None = None, max_results: in
 
 # ---------------------- Reports --------------------
 def daily_report():
+
     since = time.time() - 24*3600
     with db() as cx:
         evs = cx.execute("SELECT ts,type,path,info FROM events WHERE ts>?", (since,)).fetchall()
@@ -627,6 +647,7 @@ def daily_report():
 
 # ---------------------- Timing helper -------------------
 def _seconds_until(hour: int, minute: int) -> int:
+
     now = datetime.now()
     target = now.replace(hour=hour, minute=minute, second=0, microsecond=0)
     if target <= now:
@@ -635,6 +656,7 @@ def _seconds_until(hour: int, minute: int) -> int:
 
 # ---------------------- CLI -----------------------
 def main():
+
     init_db()
 
     if len(sys.argv) > 1:

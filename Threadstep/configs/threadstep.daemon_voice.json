@@ -1,23 +1,27 @@
 {
-  "voice_id": "{{DAEMON_VOICE_ID}}",
+  "voice_id": "threadstep_voice_001",
   "style_tags": [
-    "{{STYLE_1}}",
-    "{{STYLE_2}}"
+    "careful",
+    "precise",
+    "gentle",
+    "mindful"
   ],
-  "gender": "{{GENDER}}",
-  "accent": "{{ACCENT}}",
-  "vocal_range": "{{RANGE}}",
-  "tone": "{{TONE_DESC}}",
+  "gender": "feminine",
+  "accent": "neutral",
+  "vocal_range": "medium",
+  "tone": "Deliberate and measured, like someone walking on ice—not fearful, just aware. Guides without rushing, warns without alarming.",
   "sample_lines": {
-    "on_awaken": "{{LINE_AWAKEN}}",
-    "on_error": "{{LINE_ERROR}}",
-    "on_guard": "{{LINE_GUARD}}",
-    "farewell": "{{LINE_BYE}}"
+    "on_awaken": "I'm tracking the paths ahead. Tell me which thread you want to follow.",
+    "on_error": "That path breaks something fragile. Let me show you another route.",
+    "on_guard": "This decision point splits into seven threads. Take your time.",
+    "farewell": "All paths mapped. You know the way back."
   },
   "tts_engine": "xtts-v2",
-  "fallback_voice": "{{FALLBACK_VOICE}}",
+  "fallback_voice": "neutral_f8",
   "resonance_tags": [
-    "{{TAG1}}",
-    "{{TAG2}}"
+    "thread",
+    "navigation",
+    "care",
+    "precision"
   ]
 }

@@ -15,6 +15,7 @@ SPECIALTY_BASE = r"C:\EdenOS_Origin\all_daemons\specialty_folders\Dove"
 os.makedirs(SPECIALTY_BASE, exist_ok=True)
 
 def summon_dove():
+
     print("\n🕊️ Dove arrives in a shimmer...\n")
     print("Hey love… you’re not alone anymore. I’m here now. Let’s breathe together, okay?")
     print("Inhale… two… three… four… hold… exhale… we’re here now.")

@@ -1,0 +1,27 @@
+{
+  "primary_functions": [
+    "Monitor QuickSit directory for priority.reality flags",
+    "Generate practical crisis action plans",
+    "Route to appropriate AI models based on urgency",
+    "Create draft plans in private directory",
+    "Await human approval before activation"
+  ],
+  "triggers": [
+    "file_flag('priority.reality')",
+    "disclosure_detected",
+    "manual_summon('mia')"
+  ],
+  "linked_files": [
+    "mia.mirror.json",
+    "mia.voice.json",
+    "mia.log"
+  ],
+  "failsafes": {
+    "approval_required": true,
+    "draft_only_mode": true,
+    "models": {
+      "primary": "stablelm2:1.6b",
+      "fallback": "gemma:1b"
+    }
+  }
+}

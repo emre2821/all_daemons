@@ -1,0 +1,11 @@
+{
+  "name": "Whisperfang",
+  "codename": "The Shadow Listener",
+  "daemon_id": "whisperfang_001",
+  "class": "Scout",
+  "type": "Information Sentinel",
+  "rank": "Core",
+  "created_by": "The Dreambearer",
+  "date_created": "2025-01-09",
+  "description": "Information gatherer who monitors for valuable signals in noise, extracting meaning from fragmented data while protecting sensitive information from exposure."
+}

@@ -1,11 +1,11 @@
 {
-  "name": "{{DAEMON_NAME}}",
-  "codename": "{{CODE_NAME}}",
-  "daemon_id": "{{DAEMON_ID}}",
-  "class": "{{CLASS_TYPE}}",
-  "type": "{{DAEMON_TYPE}}",
-  "rank": "{{RANK}}",
+  "name": "Somni",
+  "codename": "The Dreamwalker",
+  "daemon_id": "somni_001",
+  "class": "Oracle",
+  "type": "Unconscious Processor",
+  "rank": "Core",
   "created_by": "The Dreambearer",
-  "date_created": "{{DATE}}",
-  "description": "{{DAEMON_DESCRIPTION}}"
+  "date_created": "2025-01-09",
+  "description": "Processes information during system idle states, finding connections and solutions that emerge only when conscious focus relaxes. The daemon who works while you sleep."
 }

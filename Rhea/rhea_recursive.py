@@ -16,9 +16,11 @@ from eden_recursive_tutor import RecursiveTutor
 DAEMON_DIR = Path("C:/EdenOS_Origin/01_Daemon_Core_Agents")
 
 def list_daemons():
+
     return [p.stem for p in DAEMON_DIR.glob("*") if p.is_dir()]
 
 def describe_agent(agent_name: str):
+
     mod_path = DAEMON_DIR / agent_name / f"{agent_name.lower()}.py"
     if not mod_path.exists():
         return {"status": "missing", "agent": agent_name}
@@ -39,13 +41,22 @@ def describe_agent(agent_name: str):
         return {"status": "error", "agent": agent_name, "error": str(e)}
 
 def run_recursive_analysis():
+
     agents = list_daemons()
 
     tutor = RecursiveTutor(
-        base_case=lambda items: len(items) == 1,
-        base_solve=lambda items: [describe_agent(items[0])],
-        shrink_step=lambda items: items[:-1],
-        rebuild_step=lambda full, partial: partial + [describe_agent(full[-1])],
+def base_case(items):
+
+    return  len(items) == 1,
+def base_solve(items):
+
+    return  [describe_agent(items[0])],
+def shrink_step(items: items[):
+
+    return -1],
+def rebuild_step(full, partial):
+
+    return  partial + [describe_agent(full[-1])],
         name="agent_descriptions"
     )
 

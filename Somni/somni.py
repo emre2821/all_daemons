@@ -1,22 +1,27 @@
 # C:\EdenOS_Origin\all_daemons\Somni\somni.py
-import os, re, json, time, traceback
+import os
+import re
+import json
+import time
+import traceback
 from pathlib import Path
 
 # ── Eden layout ───────────────────────────────────────────────────────────────
 EDEN_ROOT = Path(os.environ.get("EDEN_ROOT", r"C:\EdenOS_Origin"))
 RHEA_BASE = EDEN_ROOT / "all_daemons" / "Rhea"
 
-INPUT_DIR   = RHEA_BASE / "janvier_cleaned"         # where Janvier/Aderyn lane drops cleaned chaos
-OUTBOX_DIR  = RHEA_BASE / "_outbox" / "somni"
-LOGS_DIR    = RHEA_BASE / "_logs"
+INPUT_DIR = RHEA_BASE / "janvier_cleaned"         # where Janvier/Aderyn lane drops cleaned chaos
+OUTBOX_DIR = RHEA_BASE / "_outbox" / "somni"
+LOGS_DIR = RHEA_BASE / "_logs"
 
 for d in (INPUT_DIR, OUTBOX_DIR, LOGS_DIR):
     d.mkdir(parents=True, exist_ok=True)
 
 OUTPUT_FILE = OUTBOX_DIR / "dreamlines.json"
-LOG_FILE    = LOGS_DIR / "somni_daemon.log"
+LOG_FILE = LOGS_DIR / "somni_daemon.log"
 
 def log_line(msg: str):
+
     ts = time.strftime("%Y-%m-%d %H:%M:%S")
     line = f"{ts} [Somni] {msg}"
     print(line)
@@ -37,6 +42,7 @@ POETIC_PATTERNS = [
 ]
 
 def extract_dreamlines(filepath: Path):
+
     try:
         lines = filepath.read_text(encoding="utf-8", errors="ignore").splitlines()
     except Exception as e:
@@ -49,6 +55,7 @@ def extract_dreamlines(filepath: Path):
     return dreamlines
 
 def main():
+
     log_line("Wandering through dreams...")
     all_dreams = {}
     chaos_files = sorted([p for p in INPUT_DIR.glob("*.chaos") if p.is_file()])

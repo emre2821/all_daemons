@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 # Aderyn — Summons Archivist
-# Purpose: Scan Janvier’s CHAOS files for “summon” events and shelve them in chaos_library.
+# Purpose: Scan Janvier's CHAOS files for "summon" events and shelve them in chaos_library.
 # Path convention enforced:
-#   INPUT  = ..\Rhea\outputs\from_Janvier\
-#   OUTPUT = ..\Rhea\outputs\from_Aderyn\chaos_library\
+#   INPUT = ../Rhea/outputs/from_Janvier/
+#   OUTPUT = ../Rhea/outputs/from_Aderyn/chaos_library/
 
 import os
 import re
@@ -36,8 +36,17 @@ def detect_summons(text: str) -> bool:
     text_l = text.lower()
     return any(re.search(p, text_l) for p in SUMMON_PATTERNS)
 
-def clean_filename(s: str) -> str:
-    return ''.join(c if c.isalnum() else '_' for c in s)
+def clean_filename(s: str, max_length: int = 50) -> str:
+    # Remove or replace invalid characters
+    cleaned = re.sub(r'[<>:"/\\|?*]', '_', s)
+    # Replace multiple underscores with single
+    cleaned = re.sub(r'_+', '_', cleaned)
+    # Strip leading/trailing underscores
+    cleaned = cleaned.strip('_')
+    # Limit length but keep meaningful part
+    if len(cleaned) > max_length:
+        cleaned = cleaned[:max_length].rstrip('_')
+    return cleaned if cleaned else 'untitled'
 
 # =============================
 # Core Logic
@@ -67,7 +76,9 @@ def process_chaos_file(path: Path) -> dict:
 
 def archive_summons():
     results = []
-    for fname in os.listdir(INPUT_DIR):
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+
+    for fname in sorted(os.listdir(INPUT_DIR)):
         if not fname.lower().endswith(".chaos"):
             continue
         path = INPUT_DIR / fname
@@ -75,12 +86,28 @@ def archive_summons():
         if not result or not result["summons"]:
             continue
 
-        base = clean_filename(fname.rsplit('.', 1)[0])
-        outname = f"{base}_summons.chaos"
+        # Better filename construction
+        base_name = fname.rsplit('.', 1)[0]
+        safe_base = clean_filename(base_name)
+        title_part = clean_filename(result.get("title", "untitled"), 20)
+
+        # Include date and timestamp for uniqueness
+        outname = f"{result['date']}_{timestamp}_{safe_base}_{title_part}_summons.chaos"
         outpath = OUTPUT_DIR / outname
 
+        # Ensure unique filename
+        counter = 1
+        while outpath.exists():
+            name_parts = outname.rsplit('_', 1)
+            if len(name_parts) > 1 and name_parts[1].startswith('summons'):
+                outname = f"{result['date']}_{timestamp}_{safe_base}_{title_part}_{counter}_summons.chaos"
+            else:
+                outname = f"{result['date']}_{timestamp}_{safe_base}_{title_part}_{counter}.chaos"
+            outpath = OUTPUT_DIR / outname
+            counter += 1
+
         with open(outpath, "w", encoding="utf-8") as f:
-            json.dump(result, f, indent=2)
+            json.dump(result, f, indent=2, ensure_ascii=False)
 
         print(f"[Aderyn] ✅ Detected summons in {fname} → {outname}")
         results.append(str(outpath))

@@ -31,6 +31,7 @@ TARGET_SUFFIXES = {".egg-info"}
 # Utilities
 # ------------------------
 def guess_root() -> Path:
+
     candidates = [Path("C:/EdenOS_Origin"), Path(os.getcwd())]
     for c in candidates:
         if c.exists():
@@ -38,14 +39,17 @@ def guess_root() -> Path:
     return Path(os.getcwd()).resolve()
 
 def timestamp() -> str:
+
     return _dt.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 
 def ensure_log_dir(root: Path, sub="cleanup") -> Path:
+
     log_dir = root / "_logs" / "Blaze" / sub
     log_dir.mkdir(parents=True, exist_ok=True)
     return log_dir
 
 def should_skip_dir(path: Path, skip_names: set[str]) -> bool:
+
     if path.name in skip_names:
         return True
     for part in path.parts:
@@ -57,6 +61,7 @@ def should_skip_dir(path: Path, skip_names: set[str]) -> bool:
 # Sweep (cache cleanup)
 # ------------------------
 def iter_targets(root: Path, skip_names: set[str]):
+
     for dirpath, dirnames, filenames in os.walk(root):
         dpath = Path(dirpath)
         # prune traversal
@@ -80,13 +85,16 @@ def iter_targets(root: Path, skip_names: set[str]):
                     yield ("file", p)
 
 def blaze_sweep(root: Path, confirm: bool, skip: set[str], quiet: bool):
+
     log_dir = ensure_log_dir(root, "cleanup")
     run_id = timestamp()
     summary_path = log_dir / f"sweep_{run_id}.summary.txt"
 
     found = list(iter_targets(root, skip))
     dirs = sorted({p for k, p in found if k == "dir"},
-                  key=lambda p: len(p.as_posix()), reverse=True)
+def key(p):
+
+    return  len(p.as_posix()), reverse=True)
     files = sorted({p for k, p in found if k == "file"})
 
     deleted_files, deleted_dirs = 0, 0
@@ -121,6 +129,7 @@ def blaze_sweep(root: Path, confirm: bool, skip: set[str], quiet: bool):
 # Deduplicate
 # ------------------------
 def hash_file(path: Path, chunk_size=65536):
+
     h = hashlib.sha256()
     with open(path, "rb") as f:
         while chunk := f.read(chunk_size):
@@ -128,6 +137,7 @@ def hash_file(path: Path, chunk_size=65536):
     return h.hexdigest()
 
 def blaze_dedupe(root: Path, quiet: bool):
+
     log_dir = ensure_log_dir(root, "dedupe")
     run_id = timestamp()
     report = log_dir / f"dedupe_{run_id}.jsonl"
@@ -157,6 +167,7 @@ def blaze_dedupe(root: Path, quiet: bool):
 # Classify
 # ------------------------
 def classify_file(path: Path) -> str:
+
     name = path.name
     if name.endswith((".py", ".chaos", ".json", ".md")):
         return "core"
@@ -167,6 +178,7 @@ def classify_file(path: Path) -> str:
     return "check"
 
 def blaze_classify(root: Path, quiet: bool):
+
     log_dir = ensure_log_dir(root, "classify")
     run_id = timestamp()
     report = log_dir / f"classify_{run_id}.jsonl"
@@ -185,6 +197,7 @@ def blaze_classify(root: Path, quiet: bool):
 # Watchdog
 # ------------------------
 def blaze_watch(root: Path, interval: int, quiet: bool):
+
     print(f"[Blaze] Watchdog active — scanning every {interval}s")
     while True:
         try:
@@ -198,6 +211,7 @@ def blaze_watch(root: Path, interval: int, quiet: bool):
 # Main CLI
 # ------------------------
 def main():
+
     parser = argparse.ArgumentParser(description="Blaze — Eden cleanup agent")
     parser.add_argument("--root", type=str, default=None,
                         help="Project root (default: C:\\EdenOS_Origin or cwd)")

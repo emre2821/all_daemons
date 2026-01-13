@@ -18,6 +18,7 @@ FOLDER_MAP = {
 }
 
 def restore_folders():
+
     print("🛠️ Rebuilding Eden from Eden_Proper...")
     os.makedirs(RESTORE_TARGET, exist_ok=True)
     for src_folder, target_name in FOLDER_MAP.items():

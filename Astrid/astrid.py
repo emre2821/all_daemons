@@ -47,6 +47,7 @@ class Astrid:
     )
 
     def __init__(self, task_file="tasks.csv", spoon_limit=5):
+
         """
         Args:
             task_file (str): Path to tasks CSV
@@ -59,6 +60,7 @@ class Astrid:
         self.log = []
 
     def _load_tasks(self):
+
         """Load tasks from the CSV file if available."""
         if os.path.exists(self.task_file):
             return pd.read_csv(self.task_file)
@@ -66,6 +68,7 @@ class Astrid:
         return pd.DataFrame(columns=["id", "name", "cost", "value", "category", "enabled"])
 
     def evaluate_tasks(self):
+
         """Suggest tasks within budget, maximizing value/cost ratio."""
         enabled = self.tasks[self.tasks["enabled"] == 1]
         affordable = enabled[enabled["cost"] <= self.spoons_left]
@@ -80,6 +83,7 @@ class Astrid:
         return suggestions
 
     def spend_spoons(self, task_id):
+
         """Spend spoons on a task if budget allows."""
         task = self.tasks[self.tasks["id"] == task_id]
         if task.empty:
@@ -95,16 +99,19 @@ class Astrid:
         return True
 
     def restore(self):
+
         """Reset spoon budget for a new cycle (e.g., new day)."""
         self.spoons_left = self.spoon_limit
         logging.info(f"🔄 Astrid restores budget → {self.spoons_left} spoons available.")
 
     def warn_if_low(self):
+
         """Warn if spoons are nearly exhausted."""
         if self.spoons_left <= 1:
             logging.warning("⚠️ Astrid: You are near exhaustion. Spare some strength for tomorrow.")
 
     def report_log(self):
+
         """Return history of completed tasks."""
         return self.log
 

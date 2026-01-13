@@ -1,18 +1,20 @@
 import os
 import re
 import sys
-from typing import List, Dict
+from typing import List
+import Dict
 from collections import defaultdict
 from datetime import datetime
 
 class EdenShield:
     def __init__(self):
+
         self.threats: List[Dict] = []
         self.risk_scores = defaultdict(int)
         self.patterns = {
             'sql_injection': r'(\bSELECT\b|\bUNION\b|\bDROP\b|\b--\b|[\'"];\s*[\'"])',
             'xss_attempt': r'(<script\b|javascript:|on\w+\s*=)',
-            'shell_injection': r'(\bexec\b|\bsystem\b|\brm\s+-rf\b|\bpopen\b|;|&|\|)',
+            'shell_injection': r'(\bexec\b|\bsystem\b|\brm\s + -rf\b|\bpopen\b|;|&|\|)',
             'sensitive_data': r'(\bhealth\b|\bmedical\b|\bpatient\b|\bdiagnosis\b|\bSSN\b|\bPHI\b)',
         }
         self.risk_weights = {
@@ -26,6 +28,7 @@ class EdenShield:
         self.consent_check = False
 
     def scan_input(self, user_input: str, source: str = "unknown") -> None:
+
         if not self.consent_check:
             self.threats.append({
                 'type': 'consent_missing',
@@ -48,6 +51,7 @@ class EdenShield:
                 self._log_threat(threat_type, source, user_input)
 
     def scan_file(self, file_path: str) -> None:
+
         try:
             if not os.path.exists(file_path):
                 return
@@ -65,6 +69,7 @@ class EdenShield:
             self._log_threat('access_error', file_path, str(e))
 
     def check_access_patterns(self, access_count: int, source: str, threshold: int = 3) -> None:
+
         if access_count > threshold:
             self.threats.append({
                 'type': 'unusual_access',
@@ -76,13 +81,16 @@ class EdenShield:
             self._log_threat('unusual_access', source, f"Attempts: {access_count}")
 
     def set_consent(self, consented: bool) -> None:
+
         self.consent_check = consented
 
     def _log_threat(self, threat_type: str, source: str, details: str) -> None:
+
         with open(self.log_file, 'a', encoding='utf-8') as f:
             f.write(f"[{datetime.now()}] {threat_type} from {source}: {details[:100]}\n")
 
     def report(self) -> str:
+
         if not self.threats:
             return "StillPoint is safe. EdenShield holds the pause."
         report = ["EdenShield Protection Report for StillPoint:"]
@@ -95,6 +103,7 @@ class EdenShield:
         return "\n".join(report)
 
 def main():
+
     if len(sys.argv) < 2:
         print("Usage: python eden_shield.py <file_path> | <input_string>")
         sys.exit(1)

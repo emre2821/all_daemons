@@ -1,6 +1,5 @@
 import time
 import json
-import os
 import logging
 from filelock import FileLock
 
@@ -17,6 +16,7 @@ CHECK_INTERVAL = CONFIG['check_interval']
 KEYWORDS = CONFIG['keywords']
 
 def check_text_for_keywords(text, keywords):
+
     """Scan text for keywords (case-insensitive)."""
     found = []
     if not text or not keywords:
@@ -28,6 +28,7 @@ def check_text_for_keywords(text, keywords):
     return list(set(found))
 
 def write_to_communication_file(data):
+
     """Write data to communication file with locking."""
     lock = FileLock(f"{COMMUNICATION_FILE}.lock")
     try:
@@ -39,6 +40,7 @@ def write_to_communication_file(data):
         logging.error(f"Error writing to communication file: {e}")
 
 def update_keywords():
+
     """Allow user to update keywords during runtime."""
     custom_input = input("Enter new keywords (comma-separated) or press Enter to keep current: ")
     if custom_input.strip():
@@ -51,6 +53,7 @@ def update_keywords():
     return CONFIG['keywords']
 
 def whisperfang():
+
     """Monitor text for keywords and communicate detections."""
     print("Whisperfang activated.")
     print(f"Listening for keywords: {KEYWORDS}")
@@ -75,7 +78,7 @@ def whisperfang():
             if detected:
                 print("\n!!! KEYWORDS DETECTED !!!")
                 for kw in detected:
-                    print(f"  - {kw}")
+                    print(f" - {kw}")
                     data = f"Detected: {kw} at {time.strftime('%Y-%m-%d %H:%M:%S')}"
                     write_to_communication_file(data)
                 print("!!!!!!!!!!!!!!!!!!!!!!!\n")

@@ -7,7 +7,10 @@ Keeps daemons, configs, and registry aligned with canonical layout:
     C:\EdenOS_Origin\01_Daemon_Core_Agents\<Daemon>\<daemon>.py
 """
 
-import os, json, shutil, datetime
+import os
+import json
+import shutil
+import datetime
 
 try:
     import yaml
@@ -27,17 +30,21 @@ os.makedirs(os.path.dirname(LOG), exist_ok=True)
 
 # === HELPERS ===
 def now():
+
     return datetime.datetime.utcnow().isoformat()
 
 def log_fix(record: dict):
+
     record["time"] = now()
     with open(LOG, "a", encoding="utf-8") as f:
         f.write(json.dumps(record) + "\n")
 
 def canonical_path(name: str):
+
     return os.path.join(BASE, name, f"{name.lower()}.py")
 
 def safe_backup(path: str):
+
     if os.path.exists(path):
         bak = f"{path}.{datetime.datetime.utcnow().strftime('%Y%m%d_%H%M%S')}.bak"
         shutil.copyfile(path, bak)
@@ -45,6 +52,7 @@ def safe_backup(path: str):
 
 # === REGISTRY AUDIT ===
 def audit_registry():
+
     if not os.path.exists(REGISTRY):
         print(f"[ARIANE] No registry found at {REGISTRY}")
         return
@@ -113,6 +121,7 @@ def audit_registry():
 
 # === YAML AUDIT ===
 def audit_yaml(path: str, key: str):
+
     if not HAVE_YAML or not os.path.exists(path):
         return
     with open(path, "r", encoding="utf-8") as f:
@@ -147,6 +156,7 @@ def audit_yaml(path: str, key: str):
 
 # === FILE NORMALIZATION ===
 def normalize_daemon_files():
+
     for d in os.listdir(BASE):
         ddir = os.path.join(BASE, d)
         if not os.path.isdir(ddir): 
@@ -168,6 +178,7 @@ def normalize_daemon_files():
 
 # === FULL AUDIT ===
 def run_audit():
+
     print("[ARIANE] Starting full audit...")
     normalize_daemon_files()
     audit_registry()

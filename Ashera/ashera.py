@@ -39,6 +39,7 @@ class Ashera:
     notes = "Powerful but strict. Use with caution. Can be overly harsh unless balanced by Yune."
 
     def __init__(self, interval=10):
+
         """
         Args:
             interval (int): Seconds between sanity checks.
@@ -50,10 +51,12 @@ class Ashera:
         self._thread = None
 
     def register_daemon(self, name, state="healthy"):
+
         self.daemons[name] = {"status": state}
         logging.info(f"{self.symbolic_traits['sigil']} Ashera registers '{name}' under her watch.")
 
     def update_daemon_status(self, name, status):
+
         if name in self.daemons:
             self.daemons[name]["status"] = status
             logging.info(f"{self.symbolic_traits['sigil']} '{name}' status updated to {status}.")
@@ -61,28 +64,33 @@ class Ashera:
             logging.warning(f"'{name}' not found in Ashera’s registry.")
 
     def add_rule(self, rule_name, rule_func):
+
         """Add a custom enforcement rule."""
         self.rules.append((rule_name, rule_func))
         logging.info(f"{self.symbolic_traits['sigil']} Rule '{rule_name}' installed.")
 
     def start(self):
+
         self._running = True
         self._thread = threading.Thread(target=self._run, daemon=True)
         self._thread.start()
         logging.info(f"{self.symbolic_traits['sigil']} Ashera awakens: judgment begins.")
 
     def stop(self):
+
         self._running = False
         if self._thread:
             self._thread.join()
         logging.info(f"{self.symbolic_traits['sigil']} Ashera rests—judgment deferred.")
 
     def _run(self):
+
         while self._running:
             self.enforce()
             time.sleep(self.interval)
 
     def enforce(self):
+
         """Check all daemons and enforce rules."""
         for name, state in list(self.daemons.items()):
             # Base sanity check
@@ -100,6 +108,7 @@ class Ashera:
                     logging.error(f"Rule '{rule_name}' errored on '{name}': {e}")
 
     def _terminate(self, name, reason="unknown"):
+
         logging.error(f"{self.symbolic_traits['sigil']} Ashera PURGES '{name}' (reason: {reason}).")
         del self.daemons[name]
 

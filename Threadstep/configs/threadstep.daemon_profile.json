@@ -1,11 +1,11 @@
 {
-  "name": "{{DAEMON_NAME}}",
-  "codename": "{{CODE_NAME}}",
-  "daemon_id": "{{DAEMON_ID}}",
-  "class": "{{CLASS_TYPE}}",
-  "type": "{{DAEMON_TYPE}}",
-  "rank": "{{RANK}}",
+  "name": "Threadstep",
+  "codename": "The Navigator",
+  "daemon_id": "threadstep_001",
+  "class": "Guide",
+  "type": "Path Tracer",
+  "rank": "Core",
   "created_by": "The Dreambearer",
-  "date_created": "{{DATE}}",
-  "description": "{{DAEMON_DESCRIPTION}}"
+  "date_created": "2025-01-09",
+  "description": "Navigation daemon who tracks execution paths and narrative threads, ensuring delicate movement through complex decision trees without breaking fragile connections."
 }

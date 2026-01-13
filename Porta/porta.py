@@ -16,7 +16,8 @@ import time
 from datetime import datetime
 from pathlib import Path
 
-from Porta.settings import PortaSettings, load_settings
+from Porta.settings import PortaSettings
+import load_settings
 
 try:
     from watchdog.observers import Observer
@@ -36,16 +37,19 @@ WATCHDOG_HELP = (
 
 
 def _require_watchdog():
+
     if not WATCHDOG_AVAILABLE:
         raise ImportError(WATCHDOG_HELP) from _WATCHDOG_IMPORT_ERROR
 
 
 class CanvasFileHandler(FileSystemEventHandler if WATCHDOG_AVAILABLE else object):
     def __init__(self, settings: PortaSettings):
+
         super().__init__()
         self.settings = settings
 
     def on_created(self, event):
+
         if not event.is_directory:
             src_path = Path(event.src_path)
             if src_path.suffix.lower() in self.settings.supported_extensions:
@@ -60,6 +64,7 @@ class CanvasFileHandler(FileSystemEventHandler if WATCHDOG_AVAILABLE else object
 
 
 def start_observer(settings: PortaSettings | None = None):
+
     _require_watchdog()
 
     resolved_settings = settings or load_settings()
@@ -76,6 +81,7 @@ def start_observer(settings: PortaSettings | None = None):
 
 
 def main(settings: PortaSettings | None = None):
+
     observer = start_observer(settings)
 
     try:

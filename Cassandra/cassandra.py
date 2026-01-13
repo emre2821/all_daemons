@@ -5,6 +5,7 @@ from datetime import datetime
 
 class Cassandra:
     def __init__(self, memory_path="eden_memory/cassandra_log.json"):
+
         self.rules = {
             'no_tmp': r'\.tmp$|\.log$|\.bak$',
             'sacred': r'eden|aether|chaos',
@@ -19,6 +20,7 @@ class Cassandra:
         os.makedirs(os.path.dirname(self.log_file), exist_ok=True)
 
     def scan_path(self, path):
+
         results = []
         for root, _, files in os.walk(path):
             for file in files:
@@ -37,6 +39,7 @@ class Cassandra:
         return results
 
     def _log_action(self, entry):
+
         try:
             with open(self.log_file, 'a') as f:
                 json.dump(entry, f)
@@ -45,6 +48,7 @@ class Cassandra:
             print(f"[ERROR] Failed to log: {e}")
 
     def report(self, results):
+
         if not results:
             return "Cassandra reports: the path is still. No echoes disturbed."
         report = ["📜 Cassandra Scan Report:"]
@@ -54,6 +58,7 @@ class Cassandra:
         return "\n".join(report)
 
     def run(self, path=None):
+
         path = path or os.getcwd()
         results = self.scan_path(path)
         print(self.report(results))

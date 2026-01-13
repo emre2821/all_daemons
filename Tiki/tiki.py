@@ -44,12 +44,14 @@ class Tiki:
         self.lock = threading.Lock()
 
     def register_daemon(self, name):
+
         """Register a daemon under Tiki’s care."""
         with self.lock:
             self.daemons[name] = "active"
         logging.info(f"{self.symbolic_traits['sigil']} Tiki watches over '{name}' (active).")
 
     def sleep_daemon(self, name):
+
         """Put a daemon into cached sleep state."""
         with self.lock:
             if name in self.daemons and self.daemons[name] == "active":
@@ -59,6 +61,7 @@ class Tiki:
                 logging.warning(f"{name} is not active or not under Tiki’s care.")
 
     def wake_daemon(self, name):
+
         """Wake a sleeping daemon quickly."""
         with self.lock:
             if name in self.daemons and self.daemons[name] == "sleeping":
@@ -68,6 +71,7 @@ class Tiki:
                 logging.warning(f"{name} is not sleeping or not under Tiki’s care.")
 
     def status_report(self):
+
         """Return current daemon states."""
         with self.lock:
             report = dict(self.daemons)

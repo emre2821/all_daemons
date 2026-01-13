@@ -7,20 +7,23 @@ LOG_FILE = "eden_agent_arrivals.chaoscript"
 KNOWN_AGENTS = set()
 
 def load_existing_log():
+
     if not os.path.exists(LOG_FILE):
         return set()
     with open(LOG_FILE, "r", encoding="utf-8") as f:
         return set(line.strip().split(": ")[1] for line in f if line.startswith("[AGENT REGISTERED]"))
 
 def log_new_agent(agent_name):
+
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     with open(LOG_FILE, "a", encoding="utf-8") as f:
         f.write(f"[AGENT REGISTERED]: {agent_name}\n")
         f.write(f"[TIMESTAMP]: {timestamp}\n")
-        f.write(f"[SOURCE]: mirror.json\n\n")
+        f.write("[SOURCE]: mirror.json\n\n")
     print(f"[Ledger Jr] Logged new agent: {agent_name}")
 
 def monitor_folder():
+
     global KNOWN_AGENTS
     KNOWN_AGENTS = load_existing_log()
 

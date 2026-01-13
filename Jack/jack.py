@@ -1,13 +1,13 @@
 import json
 import os
 import subprocess
-import signal
 import sys
 import time
 from datetime import datetime
 
 class EdenCore:
     def __init__(self, headless=False):
+
         self.log_file = "edencore_log.json"
         registry_path = os.path.join(os.path.dirname(__file__), "Daemon_Core", "daemon_registry.json")
         with open(registry_path, 'r') as f:
@@ -20,6 +20,7 @@ class EdenCore:
         self.headless = headless
 
     def log_action(self, daemon_name):
+
         entry = {"timestamp": str(datetime.now()), "daemon": daemon_name}
         try:
             with open(self.log_file, "a") as f:
@@ -29,9 +30,11 @@ class EdenCore:
             pass
 
     def clear_screen(self):
+
         os.system("cls" if os.name == "nt" else "clear")
 
     def start_daemon(self, script, name):
+
         if script in self.daemon_processes and self.daemon_processes[script].poll() is None:
             return  # Already running
         proc = subprocess.Popen([sys.executable, script], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -39,6 +42,7 @@ class EdenCore:
         self.log_action(f"Started {name}")
 
     def stop_daemon(self, script, name):
+
         proc = self.daemon_processes.get(script)
         if proc and proc.poll() is None:
             proc.terminate()
@@ -49,22 +53,26 @@ class EdenCore:
             self.log_action(f"Stopped {name}")
 
     def restart_daemon(self, script, name):
+
         self.stop_daemon(script, name)
         time.sleep(1)
         self.start_daemon(script, name)
         self.log_action(f"Restarted {name}")
 
     def monitor_daemons(self):
+
         for script, name in self.daemon_scripts:
             proc = self.daemon_processes.get(script)
             if not proc or proc.poll() is not None:
                 self.start_daemon(script, name)
 
     def stop_all(self):
+
         for script, name in self.daemon_scripts:
             self.stop_daemon(script, name)
 
     def main(self):
+
         if self.headless:
             try:
                 while True:

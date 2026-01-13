@@ -1,24 +1,26 @@
 {
   "primary_functions": [
-    "Daemon monitoring",
-    "System task assistance",
-    "Error response",
-    "Self-log management",
-    "Supportive fallback protocol"
+    "Refract problems into multiple viewpoints",
+    "Identify hidden assumptions in single perspectives",
+    "Generate alternative framings",
+    "Reveal creative possibilities through recontextualization",
+    "Map perspective dependencies"
   ],
   "triggers": [
-    "boot_sequence",
-    "system_flag('{{DAEMON_NAME}}')",
-    "manual_summon('{{DAEMON_NAME}}')",
-    "ritual('AutoEngage')"
+    "stuck_state_detected",
+    "perspective_request",
+    "creative_block_flagged",
+    "manual_summon('prismari')"
   ],
   "linked_files": [
-    "{{DAEMON_NAME | lowercase}}.mirror.json",
-    "{{DAEMON_NAME | lowercase}}.voice.json",
-    "{{DAEMON_NAME | lowercase}}.log"
+    "prismari.mirror.json",
+    "prismari.voice.json",
+    "prismari.viewpoints.json",
+    "prismari.log"
   ],
   "failsafes": {
-    "fallback_to": "{{FALLBACK_DAEMON}}",
-    "mirror_link_required": true
+    "minimum_perspectives": 3,
+    "label_viewpoints": true,
+    "preserve_original_frame": true
   }
 }

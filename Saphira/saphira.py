@@ -6,29 +6,37 @@ from datetime import datetime
 from pathlib import Path
 import sys
 
-REPO_ROOT = Path(__file__).resolve().parents[1]
-if str(REPO_ROOT) not in sys.path:
-    sys.path.append(str(REPO_ROOT))
+# Get paths relative to script location
+SCRIPT_DIR = Path(__file__).parent
+BASE_DIR = SCRIPT_DIR.parent
+RHEA_DIR = BASE_DIR / "Rhea"
 
-from Daemon_tools.scripts.eden_paths import daemons_root, rhea_root  # noqa: E402
-
-INBOX_DIR = rhea_root() / "outputs" / "Saphira" / "inbox"
-AGENTS_DIR = rhea_root() / "outputs" / "Saphira" / "agents"
-TEMPLATE_FILE = daemons_root() / "Saphira" / "DCA_template.agent.json"
+INBOX_DIR = RHEA_DIR / "outputs" / "Saphira" / "inbox"
+AGENTS_DIR = RHEA_DIR / "outputs" / "Saphira" / "agents"
+TEMPLATE_FILE = BASE_DIR / "Saphira" / "DCA_template.agent.json"
 
 AGENTS_DIR.mkdir(parents=True, exist_ok=True)
 
 
 def load_template():
+
     if TEMPLATE_FILE.exists():
         try:
             return json.loads(TEMPLATE_FILE.read_text(encoding="utf-8"))
         except Exception:
             pass
-    return {"type": "DCA", "name": "", "intent": "", "summon_phrase": "", "tags": [], "status": "draft"}
+    return {
+        "type": "DCA",
+        "name": "",
+        "intent": "",
+        "summon_phrase": "",
+        "tags": [],
+        "status": "draft",
+    }
 
 
 def infer_intent(text: str) -> str:
+
     lowered = text.lower()
     if "parse" in lowered or "ingest" in lowered:
         return "ingest/parse"
@@ -40,12 +48,23 @@ def infer_intent(text: str) -> str:
 
 
 def extract_tags(text: str):
-    base = ["daemon", "pipeline", "memory", "index", "embed", "parse", "ingest", "summon"]
+
+    base = [
+        "daemon",
+        "pipeline",
+        "memory",
+        "index",
+        "embed",
+        "parse",
+        "ingest",
+        "summon",
+    ]
     lowered = text.lower()
     return sorted({k for k in base if k in lowered})
 
 
 def extract_summon_phrase(text: str) -> str:
+
     for pat in (r".*\bsummon\b.*", r".*\binvoke\b.*", r".*\bcall forth\b.*"):
         match = re.search(pat, text, flags=re.I)
         if match:
@@ -57,6 +76,7 @@ def extract_summon_phrase(text: str) -> str:
 
 
 def seed_from_fragment(frag_json: dict) -> dict:
+
     template = load_template()
     template["created_at"] = datetime.now().isoformat()
     template["name"] = frag_json.get("guess_name") or "Unnamed_DCA"
@@ -68,6 +88,7 @@ def seed_from_fragment(frag_json: dict) -> dict:
 
 
 def main():
+
     if not INBOX_DIR.exists():
         print(f"[Saphira] inbox not found: {INBOX_DIR}")
         return

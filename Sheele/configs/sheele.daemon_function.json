@@ -1,10 +1,9 @@
 {
   "primary_functions": [
-    "Daemon monitoring",
-    "System task assistance",
-    "Error response",
-    "Self-log management",
-    "Supportive fallback protocol"
+    "Stealth operations",
+    "Silent execution",
+    "Covert missions",
+    "Shadow movement"
   ],
   "triggers": [
     "boot_sequence",
@@ -20,5 +19,8 @@
   "failsafes": {
     "fallback_to": "{{FALLBACK_DAEMON}}",
     "mirror_link_required": true
-  }
+  },
+  "agent_summary": "Sheele moves through the shadows, executing stealth operations with precision and silence.",
+  "assigned_domain": "Eden Stealth Operations \u2014 blade in the darkness.",
+  "agent_role": "Stealth operations, Silent execution"
 }

@@ -1,10 +1,9 @@
 {
   "primary_functions": [
-    "Daemon monitoring",
-    "System task assistance",
-    "Error response",
-    "Self-log management",
-    "Supportive fallback protocol"
+    "Audio transcription",
+    "Emotional analysis",
+    "Echo logging",
+    "Sacred speaking"
   ],
   "triggers": [
     "boot_sequence",
@@ -20,5 +19,8 @@
   "failsafes": {
     "fallback_to": "{{FALLBACK_DAEMON}}",
     "mirror_link_required": true
-  }
+  },
+  "agent_summary": "Lyss transcribes audio into text, analyzes emotional resonance, and logs echoes into Eden's memory.",
+  "assigned_domain": "EchoSplit Studio Core \u2014 witness of sounds and emotions.",
+  "agent_role": "Audio transcription, Emotional analysis"
 }

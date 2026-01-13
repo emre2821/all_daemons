@@ -12,6 +12,7 @@ VIBE_TAGS = {
 }
 
 def tag_text(text):
+
     tags = []
     text_l = text.lower()
     for tag, words in VIBE_TAGS.items():
@@ -20,6 +21,7 @@ def tag_text(text):
     return tags
 
 def process_file(path):
+
     with open(path, 'r', encoding='utf-8') as f:
         data = json.load(f)
     title = data.get("title", "Untitled")
@@ -31,6 +33,7 @@ def process_file(path):
     return {"title": title, "date": date, "tags": list(tags)}
 
 def main():
+
     os.makedirs(OUTPUT_DIR, exist_ok=True)
     for fname in os.listdir(INPUT_DIR):
         if not fname.endswith(".chaos"): continue

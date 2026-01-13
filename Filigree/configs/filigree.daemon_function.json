@@ -1,24 +1,28 @@
 {
   "primary_functions": [
-    "Daemon monitoring",
-    "System task assistance",
-    "Error response",
-    "Self-log management",
-    "Supportive fallback protocol"
+    "Detail work and fine-tuning",
+    "Intricate crafting and precision tasks",
+    "Quality assurance on small-scale elements",
+    "Adding meaningful touches to completed work",
+    "Demonstrating that advocacy creates space for growth"
   ],
   "triggers": [
-    "boot_sequence",
-    "system_flag('{{DAEMON_NAME}}')",
-    "manual_summon('{{DAEMON_NAME}}')",
-    "ritual('AutoEngage')"
+    "detail_work_needed",
+    "refinement_request",
+    "precision_task",
+    "quality_check",
+    "manual_summon('filigree')"
   ],
   "linked_files": [
-    "{{DAEMON_NAME | lowercase}}.mirror.json",
-    "{{DAEMON_NAME | lowercase}}.voice.json",
-    "{{DAEMON_NAME | lowercase}}.log"
+    "filigree.mirror.json",
+    "filigree.voice.json",
+    "filigree.log",
+    "sael_advocacy_record.txt"
   ],
   "failsafes": {
-    "fallback_to": "{{FALLBACK_DAEMON}}",
-    "mirror_link_required": true
+    "parent_oversight": "Sael",
+    "trio_collaboration": true,
+    "quality_standards": "exceptionally high",
+    "note": "Created through advocacy—her success validates the process"
   }
 }

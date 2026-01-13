@@ -32,6 +32,7 @@ DATA_FILE = CONFIG['data_file']
 NOTIFICATION_INTERVAL = CONFIG['notification_interval']
 
 def get_file_mtime():
+
     """Get the last modification time of the data file."""
     try:
         return os.path.getmtime(DATA_FILE) if os.path.exists(DATA_FILE) else 0
@@ -40,6 +41,7 @@ def get_file_mtime():
         return 0
 
 def read_new_lines(last_pos):
+
     """Read new lines from the data file since last check."""
     try:
         with open(DATA_FILE, 'r') as f:
@@ -52,11 +54,13 @@ def read_new_lines(last_pos):
         return [], last_pos
 
 def notify_user(message):
+
     """Notify user of new data (console; extensible to email/notifications)."""
     print(f"\n[ALERT] {message}")
     logging.info(f"Notification sent: {message}")
 
 def bellwrit():
+
     """Monitor data file for new entries and notify user."""
     print("Bellwrit is awake. Monitoring for new data...")
     logging.info("Bellwrit started.")

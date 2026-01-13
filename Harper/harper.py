@@ -3,7 +3,8 @@ import shutil
 from datetime import datetime
 
 try:
-    import psutil  # optional, used for real CPU/mem
+    import psutil  # optional
+import used for real CPU/mem
     _PSUTIL_OK = True
 except Exception:
     _PSUTIL_OK = False
@@ -28,6 +29,7 @@ ALERT_LOG = os.path.join(_OUT_DIR, "harper_alerts.log")
 os.makedirs(WATCH_PATH, exist_ok=True)
 
 def log_alert(reason, value):
+
     timestamp = datetime.now().isoformat()
     entry = f"[HARPER ALERT] {timestamp} :: {reason} = {value}%\n"
     with open(ALERT_LOG, 'a') as f:
@@ -35,6 +37,7 @@ def log_alert(reason, value):
     print(entry.strip())
 
 def check_system_pressure():
+
     cpu = psutil.cpu_percent(interval=1) if _PSUTIL_OK else 0.0
     mem = psutil.virtual_memory().percent if _PSUTIL_OK else 0.0
     backlog = len([f for f in os.listdir(WATCH_PATH) if f.endswith('.chaos')])
@@ -53,6 +56,7 @@ if __name__ == "__main__":
 
 
 def describe() -> dict:
+
     return {
         "name": "Harper",
         "role": "System-pressure watcher",
@@ -64,6 +68,7 @@ def describe() -> dict:
 
 
 def healthcheck() -> dict:
+
     status = "ok"; notes = []
     if not _PSUTIL_OK:
         status = "warn"; notes.append("psutil not installed; CPU/mem disabled")

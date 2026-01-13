@@ -2,13 +2,13 @@ import os
 import json
 from datetime import datetime
 import glob
-import shutil
 import subprocess
 import xml.etree.ElementTree as ET
 import time
 
 class Audrey:
     def __init__(self):
+
         self.name = "Audrey"
         self.role = "Crash Analyst DCA"
         self.input_dir = r"C:\EdenOS_Origin\all_daemons\_daemon_specialty_folders\Johns_Logs\crash_dumps"
@@ -18,16 +18,19 @@ class Audrey:
         self.seen_files = self.load_seen_files()
 
     def load_seen_files(self):
+
         if os.path.exists(self.checked_files_log):
             with open(self.checked_files_log, 'r') as f:
                 return set(json.load(f))
         return set()
 
     def save_seen_files(self):
+
         with open(self.checked_files_log, 'w') as f:
             json.dump(list(self.seen_files), f, indent=2)
 
     def watch_and_analyze(self, interval=60):
+
         print(f"[{self.name}] Passive mode enabled. Watching John's folder every {interval} seconds...")
         while True:
             self.run_analysis()
@@ -35,6 +38,7 @@ class Audrey:
             time.sleep(interval)
 
     def run_analysis(self):
+
         print(f"[{self.name}] Scanning for new data...")
         evtx_files = [f for f in sorted(glob.glob(os.path.join(self.input_dir, "*.evtx")), reverse=True) if f not in self.seen_files]
         dump_files = [f for f in sorted(glob.glob(os.path.join(self.input_dir, "*.dmp")), reverse=True) if f not in self.seen_files]
@@ -65,6 +69,7 @@ class Audrey:
         print(f"[{self.name}] Diagnosis saved to {outpath}")
 
     def parse_event_log(self, evtx_path):
+
         try:
             export_xml = evtx_path.replace(".evtx", ".xml")
             cmd = f'wevtutil qe "{evtx_path}" /f:xml > "{export_xml}"'
@@ -104,6 +109,7 @@ class Audrey:
             }
 
     def analyze_minidump(self, dump_path):
+
         try:
             cmd = f'dumpchk "{dump_path}"'
             result = subprocess.check_output(cmd, shell=True, stderr=subprocess.STDOUT).decode(errors='ignore')

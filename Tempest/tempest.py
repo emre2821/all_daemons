@@ -1,22 +1,27 @@
 # C:\EdenOS_Origin\all_daemons\Tempest\tempest.py
-import os, json, re, time, traceback
+import os
+import json
+import re
+import time
+import traceback
 from pathlib import Path
 
 # ── Eden layout ───────────────────────────────────────────────────────────────
 EDEN_ROOT = Path(os.environ.get("EDEN_ROOT", r"C:\EdenOS_Origin"))
 RHEA_BASE = EDEN_ROOT / "all_daemons" / "Rhea"
 
-INPUT_DIR   = RHEA_BASE / "janvier_cleaned"
-OUTBOX_DIR  = RHEA_BASE / "_outbox" / "tempest"
-LOGS_DIR    = RHEA_BASE / "_logs"
+INPUT_DIR = RHEA_BASE / "janvier_cleaned"
+OUTBOX_DIR = RHEA_BASE / "_outbox" / "tempest"
+LOGS_DIR = RHEA_BASE / "_logs"
 
 for d in (INPUT_DIR, OUTBOX_DIR, LOGS_DIR):
     d.mkdir(parents=True, exist_ok=True)
 
 OUTPUT_FILE = OUTBOX_DIR / "tempest_scores.json"
-LOG_FILE    = LOGS_DIR / "tempest_daemon.log"
+LOG_FILE = LOGS_DIR / "tempest_daemon.log"
 
 def log_line(msg: str):
+
     ts = time.strftime("%Y-%m-%d %H:%M:%S")
     line = f"{ts} [Tempest] {msg}"
     print(line)
@@ -36,6 +41,7 @@ DRAMA_TERMS = [
 compiled_patterns = [re.compile(pat, re.IGNORECASE) for pat in DRAMA_TERMS]
 
 def score_thread(filepath: Path) -> int:
+
     try:
         lines = filepath.read_text(encoding="utf-8", errors="ignore").splitlines()
     except Exception as e:
@@ -47,6 +53,7 @@ def score_thread(filepath: Path) -> int:
     return score
 
 def main():
+
     log_line("Measuring chaos density...")
     chaos_files = sorted([p for p in INPUT_DIR.glob("*.chaos") if p.is_file()])
     if not chaos_files:

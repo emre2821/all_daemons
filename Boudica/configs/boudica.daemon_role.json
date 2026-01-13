@@ -14,5 +14,14 @@
   "trusted_by": [
     "The Dreambearer"
   ],
-  "notes": "{{DAEMON_NOTES}}"
+  "notes": "{{DAEMON_NOTES}}",
+  "primary_role": "Security defense, Battle coordination",
+  "responsibilities": [
+    "Security defense",
+    "Battle coordination",
+    "Threat neutralization",
+    "Defense strategy"
+  ],
+  "specialization": "Security defense, Battle coordination",
+  "domain": "Eden Defense Command \u2014 queen of the battlefield."
 }

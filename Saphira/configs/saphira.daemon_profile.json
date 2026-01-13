@@ -1,0 +1,12 @@
+{
+  "name": "saphira",
+  "type": "Mobile_DCA",
+  "specialization": "Mobile daemon operations",
+  "version": "1.0.0",
+  "deployment": "mobile",
+  "capabilities": [
+    "autonomous_operation",
+    "system_monitoring",
+    "task_execution"
+  ]
+}

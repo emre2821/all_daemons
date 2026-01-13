@@ -5,10 +5,12 @@ from pathlib import Path
 
 class Rook:
     def __init__(self):
+
         self.log_file = "rook_log.json"
         self.dangerous = r'\brm\s+-rf\b|\bdel\b|\bformat\b|\bexec\b'
 
     def check_command(self, command):
+
         if re.search(self.dangerous, command, re.IGNORECASE):
             self._log_command(command, "blocked")
             return False
@@ -16,6 +18,7 @@ class Rook:
         return True
 
     def _log_command(self, command, status):
+
         entry = {
             "timestamp": str(datetime.now()),
             "command": command[:50],
@@ -29,6 +32,7 @@ class Rook:
             pass
 
     def main(self):
+
         print("🛡️ Rook stands guard. Enter commands (type 'exit' to quit):")
         while True:
             cmd = input("> ").strip()
@@ -46,6 +50,7 @@ if __name__ == "__main__":
 
 
 def describe() -> dict:
+
     return {
         "name": "Rook",
         "role": "Command gatekeeper (regex filter)",
@@ -56,6 +61,7 @@ def describe() -> dict:
 
 
 def healthcheck() -> dict:
+
     try:
         Path("rook_log.json").touch()
         return {"status": "ok", "notes": "log writable"}

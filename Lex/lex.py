@@ -9,22 +9,26 @@ os.makedirs(LOGS_PATH, exist_ok=True)
 
 # === Identity Manager ===
 def load_identities():
+
     if not os.path.exists(IDENTITY_PATH):
         return {}
     with open(IDENTITY_PATH, "r", encoding="utf-8") as f:
         return json.load(f)
 
 def save_identity(name, traits):
+
     identities = load_identities()
     identities[name] = traits
     with open(IDENTITY_PATH, "w", encoding="utf-8") as f:
         json.dump(identities, f, indent=2)
 
 def get_identity(name):
+
     return load_identities().get(name, {"traits": "unknown", "style": "soft"})
 
 # === CHAOS Logger ===
 def log_chaos(event_name, emotion, context, text, identity="default"):
+
     timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
     filename = f"{identity}_{event_name}_{timestamp}.chaos"
     path = os.path.join(LOGS_PATH, filename)
@@ -46,6 +50,7 @@ def log_chaos(event_name, emotion, context, text, identity="default"):
 
 # === Ritual Starter ===
 def summon_ritual(name):
+
     rituals = {
         "shadow_confession": "[EVENT]: shadow_confession\n[EMOTION]: conflicted\n[TRUTH]: fractured\n{ I wanted it. Even when I said I didn’t. }",
         "clarity_call": "[EVENT]: clarity_call\n[EMOTION]: longing\n[CONTEXT]: fog_clearing\n{ What I thought was lost might still be whispering. }"

@@ -23,6 +23,7 @@ SCAN_PATH = os.path.join(BASE_DIR)  # Scans entire EdenOS_Origin
 # === CORE FUNCTIONS ===
 
 def log_action(action, filename, destination=None, tags=None):
+
     entry = {
         "timestamp": datetime.utcnow().isoformat(),
         "action": action,
@@ -34,6 +35,7 @@ def log_action(action, filename, destination=None, tags=None):
         log.write(json.dumps(entry) + "\n")
 
 def file_contains_keywords(filepath, keywords):
+
     try:
         with open(filepath, "r", encoding="utf-8", errors="ignore") as f:
             content = f.read().lower()
@@ -43,6 +45,7 @@ def file_contains_keywords(filepath, keywords):
         return []
 
 def determine_tags(filepath):
+
     tags = []
     content_tags = file_contains_keywords(filepath, [
         "informed consent", "permission", "opt-in", "autonomy",
@@ -63,6 +66,7 @@ def determine_tags(filepath):
     return list(set(tags)) or ["::guardian.review"]
 
 def move_file(filepath, tags):
+
     filename = os.path.basename(filepath)
     for tag in tags:
         if tag in TAG_DESTINATIONS:
@@ -73,9 +77,11 @@ def move_file(filepath, tags):
             log_action("MOVE", filename, destination=dest_path, tags=tags)
 
 def should_exclude(filepath):
+
     return any(exclusion in filepath for exclusion in EXCLUDED_PATHS)
 
 def scan_and_sort():
+
     print("📂 Lexos is now sorting Eden’s legal files...")
     for root, _, files in os.walk(SCAN_PATH):
         for file in files:

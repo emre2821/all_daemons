@@ -9,11 +9,14 @@ import re
 import os
 import random
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Dict
+import List
+import Optional
 import requests
 
 class Prismari:
     def __init__(self):
+
         self.voice_tag = "Prismari"
         self.default_comments = [
             "That palette? She's dangerous and she knows it.",
@@ -29,6 +32,7 @@ class Prismari:
         ]
 
     def comment_on(self, palette: Dict, mood: Optional[str] = None, agent: Optional[str] = None, override_comment: Optional[str] = None):
+
         """Print Prismari-style commentary about a palette"""
         name = palette.get("name", "Unnamed Theme")
         comment = override_comment or random.choice(self.default_comments)
@@ -37,7 +41,7 @@ class Prismari:
         print(f"Palette: {name}")
         
         if mood or agent:
-            print(f"Tags:", end=" ")
+            print("Tags:", end=" ")
             if mood:
                 print(f"[Mood: {mood}]", end=" ")
             if agent:
@@ -45,6 +49,7 @@ class Prismari:
             print()
 
     def log_commentary(self, palette: Dict, mood: Optional[str] = None, agent: Optional[str] = None, comment: Optional[str] = None) -> Dict:
+
         """Return a structured log entry of Prismari’s thoughts"""
         return {
             "daemon": self.voice_tag,
@@ -57,6 +62,7 @@ class Prismari:
 
 class ThemePaletteGenerator:
     def __init__(self, api_key: Optional[str] = None):
+
         """Initialize the theme generator with optional API key."""
         self.api_key = api_key or os.getenv('ANTHROPIC_API_KEY')
         if not self.api_key:
@@ -64,6 +70,7 @@ class ThemePaletteGenerator:
             print("Some features may not work without an API key.")
 
     def generate_theme(self, prompt: str, author: str = "AI") -> Dict:
+
         """Generate a complete theme based on a creative prompt."""
         print(f"Generating theme for: '{prompt}'...")
         # Generate theme data using AI
@@ -80,6 +87,7 @@ class ThemePaletteGenerator:
         return theme
 
     def _generate_theme_with_ai(self, prompt: str) -> Dict:
+
         """Use AI to generate theme name, description, colors, and notes."""
         if not self.api_key:
             return self._generate_fallback_theme(prompt)
@@ -141,6 +149,7 @@ class ThemePaletteGenerator:
             return self._generate_fallback_theme(prompt)
 
     def _generate_fallback_theme(self, prompt: str) -> Dict:
+
         """Generate a fallback theme when AI is unavailable."""
         # Simple color generation based on prompt characteristics
         colors = self._generate_fallback_palette(prompt)
@@ -152,6 +161,7 @@ class ThemePaletteGenerator:
         }
 
     def _generate_fallback_name(self, prompt: str) -> str:
+
         """Generate a fallback theme name."""
         words = prompt.split()
         if len(words) >= 2:
@@ -160,6 +170,7 @@ class ThemePaletteGenerator:
             return f"{prompt.title()} Theme"
 
     def _generate_fallback_palette(self, prompt: str) -> Dict[str, str]:
+
         """Generate a fallback color palette based on prompt keywords."""
         # Simple color generation based on prompt characteristics
         prompt_lower = prompt.lower()
@@ -211,6 +222,7 @@ class ThemePaletteGenerator:
             }
 
     def display_theme(self, theme: Dict):
+
         """Display a theme with color swatches in the terminal."""
         print(f"\n{theme['name']}")
         print(f"{theme['description']}")
@@ -227,6 +239,7 @@ class ThemePaletteGenerator:
         print()
 
     def _get_color_display(self, hex_color: str) -> str:
+
         """Get a colored display for terminal output."""
         # Convert hex to RGB
         hex_color = hex_color.lstrip('#')
@@ -239,6 +252,7 @@ class ThemePaletteGenerator:
         return " "
 
     def save_theme(self, theme: Dict, filename: Optional[str] = None):
+
         """Save theme to a JSON file."""
         if not filename:
             safe_name = re.sub(r'[^\\w\\s-]', '', theme['name']).strip()
@@ -249,6 +263,7 @@ class ThemePaletteGenerator:
         print(f"Theme saved to {filename}")
 
     def generate_multiple_themes(self, prompts: List[str], author: str = "AI") -> List[Dict]:
+
         """Generate multiple themes from a list of prompts."""
         themes = []
         for prompt in prompts:
@@ -258,6 +273,7 @@ class ThemePaletteGenerator:
         return themes
 
 def main():
+
     """Main interactive interface."""
     print("AI-Powered Theme Palette Generator with Prismari Commentary")
     print("=" * 50)

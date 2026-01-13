@@ -3,7 +3,8 @@ import json
 from datetime import datetime
 from configparser import ConfigParser
 from difflib import SequenceMatcher
-from typing import List, Tuple, Dict, Any
+from typing import List
+import Tuple, Dict, Any
 
 # ----------------------------
 # Savvy Daemon – A Sweet Southern Belle with a Sassy Bite
@@ -17,11 +18,13 @@ from typing import List, Tuple, Dict, Any
 
 # ------------- Config Handling -------------
 def get_config() -> ConfigParser:
+
     config = ConfigParser()
     config.read("config.ini")
     return config
 
 def get_directory_pairs() -> List[List[str]]:
+
     """
     Reads all keys starting with "pair_" from the [Savvy] section
     and returns a list of directory pairs (2+ entries allowed for N-way scans).
@@ -38,6 +41,7 @@ def get_directory_pairs() -> List[List[str]]:
     return pairs
 
 def get_savvy_settings() -> Dict[str, Any]:
+
     config = get_config()
     if "Savvy" not in config:
         raise Exception("Missing [Savvy] section in config.ini")
@@ -59,6 +63,7 @@ def get_savvy_settings() -> Dict[str, Any]:
 
 # ------------- File Loading and Comparison -------------
 def load_agent_json(filepath: str) -> Dict[str, Any] | None:
+
     """
     Attempts to load an agent file as JSON.
     """
@@ -70,6 +75,7 @@ def load_agent_json(filepath: str) -> Dict[str, Any] | None:
         return None
 
 def list_mirror_files(path: str) -> List[str]:
+
     try:
         return [f for f in os.listdir(path) if f.lower().endswith(".mirror.json")]
     except Exception as e:
@@ -77,6 +83,7 @@ def list_mirror_files(path: str) -> List[str]:
         return []
 
 def find_matching_agent_files(dir_A: str, dir_B: str, fuzzy: bool=False, fuzzy_threshold: float=0.82) -> List[Tuple[str, str]]:
+
     """
     Finds matching agent files between dir_A and dir_B.
     First, it checks for exact filename matches using the '.mirror.json' extension.
@@ -129,6 +136,7 @@ def find_matching_agent_files(dir_A: str, dir_B: str, fuzzy: bool=False, fuzzy_t
     return matches
 
 def compare_json(a: Dict[str, Any], b: Dict[str, Any], fields: List[str] | None=None) -> Dict[str, Any]:
+
     """
     Compare two agent JSON dicts.
     Returns a dict with added/removed/changed fields (restricted to `fields` if provided).
@@ -156,23 +164,26 @@ def compare_json(a: Dict[str, Any], b: Dict[str, Any], fields: List[str] | None=
 
 # ------------- Output Formatting -------------
 def format_observation(agent_name: str, path_a: str, path_b: str, diff: Dict[str, Any], verbosity: str) -> str:
+
     header = f"◆ Savvy Note – {agent_name}\n   A: {path_a}\n   B: {path_b}\n"
     if verbosity == "stoic":
-        return header + f"   Δ added={len(diff['added'])}, removed={len(diff['removed'])}, changed={len(diff['changed'])}\n"
+        return header +
+            f"   Δ added={len(diff['added'])}, removed={len(diff['removed'])}, changed={len(diff['changed'])}\n"
 
     lines = [header]
     if diff["added"]:
-        lines.append("   + Fields only in B: " + ", ".join(diff["added"]))
+        lines.append(" + Fields only in B: " + ", ".join(diff["added"]))
     if diff["removed"]:
-        lines.append("   - Fields only in A: " + ", ".join(diff["removed"]))
+        lines.append(" - Fields only in A: " + ", ".join(diff["removed"]))
     if diff["changed"]:
         lines.append("   ~ Changed fields:")
         for k, meta in diff["changed"].items():
             sim_txt = f" (sim={meta['similarity']:.2f})" if meta.get("similarity") is not None else ""
             def trunc(v):
+
                 s = json.dumps(v, ensure_ascii=False)
                 return s if len(s) <= 160 else s[:157] + "…\""
-            lines.append(f"      - {k}:{sim_txt}")
+            lines.append(f" - {k}:{sim_txt}")
             lines.append(f"          from: {trunc(meta['from'])}")
             lines.append(f"          to:   {trunc(meta['to'])}")
     if verbosity == "gossipy":
@@ -180,6 +191,7 @@ def format_observation(agent_name: str, path_a: str, path_b: str, diff: Dict[str
     return "\n".join(lines) + "\n"
 
 def make_chaosdiff(agent_name: str, diff: Dict[str, Any]) -> str:
+
     """
     Create a lightweight CHAOS-style diff block.
     """
@@ -190,19 +202,20 @@ def make_chaosdiff(agent_name: str, diff: Dict[str, Any]) -> str:
         "[DELTA]:"
     ]
     if diff["added"]:
-        lines.append("  + added: " + ", ".join(diff["added"]))
+        lines.append(" + added: " + ", ".join(diff["added"]))
     if diff["removed"]:
-        lines.append("  - removed: " + ", ".join(diff["removed"]))
+        lines.append(" - removed: " + ", ".join(diff["removed"]))
     if diff["changed"]:
         lines.append("  ~ changed:")
         for k, meta in diff["changed"].items():
             sim_txt = f" (sim~{meta['similarity']:.2f})" if meta.get("similarity") is not None else ""
-            lines.append(f"    - {k}{sim_txt}")
+            lines.append(f" - {k}{sim_txt}")
     lines.append("::end.diff::")
     return "\\n".join(lines)
 
 # ------------- Journal -------------
 def write_journal(journal_path: str, content: str) -> None:
+
     os.makedirs(os.path.dirname(journal_path) or ".", exist_ok=True)
     with open(journal_path, "a", encoding="utf-8") as f:
         stamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -212,6 +225,7 @@ def write_journal(journal_path: str, content: str) -> None:
 
 # ------------- Runner -------------
 def run_savvy() -> int:
+
     """
     Execute Savvy across all configured directory pairs.
     Returns the number of agent comparisons performed.

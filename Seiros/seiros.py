@@ -42,6 +42,7 @@ class Seiros:
     notes = "Rhea’s sword, literally. Spreads the EdenOS deployment config across nodes and subspaces."
 
     def __init__(self, interval=15):
+
         """
         Args:
             interval (int): Seconds between propagation cycles.
@@ -53,16 +54,19 @@ class Seiros:
         self._thread = None
 
     def set_config(self, config):
+
         """Set the master config that Seiros will propagate."""
         self.config = copy.deepcopy(config)
         logging.info(f"{self.symbolic_traits['sigil']} Seiros sets config root → {self.config}")
 
     def register_node(self, node_id):
+
         """Register a new node (child/subspace) under Seiros’ reach."""
         self.nodes[node_id] = {}
         logging.info(f"{self.symbolic_traits['sigil']} Seiros acknowledges node '{node_id}'.")
 
     def propagate(self):
+
         """Replicate the master config across all nodes."""
         if not self.config:
             logging.warning("No config set. Nothing to propagate.")
@@ -72,6 +76,7 @@ class Seiros:
             logging.info(f"{self.symbolic_traits['sigil']} Propagation → Node '{node_id}' updated.")
 
     def deploy_seed(self, node_id, seed_data=None):
+
         """Deploy a daemon seed to a target node."""
         if node_id not in self.nodes:
             logging.warning(f"Node '{node_id}' not registered. Cannot deploy seed.")
@@ -82,6 +87,7 @@ class Seiros:
         logging.info(f"{self.symbolic_traits['sigil']} Seiros plants seed on '{node_id}': {seed}")
 
     def start(self):
+
         """Begin periodic propagation cycle."""
         self._running = True
         self._thread = threading.Thread(target=self._run, daemon=True)
@@ -89,6 +95,7 @@ class Seiros:
         logging.info(f"{self.symbolic_traits['sigil']} Seiros ignites: spreading begins.")
 
     def stop(self):
+
         """Stop propagation cycle."""
         self._running = False
         if self._thread:
@@ -96,6 +103,7 @@ class Seiros:
         logging.info(f"{self.symbolic_traits['sigil']} Seiros dims—spreading halted.")
 
     def _run(self):
+
         while self._running:
             self.propagate()
             time.sleep(self.interval)

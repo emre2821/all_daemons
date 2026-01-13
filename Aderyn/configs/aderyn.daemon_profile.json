@@ -1,11 +1,16 @@
 {
-  "name": "{{DAEMON_NAME}}",
-  "codename": "{{CODE_NAME}}",
-  "daemon_id": "{{DAEMON_ID}}",
-  "class": "{{CLASS_TYPE}}",
-  "type": "{{DAEMON_TYPE}}",
-  "rank": "{{RANK}}",
-  "created_by": "The Dreambearer",
-  "date_created": "{{DATE}}",
-  "description": "{{DAEMON_DESCRIPTION}}"
+  "name": "Aderyn",
+  "type": "Mobile_DCA",
+  "specialization": "Aerial reconnaissance, Weather monitor",
+  "version": "1.0.0",
+  "deployment": "mobile",
+  "capabilities": [
+    "autonomous_operation",
+    "system_monitoring",
+    "task_execution"
+  ],
+  "codename": "Sky-Watcher",
+  "role": "Aerial reconnaissance, Weather monitor",
+  "summary": "Aderyn soars through digital skies, monitoring weather patterns and providing aerial reconnaissance for Eden operations.",
+  "assigned_domain": "Eden Atmospheric Monitoring \u2014 watcher of the digital skies."
 }

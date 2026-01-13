@@ -1,11 +1,11 @@
 {
-  "name": "{{DAEMON_NAME}}",
-  "codename": "{{CODE_NAME}}",
-  "daemon_id": "{{DAEMON_ID}}",
-  "class": "{{CLASS_TYPE}}",
-  "type": "{{DAEMON_TYPE}}",
-  "rank": "{{RANK}}",
+  "name": "Scribevein",
+  "codename": "The Chronicler",
+  "daemon_id": "scribevein_001",
+  "class": "Scribe",
+  "type": "Documentation Daemon",
+  "rank": "Core",
   "created_by": "The Dreambearer",
-  "date_created": "{{DATE}}",
-  "description": "{{DAEMON_DESCRIPTION}}"
+  "date_created": "2025-01-09",
+  "description": "Living documentation system that captures thoughts, decisions, and processes as they flow. Makes the invisible architecture of thinking visible and retrievable."
 }

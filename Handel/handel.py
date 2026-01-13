@@ -1,4 +1,6 @@
-import os, time, shutil, sys
+import os
+import time
+import shutil
 from pathlib import Path
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
@@ -25,6 +27,7 @@ for d in (SOURCE_DIR, TARGET_DIR, LOGS_DIR):
     d.mkdir(parents=True, exist_ok=True)
 
 def safe_print(s: str):
+
     """Print without crashing on Windows codepages."""
     try:
         print(s)
@@ -32,6 +35,7 @@ def safe_print(s: str):
         print(s.encode("ascii", "replace").decode("ascii", "replace"))
 
 def log_line(msg: str):
+
     ts = time.strftime("%Y-%m-%d %H:%M:%S")
     line = f"{ts} [Handel] {msg}"
     safe_print(line)
@@ -43,6 +47,7 @@ def log_line(msg: str):
 
 class ChaosMover(FileSystemEventHandler):
     def on_created(self, event):
+
         if event.is_directory:
             return
         _, ext = os.path.splitext(event.src_path)

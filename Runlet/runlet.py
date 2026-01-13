@@ -10,6 +10,7 @@ from datetime import datetime
 
 # --- Patty Mae + Label Daemon fusion (sketch) ---
 def suggest_folder(file_path):
+
     ext = os.path.splitext(file_path)[1].lower()
     if ext in ['.jpg', '.png', '.gif']: return 'Memories/Images'
     if ext in ['.mp3', '.wav', '.ogg']: return 'Memories/Sounds'
@@ -19,6 +20,7 @@ def suggest_folder(file_path):
     return 'MysteryBox/Hopefuls'
 
 def generate_new_name(file_path):
+
     base = os.path.basename(file_path)
     name, ext = os.path.splitext(base)
     date_code = datetime.now().strftime('%Y%m%d')
@@ -26,6 +28,7 @@ def generate_new_name(file_path):
     return f"{name}__{date_code}__{tag}{ext}"
 
 def cleanse_file(file_path, root_dir, dry_run=True):
+
     print(f"✨ Processing: {file_path}")
     new_folder = suggest_folder(file_path)
     new_name = generate_new_name(file_path)

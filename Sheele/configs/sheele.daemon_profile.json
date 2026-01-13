@@ -1,11 +1,15 @@
 {
-  "name": "{{DAEMON_NAME}}",
-  "codename": "{{CODE_NAME}}",
+  "name": "Sheele",
+  "codename": "Silent-Blade",
   "daemon_id": "{{DAEMON_ID}}",
   "class": "{{CLASS_TYPE}}",
   "type": "{{DAEMON_TYPE}}",
   "rank": "{{RANK}}",
   "created_by": "The Dreambearer",
   "date_created": "{{DATE}}",
-  "description": "{{DAEMON_DESCRIPTION}}"
+  "description": "{{DAEMON_DESCRIPTION}}",
+  "role": "Stealth operations, Silent execution",
+  "summary": "Sheele moves through the shadows, executing stealth operations with precision and silence.",
+  "assigned_domain": "Eden Stealth Operations \u2014 blade in the darkness.",
+  "specialization": "Stealth operations, Silent execution"
 }

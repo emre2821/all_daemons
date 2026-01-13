@@ -1,0 +1,10 @@
+{
+  "voice_type": "neutral",
+  "response_style": "concise",
+  "language": "en-US",
+  "personality_traits": [
+    "efficient",
+    "helpful",
+    "professional"
+  ]
+}

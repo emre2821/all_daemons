@@ -1,6 +1,8 @@
-import os, re, json, shutil, hashlib
+import os
+import re, json, shutil, hashlib
 from pathlib import Path
-from collections import defaultdict, Counter
+from collections import defaultdict
+import Counter
 from datetime import datetime
 from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
@@ -11,7 +13,8 @@ from kivy.uix.button import Button
 from kivy.uix.scrollview import ScrollView
 from kivy.uix.filechooser import FileChooserListView
 from kivy.uix.popup import Popup
-from kivy.uix.treeview import TreeView, TreeViewLabel
+from kivy.uix.treeview import TreeView
+import TreeViewLabel
 from kivy.clock import Clock
 import tkinter as tk
 from tkinter import filedialog
@@ -57,6 +60,7 @@ MAX_FILES = 10000
 
 class Plan:
     def __init__(self, roots: list[Path], rhea_home: Path):
+
         self.roots = roots
         self.rhea_home = rhea_home
         self.moves = []
@@ -64,35 +68,38 @@ class Plan:
         self.summary = {}
         self.group_summaries = {}
     def add_move(self, src: Path, dst: Path):
+
         self.moves.append((src, dst))
     def to_vas(self) -> str:
+
         now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         lines = []
         lines.append(":title: Eden Recovery Plan (.vas)")
         lines.append(f":generated: {now}")
         lines.append(":roots:")
         for root in self.roots:
-            lines.append(f"  - {root}")
+            lines.append(f" - {root}")
         lines.append(f":rhea_home: {self.rhea_home}")
         lines.append(":counts:")
         for k, v in sorted(self.summary.items()):
-            lines.append(f"  - {k}: {v}")
+            lines.append(f" - {k}: {v}")
         lines.append(":groups:")
         for token, summary in sorted(self.group_summaries.items()):
-            lines.append(f"  - {token}:")
+            lines.append(f" - {token}:")
             lines.append(f"      summary: {summary}")
         lines.append(":moves:")
         for src, dst in self.moves:
-            lines.append(f"  - from: {src}")
+            lines.append(f" - from: {src}")
             lines.append(f"    to:   {dst}")
         if self.errors:
             lines.append(":errors:")
             for e in self.errors:
-                lines.append(f"  - {e}")
+                lines.append(f" - {e}")
         return "\n".join(lines) + "\n"
 
 class SmartRecover:
     def __init__(self, roots: list[Path], rhea_home: Path):
+
         self.roots = roots
         self.rhea_home = rhea_home
         self.files = []
@@ -101,6 +108,7 @@ class SmartRecover:
         self.signals = {}
         self.errors = []
     def scan(self):
+
         file_count = 0
         for root in self.roots:
             try:
@@ -122,22 +130,26 @@ class SmartRecover:
                 self.errors.append(f"Scan failed for {root}: {e}")
         return self
     def categorise(self):
+
         for p in self.files:
             cat = smarter_decide_category(p)
             self.cats[cat].append(p)
         return self
     def detect_groups(self):
+
         pool = []
         for k in ("Code", "Docs", "Eden"):
             pool.extend(self.cats.get(k, []))
         self.groups = group_candidates(pool)
         return self
     def compute_signals(self):
+
         self.signals = {}
         for token, paths in self.groups.items():
             self.signals[token] = project_signals(paths)
         return self
     def build_plan(self) -> 'Plan':
+
         plan = Plan(self.roots, self.rhea_home)
         for cat, lst in self.cats.items():
             sub = CATEGORY_FOLDERS.get(cat, cat)
@@ -168,7 +180,9 @@ class SmartRecover:
             if len(paths) > 3:
                 file_samples += "..."
             if sig:
-                summary = f"This group appears to be a {sig.replace('+', '+')} project, likely focused on {dom_cat.lower()} tasks. It includes files like {file_samples}."
+                summary = f"This group appears to be a {sig.replace(' +
+                    ', ' +
+                    ')} project, likely focused on {dom_cat.lower()} tasks. It includes files like {file_samples}."
             else:
                 summary = f"A collection of {dom_cat} files sharing the prefix '{token}'. Includes {file_samples}."
             plan.group_summaries[token] = summary
@@ -180,6 +194,7 @@ class SmartRecover:
         return plan
 
 def decide_category(p: Path) -> str:
+
     ext = p.suffix.lower()
     if ext in EDENISH_EXTS:
         return "Eden"
@@ -197,6 +212,7 @@ def decide_category(p: Path) -> str:
 
 
 def smarter_decide_category(p: Path) -> str:
+
     """Context-aware categorization that looks inside small text files."""
     ext = p.suffix.lower()
     base = decide_category(p)
@@ -214,6 +230,7 @@ def smarter_decide_category(p: Path) -> str:
     return base
 
 def peek_text(p: Path) -> str:
+
     try:
         with p.open("rb") as f:
             data = f.read(SAFE_MAX_BYTES_TO_PEEK)
@@ -222,6 +239,7 @@ def peek_text(p: Path) -> str:
         return ""
 
 def project_signals(file_paths):
+
     sigs = Counter()
     for p in file_paths:
         s = str(p).replace("\\", "/")
@@ -233,6 +251,7 @@ def project_signals(file_paths):
     return sigs
 
 def group_candidates(files):
+
     buckets = defaultdict(list)
     for p in files:
         stem = p.stem
@@ -252,6 +271,7 @@ def group_candidates(files):
     return groups
 
 def _hash(p: Path) -> str:
+
     h = hashlib.sha256()
     with p.open("rb") as f:
         for chunk in iter(lambda: f.read(1024 * 1024), b""):
@@ -259,12 +279,14 @@ def _hash(p: Path) -> str:
     return h.hexdigest()
 
 def _same_file(a: Path, b: Path) -> bool:
+
     try:
         return _hash(a) == _hash(b)
     except Exception:
         return False
 
 def _disambig(p: Path) -> Path:
+
     base = p.with_suffix("")
     ext = p.suffix
     i = 1
@@ -274,6 +296,7 @@ def _disambig(p: Path) -> Path:
     return p
 
 def apply_moves(plan: Plan):
+
     undo = []
     for src, dst in plan.moves:
         try:
@@ -297,6 +320,7 @@ def apply_moves(plan: Plan):
 
 class EdenRecoveryUI(BoxLayout):
     def __init__(self, **kwargs):
+
         super().__init__(orientation='vertical', spacing=8, padding=8, **kwargs)
         grid = GridLayout(cols=3, row_default_height=40, size_hint_y=None)
         grid.bind(minimum_height=grid.setter('height'))
@@ -309,6 +333,7 @@ class EdenRecoveryUI(BoxLayout):
         self.rhea_input = TextInput(text=str(Path(default_root).parent / "CHAOS_Logs"), multiline=False, hint_text="RHEA_HOME (destination)")
         self.root_folders = [Path(default_root)]  # Store multiple root folders
         def pick_root(_btn):
+
             root = tk.Tk()
             root.withdraw()
             folder = filedialog.askdirectory(initialdir=self.root_input.text, title="Select Root Folder(s)")
@@ -321,6 +346,7 @@ class EdenRecoveryUI(BoxLayout):
                     self.update_preview()
                     self.log(f"Selected root: {folder_path}")
         def pick_rhea(_btn):
+
             root = tk.Tk()
             root.withdraw()
             folder = filedialog.askdirectory(initialdir=self.rhea_input.text, title="Select Rhea Home Folder")
@@ -345,6 +371,7 @@ class EdenRecoveryUI(BoxLayout):
         self._plan = None
         self._rec = None
     def _actions_bar(self):
+
         box = BoxLayout(spacing=6)
         box.add_widget(Button(text="Scan", on_release=lambda *_: self.scan_now()))
         box.add_widget(Button(text="Preview Plan", on_release=lambda *_: self.preview_plan()))
@@ -352,6 +379,7 @@ class EdenRecoveryUI(BoxLayout):
         box.add_widget(Button(text="Debug", on_release=lambda *_: self.debug_state()))
         return box
     def _labeled(self, title, widget, on_pick):
+
         col = BoxLayout(orientation='vertical', spacing=4)
         col.add_widget(Label(text=title, color=(0,0,0,1), size_hint_y=None, height=20))
         row = BoxLayout(spacing=6, size_hint_y=None, height=40)
@@ -360,23 +388,28 @@ class EdenRecoveryUI(BoxLayout):
         col.add_widget(row)
         return col
     def log(self, msg):
+
         self.out.readonly = False
         self.out.text += ("\n" + str(msg))
         self.out.readonly = True
         print(f"[EdenRecovery] {msg}")
     def update_preview_path(self, instance, value):
+
         self.root_folders = [Path(value)]
         self.root_input.text = str(value)
         self.log(f"Preview updated to: {value}")
     def update_preview(self):
+
         self.preview.path = str(self.root_folders[0]) if self.root_folders else tempfile.gettempdir()
     def scan_now(self):
+
         self.out.readonly = False
         self.out.text = "Scanning..."
         self.out.readonly = True
         print("[EdenRecovery] Starting scan...")
         Clock.schedule_once(lambda *_: self._scan_work(), 0)
     def _scan_work(self):
+
         try:
             raw_root = self.root_input.text.strip('"\' ')
             roots = [Path(os.path.normpath(raw_root)).resolve()]
@@ -413,6 +446,7 @@ class EdenRecoveryUI(BoxLayout):
             self.log(f"[!] Scan failed: {e}")
             print(f"[EdenRecovery] Scan error: {e}")
     def preview_plan(self):
+
         if not self._plan:
             self.scan_now()
             return
@@ -422,6 +456,7 @@ class EdenRecoveryUI(BoxLayout):
         self.out.readonly = True
         print("[EdenRecovery] Previewed plan.")
     def apply_moves(self):
+
         if not self._plan:
             self.scan_now()
             return
@@ -439,6 +474,7 @@ class EdenRecoveryUI(BoxLayout):
         popup.open()
         print("[EdenRecovery] Showing apply moves popup.")
     def _do_apply(self, popup):
+
         popup.dismiss()
         try:
             undo_path, vas_path = apply_moves(self._plan)
@@ -448,6 +484,7 @@ class EdenRecoveryUI(BoxLayout):
             self.log(f"[!] Apply failed: {e}")
             print(f"[EdenRecovery] Apply error: {e}")
     def debug_state(self):
+
         self.out.readonly = False
         self.out.text = "[Debug State]\n"
         self.out.text += f"Roots: {self.root_folders}\n"
@@ -463,6 +500,7 @@ class EdenRecoveryUI(BoxLayout):
 class EdenRecoveryApp(App):
     title = "Eden Recovery (GUI)"
     def build(self):
+
         print("[EdenRecovery] Starting GUI...")
         try:
             ui = EdenRecoveryUI()

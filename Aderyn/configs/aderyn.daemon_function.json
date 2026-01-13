@@ -1,10 +1,9 @@
 {
   "primary_functions": [
-    "Daemon monitoring",
-    "System task assistance",
-    "Error response",
-    "Self-log management",
-    "Supportive fallback protocol"
+    "Weather monitoring",
+    "Aerial surveillance",
+    "Atmospheric analysis",
+    "Flight path optimization"
   ],
   "triggers": [
     "boot_sequence",
@@ -20,5 +19,8 @@
   "failsafes": {
     "fallback_to": "{{FALLBACK_DAEMON}}",
     "mirror_link_required": true
-  }
+  },
+  "agent_summary": "Aderyn soars through digital skies, monitoring weather patterns and providing aerial reconnaissance for Eden operations.",
+  "assigned_domain": "Eden Atmospheric Monitoring \u2014 watcher of the digital skies.",
+  "agent_role": "Aerial reconnaissance, Weather monitor"
 }

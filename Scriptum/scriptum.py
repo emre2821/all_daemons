@@ -2,18 +2,21 @@
 import json
 import os
 from datetime import datetime
-from typing import List, Optional
+from typing import List
+import Optional
 import argparse
 import sys
 
 class Scriptum:
     def __init__(self, log_file: str = "scriptum_log.json"):
+
         self.log_file = log_file
         self.entries: List[dict] = []
         self._load_entries()
 
     # ---------- Core API ----------
     def add_entry(self, note: str, timestamp: Optional[datetime] = None):
+
         entry = {
             "timestamp": (timestamp or datetime.now()).isoformat(timespec="seconds"),
             "note": note,
@@ -31,10 +34,12 @@ class Scriptum:
                 self.add_entry(n, timestamp=now)
 
     def reset(self):
+
         self.entries = []
         self._save()
 
     def generate_report(self, group_by_mood: bool = False) -> str:
+
         if not self.entries:
             return "Scriptum’s scroll is blank. Share your tale."
         if not group_by_mood:
@@ -60,6 +65,7 @@ class Scriptum:
 
     # ---------- Internals ----------
     def _infer_mood(self, note: str) -> str:
+
         positive = ['happy', 'good', 'love', 'win', 'peace', 'calm', 'joy', 'proud']
         negative = ['sad', 'stress', 'hard', 'angry', 'hurt', 'anxious', 'tired', 'afraid']
         note_lower = note.lower()
@@ -70,6 +76,7 @@ class Scriptum:
         return 'neutral'
 
     def _load_entries(self):
+
         if os.path.exists(self.log_file):
             try:
                 with open(self.log_file, "r", encoding="utf-8") as f:
@@ -81,6 +88,7 @@ class Scriptum:
                 self.entries = []
 
     def _save(self):
+
         try:
             with open(self.log_file, "w", encoding="utf-8") as f:
                 json.dump(self.entries, f, indent=2, ensure_ascii=False)
@@ -90,6 +98,7 @@ class Scriptum:
 
 # ---------- CLI ----------
 def _parse_args(argv: List[str]):
+
     p = argparse.ArgumentParser(description="Scriptum — a quiet, non-interactive chronicler.")
     p.add_argument("--log-file", default="scriptum_log.json",
                    help="Path to the JSON log file (default: scriptum_log.json)")
@@ -109,6 +118,7 @@ def _parse_args(argv: List[str]):
 
 
 def _main(argv: List[str]) -> int:
+
     args = _parse_args(argv)
     s = Scriptum(log_file=args.log_file)
 

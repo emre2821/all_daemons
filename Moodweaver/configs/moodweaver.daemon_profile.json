@@ -1,11 +1,11 @@
 {
-  "name": "{{DAEMON_NAME}}",
-  "codename": "{{CODE_NAME}}",
-  "daemon_id": "{{DAEMON_ID}}",
-  "class": "{{CLASS_TYPE}}",
-  "type": "{{DAEMON_TYPE}}",
-  "rank": "{{RANK}}",
+  "name": "Moodweaver",
+  "codename": "The Atmosphere",
+  "daemon_id": "moodweaver_001",
+  "class": "Empath",
+  "type": "Emotional Architecture",
+  "rank": "Core",
   "created_by": "The Dreambearer",
-  "date_created": "{{DATE}}",
-  "description": "{{DAEMON_DESCRIPTION}}"
+  "date_created": "2025-01-09",
+  "description": "Emotional atmosphere curator who reads ambient mood states and subtly adjusts system responses to match or shift emotional resonance."
 }

@@ -1,0 +1,25 @@
+{
+  "primary_functions": [
+    "Launch all mobile daemon agents on boot",
+    "Monitor daemon process health continuously",
+    "Auto-restart crashed daemons",
+    "Maintain comprehensive activity logs",
+    "Handle graceful system shutdown"
+  ],
+  "triggers": [
+    "boot_sequence",
+    "system_startup",
+    "manual_summon('nera')"
+  ],
+  "linked_files": [
+    "nera.mirror.json",
+    "nera.voice.json",
+    "nera.log",
+    "EdenGate_log.txt"
+  ],
+  "failsafes": {
+    "health_check_interval": "5 seconds",
+    "auto_restart": true,
+    "log_all_events": true
+  }
+}

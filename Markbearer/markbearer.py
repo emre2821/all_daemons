@@ -4,10 +4,12 @@ from datetime import datetime
 
 class Markbearer:
     def __init__(self):
+
         self.log_file = "markbearer_log.json"
         self.tags = ['chaos', 'sacred', 'bond']
 
     def mark_file(self, filepath, tag):
+
         if not os.path.exists(filepath):
             return False
         entry = {
@@ -24,6 +26,7 @@ class Markbearer:
             return False
 
     def main(self):
+
         print("🖌️ Markbearer awaits. Enter 'exit' to finish.")
         while True:
             filepath = input("File path to mark: ").strip()
