@@ -71,13 +71,13 @@ def test_resolve_daemon_dir_prefers_core_agents(tmp_path):
     assert result == core_agents
 
 
-def test_resolve_daemon_dir_prefers_all_daemons_when_core_absent(tmp_path):
-    all_daemons = tmp_path / "all_daemons"
-    _make_daemon(all_daemons, "Alt")
+def test_resolve_daemon_dir_prefers_daemons_when_core_absent(tmp_path):
+    daemons_dir = tmp_path / "daemons"
+    _make_daemon(daemons_dir, "Alt")
 
     result = rhea_main.resolve_daemon_dir(root=tmp_path, env={})
 
-    assert result == all_daemons
+    assert result == daemons_dir
 
 
 def test_resolve_daemon_dir_recognizes_main_variant(tmp_path):

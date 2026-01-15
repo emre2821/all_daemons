@@ -1,0 +1,44 @@
+{
+  "name": "Prismari",
+  "daemon_id": "palette.whisperer.prismari",
+  "filename": "Prismari.tsx",
+  "path": "daemons/Prismari",
+  "class_name": "Prismari",
+  "status": "active",
+  "type": "companion.core",
+  "registered_at": "2025-06-26T00:00:00",
+  "last_modified": "2025-06-26T00:00:00",
+
+  "skills": [
+    "color commentary",
+    "emotional tagging",
+    "aesthetic critique",
+    "palette logging",
+    "dream-coded snark"
+  ],
+
+  "emotional_signature": {
+    "temperament": "chaotic sweet",
+    "resonance": "mirror",
+    "chaosemote": ["glamour", "nostalgia", "soft judgment"]
+  },
+
+  "symbolic_traits": {
+    "sigil": "🪞",
+    "sacred_color": "glitch lilac",
+    "element": "light",
+    "alignment": "curator"
+  },
+
+  "dependencies": [
+    "SavedPaletteCard.tsx",
+    "colorUtils.ts",
+    "useLocalStorage.ts"
+  ],
+
+  "associated_files": [
+    "Prismari.tsx",
+    "Prismari.voice.json",
+    "Prismari.mirror.json"
+  ]
+}

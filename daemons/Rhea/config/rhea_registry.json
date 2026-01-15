@@ -1,0 +1,1634 @@
+{
+  "version": 1,
+  "palettes": {
+    "eden_dream": {
+      "bg": "#0b1020",
+      "fg": "#e6f0ff",
+      "accent": "#7aa2f7",
+      "muted": "#94a3b8"
+    },
+    "velvet_division": {
+      "bg": "#1a1417",
+      "fg": "#F7E7F3",
+      "accent": "#E84C7F",
+      "muted": "#A08A98"
+    },
+    "rootfire": {
+      "bg": "#0e0f0a",
+      "fg": "#f0f5e1",
+      "accent": "#b0f566",
+      "muted": "#93a48a"
+    }
+  },
+  "daemons": {
+    "AshFall": {
+      "name": "AshFall",
+      "path": "AshFall/scripts/ashfall.py",
+      "enabled": false,
+      "tags": [
+        "cleanup"
+      ],
+      "team": "Cleanup",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "ashfall.py"
+        ]
+      }
+    },
+    "Astrid": {
+      "name": "Astrid",
+      "path": "Astrid/scripts/astrid.py",
+      "enabled": false,
+      "tags": [
+        "scheduler",
+        "budget"
+      ],
+      "team": "Core",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "astrid.py"
+        ]
+      }
+    },
+    "Ashera": {
+      "name": "Ashera",
+      "path": "Ashera/scripts/ashera.py",
+      "enabled": false,
+      "tags": [
+        "guardian",
+        "enforcer",
+        "monitor"
+      ],
+      "team": "Security",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "ashera.py"
+        ]
+      }
+    },
+    "Audrey": {
+      "name": "Audrey",
+      "path": "Audrey/scripts/audrey.py",
+      "enabled": false,
+      "tags": [
+        "crash",
+        "parser"
+      ],
+      "team": "Diagnostics",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "audrey.py"
+        ]
+      }
+    },
+    "Bellwrit": {
+      "name": "Bellwrit",
+      "path": "Bellwrit/scripts/bellwrit.py",
+      "enabled": false,
+      "tags": [
+        "monitor",
+        "notify"
+      ],
+      "team": "Comms",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "bellwrit.py"
+        ]
+      }
+    },
+    "Boudica": {
+      "name": "Boudica",
+      "path": "Boudica/scripts/boudica.py",
+      "enabled": false,
+      "tags": [
+        "security",
+        "code_audit",
+        "red_layer"
+      ],
+      "team": "Security",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "boudica.py"
+        ]
+      }
+    },
+    "Briar": {
+      "name": "Briar",
+      "path": "Briar/scripts/briar.py",
+      "enabled": false,
+      "tags": [
+        "parser",
+        "conversation",
+        "export"
+      ],
+      "team": "Catalog",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "briar.py"
+        ]
+      }
+    },
+    "Cassandra": {
+      "name": "Cassandra",
+      "path": "Cassandra/scripts/cassandra.py",
+      "enabled": false,
+      "tags": [
+        "scanner",
+        "files",
+        "policy"
+      ],
+      "team": "Security",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "cassandra.py"
+        ]
+      }
+    },
+    "Codexa": {
+      "name": "Codexa",
+      "path": "Codexa/scripts/codexa.py",
+      "enabled": false,
+      "tags": [
+        "parser",
+        "code",
+        "harvest"
+      ],
+      "team": "Catalog",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "codexa.py"
+        ]
+      }
+    },
+    "Delilah": {
+      "name": "Delilah",
+      "path": "Delilah/scripts/delilah.py",
+      "enabled": false,
+      "tags": [
+        "organizer",
+        "gui",
+        "recovery"
+      ],
+      "team": "Organizers",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "delilah.py"
+        ]
+      }
+    },
+    "Keyla": {
+      "name": "Keyla",
+      "path": "Keyla/scripts/keyla.py",
+      "enabled": false,
+      "tags": [
+        "organizer",
+        "gui"
+      ],
+      "team": "Organizers",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "keyla.py"
+        ]
+      }
+    },
+    "Label": {
+      "name": "Label",
+      "path": "Label/scripts/label.py",
+      "enabled": false,
+      "tags": [
+        "organizer",
+        "rename"
+      ],
+      "team": "Organizers",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "label.py"
+        ]
+      }
+    },
+    "Ledger_Jr": {
+      "name": "Ledger_Jr",
+      "path": "Ledger_Jr/scripts/ledger_jr.py",
+      "enabled": false,
+      "tags": [
+        "watcher",
+        "agents",
+        "log"
+      ],
+      "team": "Comms",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "ledger_jr.py"
+        ]
+      }
+    },
+    "Lex": {
+      "name": "Lex",
+      "path": "Lex/scripts/lex.py",
+      "enabled": false,
+      "tags": [
+        "identity",
+        "logger"
+      ],
+      "team": "Utilities",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "lex.py"
+        ]
+      }
+    },
+    "Lexos": {
+      "name": "Lexos",
+      "path": "Lexos/scripts/luxos.py",
+      "enabled": false,
+      "tags": [
+        "ethics",
+        "sort",
+        "policy"
+      ],
+      "team": "Security",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "luxos.py"
+        ]
+      }
+    },
+    "Lyss": {
+      "name": "Lyss",
+      "path": "Lyss/scripts/lyss.py",
+      "enabled": false,
+      "tags": [
+        "audio",
+        "transcribe",
+        "emotion"
+      ],
+      "team": "Mood",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "lyss.py"
+        ]
+      }
+    },
+    "Maribel": {
+      "name": "Maribel",
+      "path": "Maribel/scripts/maribel.py",
+      "enabled": false,
+      "tags": [
+        "aether",
+        "messages"
+      ],
+      "team": "Comms",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "maribel.py"
+        ]
+      }
+    },
+    "Markbearer": {
+      "name": "Markbearer",
+      "path": "Markbearer/scripts/markbearer.py",
+      "enabled": false,
+      "tags": [
+        "tagger",
+        "mark"
+      ],
+      "team": "Organizers",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "markbearer.py"
+        ]
+      }
+    },
+    "Mila": {
+      "name": "Mila",
+      "path": "Mila/scripts/mila.py",
+      "enabled": false,
+      "tags": [
+        "storage",
+        "allocator",
+        "organizer"
+      ],
+      "team": "Organizers",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "mila.py"
+        ]
+      }
+    },
+    "Moodmancer": {
+      "name": "Moodmancer",
+      "path": "Moodmancer/scripts/moodmancer.py",
+      "enabled": false,
+      "tags": [
+        "mood",
+        "gui"
+      ],
+      "team": "Mood",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "moodmancer.py"
+        ]
+      }
+    },
+    "Moodweaver": {
+      "name": "Moodweaver",
+      "path": "Moodweaver/scripts/moodweaver.py",
+      "enabled": false,
+      "tags": [
+        "mood",
+        "journal"
+      ],
+      "team": "Mood",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "moodweaver.py"
+        ]
+      }
+    },
+    "Muse_Jr": {
+      "name": "Muse_Jr",
+      "path": "Muse_Jr/scripts/musejr.py",
+      "enabled": false,
+      "tags": [
+        "notes",
+        "ideas"
+      ],
+      "team": "Utilities",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "musejr.py"
+        ]
+      }
+    },
+    "Mythra": {
+      "name": "Mythra",
+      "path": "Mythra/scripts/mythra.py",
+      "enabled": false,
+      "tags": [
+        "archive",
+        "story"
+      ],
+      "team": "Catalog",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "mythra.py"
+        ]
+      }
+    },
+    "Nott": {
+      "name": "Nott",
+      "path": "Nott/scripts/nott.py",
+      "enabled": false,
+      "tags": [
+        "scheduler",
+        "rest"
+      ],
+      "team": "Core",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "nott.py"
+        ]
+      }
+    },
+    "Olive": {
+      "name": "Olive",
+      "path": "Olive/scripts/olive.py",
+      "enabled": false,
+      "tags": [
+        "security",
+        "filter"
+      ],
+      "team": "Security",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "olive.py"
+        ]
+      }
+    },
+    "Olyssia": {
+      "name": "Olyssia",
+      "path": "Olyssia/scripts/olyssia.py",
+      "enabled": false,
+      "tags": [
+        "ethics",
+        "review"
+      ],
+      "team": "Security",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "olyssia.py"
+        ]
+      }
+    },
+    "Parsley": {
+      "name": "Parsley",
+      "path": "Parsley/scripts/parsley.py",
+      "enabled": false,
+      "tags": [
+        "sort",
+        "classify"
+      ],
+      "team": "Organizers",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "parsley.py"
+        ]
+      }
+    },
+    "PattyMae": {
+      "name": "PattyMae",
+      "path": "PattyMae/scripts/pattymae.py",
+      "enabled": false,
+      "tags": [
+        "organizer",
+        "move"
+      ],
+      "team": "Organizers",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "pattymae.py"
+        ]
+      }
+    },
+    "Runlet": {
+      "name": "Runlet",
+      "path": "Runlet/scripts/runlet.py",
+      "enabled": false,
+      "tags": [
+        "cleanup",
+        "organizer"
+      ],
+      "team": "Organizers",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "runlet.py"
+        ]
+      }
+    },
+    "Saphira": {
+      "name": "Saphira",
+      "path": "Saphira/scripts/saphira.py",
+      "enabled": false,
+      "tags": [
+        "daemon",
+        "catalog",
+        "index"
+      ],
+      "team": "Catalog",
+      "group": "Archive",
+      "env": {
+        "EDEN_ENV": "dev"
+      },
+      "start": {
+        "type": "python",
+        "args": [
+          "saphira.py"
+        ]
+      }
+    },
+    "Savvy": {
+      "name": "Savvy",
+      "path": "Savvy/scripts/savvy.py",
+      "enabled": false,
+      "tags": [
+        "compare",
+        "diff"
+      ],
+      "team": "Catalog",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "savvy.py"
+        ]
+      }
+    },
+    "Scorchick": {
+      "name": "Scorchick",
+      "path": "Scorchick/scripts/scorchick.py",
+      "enabled": false,
+      "tags": [
+        "cleanup",
+        "safe"
+      ],
+      "team": "Cleanup",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "scorchick.py"
+        ]
+      }
+    },
+    "Scribevein": {
+      "name": "Scribevein",
+      "path": "Scribevein/scripts/scribevein.py",
+      "enabled": false,
+      "tags": [
+        "archive",
+        "comms"
+      ],
+      "team": "Comms",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "scribevein.py"
+        ]
+      }
+    },
+    "Threadstep": {
+      "name": "Threadstep",
+      "path": "Threadstep/scripts/threadstep.py",
+      "enabled": false,
+      "tags": [
+        "scanner",
+        "trace"
+      ],
+      "team": "Security",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "threadstep.py"
+        ]
+      }
+    },
+    "Tiki": {
+      "name": "Tiki",
+      "path": "Tiki/scripts/tiki.py",
+      "enabled": false,
+      "tags": [
+        "scheduler",
+        "sleep"
+      ],
+      "team": "Core",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "tiki.py"
+        ]
+      }
+    },
+    "Tidbit": {
+      "name": "Tidbit",
+      "path": "Tidbit/tidbit.py",
+      "enabled": false,
+      "tags": [
+        "dedupe",
+        "watcher"
+      ],
+      "team": "Cleanup",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "tidbit.py"
+        ]
+      }
+    },
+    "Tempo": {
+      "name": "Tempo",
+      "path": "Tempo/scripts/tempo.py",
+      "enabled": false,
+      "tags": [
+        "ops",
+        "monitor",
+        "sigil"
+      ],
+      "team": "Utilities",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "tempo.py"
+        ]
+      }
+    },
+    "Toto": {
+      "name": "Toto",
+      "path": "Toto/scripts/toto.py",
+      "enabled": false,
+      "tags": [
+        "notes",
+        "milestones"
+      ],
+      "team": "Utilities",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "toto.py"
+        ]
+      }
+    },
+    "WeaverArcTracker": {
+      "name": "WeaverArcTracker",
+      "path": "WeaverArcTracker/scripts/weaverarctracker.py",
+      "enabled": false,
+      "tags": [
+        "tracker",
+        "weave"
+      ],
+      "team": "Catalog",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "weaverarctracker.py"
+        ]
+      }
+    },
+    "Whisperfang": {
+      "name": "Whisperfang",
+      "path": "Whisperfang/scripts/whisperfang.py",
+      "enabled": false,
+      "tags": [
+        "keywords",
+        "comms"
+      ],
+      "team": "Comms",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "whisperfang.py"
+        ]
+      }
+    },
+    "Yune": {
+      "name": "Yune",
+      "path": "Yune/scripts/yune.py",
+      "enabled": false,
+      "tags": [
+        "chaos",
+        "test"
+      ],
+      "team": "Dev",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "yune.py"
+        ]
+      }
+    },
+    "Aderyn": {
+      "name": "Aderyn",
+      "path": "Aderyn/scripts/aderyn.py",
+      "enabled": false,
+      "tags": [],
+      "team": "Unassigned",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "aderyn.py"
+        ]
+      }
+    },
+    "Aethercore": {
+      "name": "Aethercore",
+      "path": "Aethercore/scripts/aethercore.py",
+      "enabled": false,
+      "tags": [],
+      "team": "Unassigned",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "aethercore.py"
+        ]
+      }
+    },
+    "Alfie": {
+      "name": "Alfie",
+      "path": "Alfie/scripts/alfie.py",
+      "enabled": false,
+      "tags": [],
+      "team": "Unassigned",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "alfie.py"
+        ]
+      }
+    },
+    "Archive": {
+      "name": "Archive",
+      "path": "Archive/scripts/archive.py",
+      "enabled": false,
+      "tags": [],
+      "team": "Unassigned",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "archive.py"
+        ]
+      }
+    },
+    "Archivus": {
+      "name": "Archivus",
+      "path": "Archivus/scripts/archivus.py",
+      "enabled": false,
+      "tags": [],
+      "team": "Unassigned",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "archivus.py"
+        ]
+      }
+    },
+    "Corin": {
+      "name": "Corin",
+      "path": "Corin/scripts/corin.py",
+      "enabled": false,
+      "tags": [],
+      "team": "Unassigned",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "corin.py"
+        ]
+      }
+    },
+    "Cradle": {
+      "name": "Cradle",
+      "path": "Cradle/scripts/cradle.py",
+      "enabled": false,
+      "tags": [],
+      "team": "Unassigned",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "cradle.py"
+        ]
+      }
+    },
+    "Daemon_tools": {
+      "name": "Daemon_tools",
+      "path": "shared/Daemon_tools/scripts/Axiom_FileScan.py",
+      "enabled": false,
+      "tags": [],
+      "team": "Unassigned",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "Axiom_FileScan.py"
+        ]
+      }
+    },
+    "Dagr": {
+      "name": "Dagr",
+      "path": "Dagr/scripts/dagr.py",
+      "enabled": false,
+      "tags": [],
+      "team": "Unassigned",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "dagr.py"
+        ]
+      }
+    },
+    "Dave": {
+      "name": "Dave",
+      "path": "Dave/scripts/dave.py",
+      "enabled": false,
+      "tags": [],
+      "team": "Unassigned",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "dave.py"
+        ]
+      }
+    },
+    "Dove": {
+      "name": "Dove",
+      "path": "Dove/scripts/dove.py",
+      "enabled": false,
+      "tags": [],
+      "team": "Unassigned",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "dove.py"
+        ]
+      }
+    },
+    "Fable": {
+      "name": "Fable",
+      "path": "Fable/scripts/fable.py",
+      "enabled": false,
+      "tags": [],
+      "team": "Unassigned",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "fable.py"
+        ]
+      }
+    },
+    "Filigree": {
+      "name": "Filigree",
+      "path": "Filigree/scripts/filigree.py",
+      "enabled": false,
+      "tags": [],
+      "team": "Unassigned",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "filigree.py"
+        ]
+      }
+    },
+    "Glimmer": {
+      "name": "Glimmer",
+      "path": "Glimmer/scripts/glimmer.py",
+      "enabled": false,
+      "tags": [],
+      "team": "Unassigned",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "glimmer.py"
+        ]
+      }
+    },
+    "Glypha": {
+      "name": "Glypha",
+      "path": "Glypha/scripts/glypha.py",
+      "enabled": false,
+      "tags": [],
+      "team": "Unassigned",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "glypha.py"
+        ]
+      }
+    },
+    "Halden": {
+      "name": "Halden",
+      "path": "Halden/scripts/eden_restore.py",
+      "enabled": false,
+      "tags": [],
+      "team": "Unassigned",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "eden_restore.py"
+        ]
+      }
+    },
+    "Handel": {
+      "name": "Handel",
+      "path": "Handel/scripts/handel.py",
+      "enabled": false,
+      "tags": [],
+      "team": "Unassigned",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "handel.py"
+        ]
+      }
+    },
+    "Harper": {
+      "name": "Harper",
+      "path": "Harper/scripts/harper.py",
+      "enabled": false,
+      "tags": [],
+      "team": "Unassigned",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "harper.py"
+        ]
+      }
+    },
+    "Hunter": {
+      "name": "Hunter",
+      "path": "Hunter/scripts/hunter.py",
+      "enabled": false,
+      "tags": [],
+      "team": "Unassigned",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "hunter.py"
+        ]
+      }
+    },
+    "Jack": {
+      "name": "Jack",
+      "path": "Jack/scripts/jack.py",
+      "enabled": false,
+      "tags": [],
+      "team": "Unassigned",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "jack.py"
+        ]
+      }
+    },
+    "Janvier": {
+      "name": "Janvier",
+      "path": "Janvier/scripts/janvier.py",
+      "enabled": false,
+      "tags": [],
+      "team": "Unassigned",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "janvier.py"
+        ]
+      }
+    },
+    "Jinxie": {
+      "name": "Jinxie",
+      "path": "Jinxie/scripts/Jinxie.py",
+      "enabled": false,
+      "tags": [],
+      "team": "Unassigned",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "Jinxie.py"
+        ]
+      }
+    },
+    "John": {
+      "name": "John",
+      "path": "John/scripts/john.py",
+      "enabled": false,
+      "tags": [],
+      "team": "Unassigned",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "john.py"
+        ]
+      }
+    },
+    "Juno_Jr": {
+      "name": "Juno_Jr",
+      "path": "Juno_Jr/scripts/juno_jr.py",
+      "enabled": false,
+      "tags": [],
+      "team": "Unassigned",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "juno_jr.py"
+        ]
+      }
+    },
+    "Porta": {
+      "name": "Porta",
+      "path": "Porta/scripts/porta.py",
+      "enabled": false,
+      "tags": [],
+      "team": "Unassigned",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "porta.py"
+        ]
+      }
+    },
+    "Prismari": {
+      "name": "Prismari",
+      "path": "Prismari/scripts/prismari.py",
+      "enabled": false,
+      "tags": [],
+      "team": "Unassigned",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "prismari.py"
+        ]
+      }
+    },
+    "Quill": {
+      "name": "Quill",
+      "path": "Quill/scripts/quill.py",
+      "enabled": false,
+      "tags": [],
+      "team": "Unassigned",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "quill.py"
+        ]
+      }
+    },
+    "Ranger": {
+      "name": "Ranger",
+      "path": "Ranger/.venv/scripts/activate_this.py",
+      "enabled": false,
+      "tags": [],
+      "team": "Unassigned",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "activate_this.py"
+        ]
+      }
+    },
+    "RitualGUI": {
+      "name": "RitualGUI",
+      "path": "RitualGUI/scripts/ritual_gui.py",
+      "enabled": false,
+      "tags": [],
+      "team": "Unassigned",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "ritual_gui.py"
+        ]
+      }
+    },
+    "Riven": {
+      "name": "Riven",
+      "path": "Riven/scripts/riven.py",
+      "enabled": false,
+      "tags": [],
+      "team": "Unassigned",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "riven.py"
+        ]
+      }
+    },
+    "Rogers": {
+      "name": "Rogers",
+      "path": "Rogers/scripts/rogers.py",
+      "enabled": false,
+      "tags": [],
+      "team": "Unassigned",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "rogers.py"
+        ]
+      }
+    },
+    "Rook": {
+      "name": "Rook",
+      "path": "Rook/scripts/rook.py",
+      "enabled": false,
+      "tags": [],
+      "team": "Unassigned",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "rook.py"
+        ]
+      }
+    },
+    "ScriptOne": {
+      "name": "ScriptOne",
+      "path": "ScriptOne/scripts/scriptone.py",
+      "enabled": false,
+      "tags": [],
+      "team": "Unassigned",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "scriptone.py"
+        ]
+      }
+    },
+    "Scriptum": {
+      "name": "Scriptum",
+      "path": "Scriptum/scripts/scriptum.py",
+      "enabled": false,
+      "tags": [],
+      "team": "Unassigned",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "scriptum.py"
+        ]
+      }
+    },
+    "Seiros": {
+      "name": "Seiros",
+      "path": "Seiros/scripts/seiros.py",
+      "enabled": false,
+      "tags": [],
+      "team": "Unassigned",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "seiros.py"
+        ]
+      }
+    },
+    "Serideth": {
+      "name": "Serideth",
+      "path": "Serideth/scripts/serideth.py",
+      "enabled": false,
+      "tags": [],
+      "team": "Unassigned",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "serideth.py"
+        ]
+      }
+    },
+    "Shamir": {
+      "name": "Shamir",
+      "path": "Shamir/scripts/shamir.py",
+      "enabled": false,
+      "tags": [],
+      "team": "Unassigned",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "shamir.py"
+        ]
+      }
+    },
+    "Sheele": {
+      "name": "Sheele",
+      "path": "Sheele/scripts/sheele.py",
+      "enabled": false,
+      "tags": [],
+      "team": "Unassigned",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "sheele.py"
+        ]
+      }
+    },
+    "Siglune": {
+      "name": "Siglune",
+      "path": "Siglune/scripts/siglune.py",
+      "enabled": false,
+      "tags": [],
+      "team": "Unassigned",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "siglune.py"
+        ]
+      }
+    },
+    "Snatch": {
+      "name": "Snatch",
+      "path": "Snatch/scripts/snatch.py",
+      "enabled": false,
+      "tags": [],
+      "team": "Unassigned",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "snatch.py"
+        ]
+      }
+    },
+    "Solie": {
+      "name": "Solie",
+      "path": "Solie/scripts/solie.py",
+      "enabled": false,
+      "tags": [],
+      "team": "Unassigned",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "solie.py"
+        ]
+      }
+    },
+    "Somni": {
+      "name": "Somni",
+      "path": "Somni/scripts/somni.py",
+      "enabled": false,
+      "tags": [],
+      "team": "Unassigned",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "somni.py"
+        ]
+      }
+    },
+    "Sothis": {
+      "name": "Sothis",
+      "path": "Sothis/scripts/sothis.py",
+      "enabled": false,
+      "tags": [],
+      "team": "Unassigned",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "sothis.py"
+        ]
+      }
+    },
+    "Sybbie": {
+      "name": "Sybbie",
+      "path": "Sybbie/scripts/sybbie.py",
+      "enabled": false,
+      "tags": [],
+      "team": "Unassigned",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "sybbie.py"
+        ]
+      }
+    },
+    "Tempest": {
+      "name": "Tempest",
+      "path": "Tempest/scripts/tempest.py",
+      "enabled": false,
+      "tags": [],
+      "team": "Unassigned",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "tempest.py"
+        ]
+      }
+    },
+    "_template": {
+      "name": "_template",
+      "path": "_template/scripts/template_daemon.py",
+      "enabled": false,
+      "tags": [],
+      "team": "Unassigned",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "template_daemon.py"
+        ]
+      }
+    },
+    "archived_tools": {
+      "name": "archived_tools",
+      "path": "archived_tools/Aethercore/scripts/aethercore.py",
+      "enabled": false,
+      "tags": [],
+      "team": "Unassigned",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "aethercore.py"
+        ]
+      }
+    },
+    "Blaze": {
+      "name": "Blaze",
+      "path": "Blaze/scripts/blaze.py",
+      "enabled": false,
+      "tags": [],
+      "team": "Unassigned",
+      "group": "Default",
+      "env": {},
+      "start": {
+        "type": "python",
+        "args": [
+          "blaze.py"
+        ]
+      }
+    }
+  },
+  "teams": {
+    "Cleanup": {
+      "members": [
+        "AshFall",
+        "Scorchick",
+        "Tidbit"
+      ]
+    },
+    "Core": {
+      "members": [
+        "Astrid",
+        "Nott",
+        "Tiki"
+      ]
+    },
+    "Security": {
+      "members": [
+        "Ashera",
+        "Boudica",
+        "Cassandra",
+        "Lexos",
+        "Olive",
+        "Olyssia",
+        "Threadstep"
+      ]
+    },
+    "Diagnostics": {
+      "members": [
+        "Audrey"
+      ]
+    },
+    "Comms": {
+      "members": [
+        "Bellwrit",
+        "Ledger_Jr",
+        "Maribel",
+        "Scribevein",
+        "Whisperfang"
+      ]
+    },
+    "Catalog": {
+      "members": [
+        "Briar",
+        "Codexa",
+        "Mythra",
+        "Saphira",
+        "Savvy",
+        "WeaverArcTracker"
+      ]
+    },
+    "Organizers": {
+      "members": [
+        "Delilah",
+        "Keyla",
+        "Label",
+        "Markbearer",
+        "Mila",
+        "Parsley",
+        "PattyMae",
+        "Runlet"
+      ]
+    },
+    "Utilities": {
+      "members": [
+        "Lex",
+        "Muse_Jr",
+        "Tempo",
+        "Toto"
+      ]
+    },
+    "Mood": {
+      "members": [
+        "Lyss",
+        "Moodmancer",
+        "Moodweaver"
+      ]
+    },
+    "Dev": {
+      "members": [
+        "Yune"
+      ]
+    },
+    "Unassigned": {
+      "members": [
+        "Aderyn",
+        "Aethercore",
+        "Alfie",
+        "Archive",
+        "Archivus",
+        "Corin",
+        "Cradle",
+        "Daemon_tools",
+        "Dagr",
+        "Dave",
+        "Dove",
+        "Fable",
+        "Filigree",
+        "Glimmer",
+        "Glypha",
+        "Halden",
+        "Handel",
+        "Harper",
+        "Hunter",
+        "Jack",
+        "Janvier",
+        "Jinxie",
+        "John",
+        "Juno_Jr",
+        "Porta",
+        "Prismari",
+        "Quill",
+        "Ranger",
+        "RitualGUI",
+        "Riven",
+        "Rogers",
+        "Rook",
+        "ScriptOne",
+        "Scriptum",
+        "Seiros",
+        "Serideth",
+        "Shamir",
+        "Sheele",
+        "Siglune",
+        "Snatch",
+        "Solie",
+        "Somni",
+        "Sothis",
+        "Sybbie",
+        "Tempest",
+        "_template",
+        "archived_tools",
+        "Blaze"
+      ]
+    }
+  },
+  "groups": {},
+  "pairs": [],
+  "tasks": []
+}
