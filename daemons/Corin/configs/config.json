@@ -1,0 +1,41 @@
+{
+    "HOME_DIR": "daemons/Corin",
+    "ALL_DCA_DIR": "daemons",
+    "ALL_AoE_DIR": "all_agents",
+    "LOG_FILE": "daemons/Corin/corin.log",
+    "MONITORING_MODE": "watch",
+    "SCAN_INTERVAL_SECONDS": 300,
+    "DCA_FLAG_AGENT": "Saphira",
+    "AoE_FLAG_AGENT": "Olyssia",
+    "REQUIREMENTS": {
+        "DCA": [
+            [
+                "{name}.daemon_mirror.json",
+                "{name}.mirror.json"
+            ],
+            [
+                "{name}.daemon_voice.json",
+                "{name}.voice.json"
+            ],
+            [
+                "{name}.py"
+            ]
+        ],
+        "AoE": [
+            [
+                "{name}.mirror.json"
+            ],
+            [
+                "{name}.voice.json"
+            ],
+            [
+                "{name}.appearance.json"
+            ]
+        ]
+    },
+    "SKIP_FOLDERS": [
+        "corin",
+        "saphira",
+        "__pycache__"
+    ]
+}

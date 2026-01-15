@@ -29,7 +29,7 @@ testpaths = ["tests", "Riven/tests"]
 python_files = ["test_*.py"]
 python_classes = ["Test*"]
 python_functions = ["test_*"]
-addopts = "--ignore=all_daemons -v"
+addopts = "--ignore=daemons -v"
 filterwarnings = [
     "ignore::SyntaxWarning",
 ]
@@ -40,7 +40,7 @@ extend-ignore = ["E501", "W503"]
 exclude = [
     ".git",
     "__pycache__",
-    "all_daemons",
+    "daemons",
     "*.pyc",
     ".pytest_cache",
 ]
