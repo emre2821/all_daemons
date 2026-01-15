@@ -1,3 +1,4 @@
 {
-  "eden_root": "C:\\EdenOS_Origin"
+  "eden_root": "C:\\EdenOS_Origin",
+  "workflows_path": "shared/rhea_workflows.md"
 }
