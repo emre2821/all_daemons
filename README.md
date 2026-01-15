@@ -153,6 +153,11 @@ For deeper lore, see `Daemon_Lore/Daemon_Goddess_Quartet.daemon_lore.chaosmeta`
 - [Changelog](CHANGELOG.md) — Version history
 - [Daemon Lore](Daemon_Lore/) — Creative narrative and daemon identities
 
+## 🌬️ Rhea Workflows
+
+Rhea's orchestration sequences and expected artifacts live here:
+- [Rhea Workflows](shared/rhea_workflows.md)
+
 ## 📦 Creating a Repository Snapshot
 
 If you need an archive of the current repository state:
