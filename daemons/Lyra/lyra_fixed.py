@@ -21,6 +21,8 @@ import re
 import tempfile
 import concurrent.futures
 
+from lyra_dependencies import load_tenacity
+
 # External dependencies with fallback logging
 try:
     from github import Github, GithubException, Auth
@@ -65,6 +67,12 @@ except ImportError:
         return lambda retry_state: retry_state
 
 logger = logging.getLogger("edenos.lyra")
+tenacity = load_tenacity(logger)
+HAS_TENACITY = tenacity.available
+retry = tenacity.retry
+stop_after_attempt = tenacity.stop_after_attempt
+wait_exponential = tenacity.wait_exponential
+retry_if_exception_type = tenacity.retry_if_exception_type
 
 def require_git_dependencies() -> None:
     if not HAS_GIT:

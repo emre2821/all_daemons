@@ -21,6 +21,9 @@ import tempfile
 import shutil
 from pathlib import Path
 
+from lyra_dependencies import load_tenacity, require_git_dependencies
+
+HAS_GIT = False
 # External dependencies with fallbacks
 try:
     from github import Github, GithubException, Auth
@@ -59,6 +62,12 @@ except ImportError:
         return lambda retry_state: retry_state
 
 logger = logging.getLogger(__name__)
+tenacity = load_tenacity(logger)
+HAS_TENACITY = tenacity.available
+retry = tenacity.retry
+stop_after_attempt = tenacity.stop_after_attempt
+wait_exponential = tenacity.wait_exponential
+retry_if_exception_type = tenacity.retry_if_exception_type
 
 def require_git_dependencies() -> None:
     if not HAS_GIT:
@@ -170,6 +179,7 @@ Suggest: ours / theirs / manual
 # CORE: Resolve PR conflicts
 ############################################################
 def resolve_pr_conflicts(repo: Repository, pr: PRType, config: Dict) -> Tuple[bool, str, Dict]:
+    require_git_dependencies(HAS_GIT)
     stats = {"resolved": 0, "files": 0, "strategy": config["conflict_strategy"], "attempts": 0}
 
     try:

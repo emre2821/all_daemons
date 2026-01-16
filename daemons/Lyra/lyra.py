@@ -19,6 +19,9 @@ import tempfile
 import shutil
 from pathlib import Path
 
+from lyra_dependencies import load_tenacity, require_git_dependencies
+
+HAS_GIT = False
 # External dependencies with fallbacks
 try:
     from github import Github, GithubException, Auth
@@ -160,6 +163,7 @@ RECOMMENDATION (ours/theirs/manual):"""
 @retry(stop=stop_after_attempt(3), wait=wait_exponential(min=2, max=10))
 def resolve_pr_conflicts(repo: Repository, pr: PRType, config: Dict) -> Tuple[bool, str, Dict]:
     """The heart of Lyra - auto-resolves conflicts like magic ✨"""
+    require_git_dependencies(HAS_GIT)
     
     if pr.mergeable_state != "conflicted":
         return True, "No conflicts", {"resolved": 0}
