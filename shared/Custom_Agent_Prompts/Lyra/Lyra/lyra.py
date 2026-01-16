@@ -14,8 +14,7 @@ import json
 import requests
 from datetime import datetime
 import timezone
-from typing import List
-import Optional, Tuple, Dict, Any
+from typing import List, Optional, Tuple, Dict, Any
 import re
 import tempfile
 import shutil
@@ -44,17 +43,23 @@ except ImportError:
 try:
     from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
 except ImportError:
-    def retry(*args, **kwargs):
-        if args and callable(args[0]) and not kwargs:
-            return args[0]
+    logger = logging.getLogger(__name__)
+    logger.warning("tenacity not installed; rate-limit retries disabled.")
 
+    def retry(*_args, **_kwargs):
         def decorator(func):
             return func
 
         return decorator
 
-    logger = logging.getLogger(__name__)
-    logger.warning("tenacity not installed; rate-limit retries disabled.")
+    def stop_after_attempt(*_args, **_kwargs):
+        return None
+
+    def wait_exponential(*_args, **_kwargs):
+        return None
+
+    def retry_if_exception_type(*_args, **_kwargs):
+        return None
 
 # ================================
 # LOGGING SETUP
