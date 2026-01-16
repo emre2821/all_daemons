@@ -180,14 +180,17 @@ def discover_daemons() -> List[DaemonInfo]:
         if not d.is_dir():
             continue
         main_py = d / f"{d.name.lower()}.py"
-        if not main_py.exists():
+        alt_main = d / f"{d.name.lower()}_main.py"
+        candidates = [alt_main, main_py]
+        module_path = next((candidate for candidate in candidates if candidate.exists()), None)
+        if module_path is None:
             continue
 
-        # Skip self (Rhea should not try to import rhea.py)
-        if main_py.resolve() == Path(__file__).resolve():
+        # Skip self (Rhea should not try to import its own entrypoint)
+        if module_path.resolve() == Path(__file__).resolve():
             continue
 
-        found.append(DaemonInfo(name=d.name, path=d, module_path=main_py))
+        found.append(DaemonInfo(name=d.name, path=d, module_path=module_path))
 
     return found
 
