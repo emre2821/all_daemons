@@ -92,7 +92,7 @@ def blaze_sweep(root: Path, confirm: bool, skip: set[str], quiet: bool):
 
     found = list(iter_targets(root, skip))
     def key(p):
-        return len(p.as_posix())
+        return len(p.parts)
 
     dirs = sorted({p for k, p in found if k == "dir"}, key=key, reverse=True)
     files = sorted({p for k, p in found if k == "file"})

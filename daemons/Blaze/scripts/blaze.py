@@ -86,7 +86,7 @@ def blaze_sweep(root: Path, confirm: bool, skip: set[str], quiet: bool):
 
     found = list(iter_targets(root, skip))
     dirs = sorted({p for k, p in found if k == "dir"},
-                  key=lambda p: len(p.as_posix()), reverse=True)
+                  key=lambda p: len(p.parts), reverse=True)
     files = sorted({p for k, p in found if k == "file"})
 
     deleted_files, deleted_dirs = 0, 0
