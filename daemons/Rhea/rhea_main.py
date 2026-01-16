@@ -328,9 +328,12 @@ def run_pipeline(discovered: List[DaemonInfo], reg: Dict[str, Any]) -> None:
         codexa_out = None
 
     # Janvier
+    # Janvier converts Briar's cleaned .txt conversations into .chaos threads,
+    # so prefer Briar output when available (fallback to newer outputs if Briar is absent).
+    janvier_payload = briar_out if briar_out is not None else codexa_out
     if janvier and janvier.run_callable:
         log("Running Janvier…")
-        ok, janvier_out = try_run_daemon(janvier, payload=sheele_out, registry=reg)
+        ok, janvier_out = try_run_daemon(janvier, payload=janvier_payload, registry=reg)
         if not ok:
             warn("Janvier failed.")
             janvier_out = None
@@ -339,7 +342,9 @@ def run_pipeline(discovered: List[DaemonInfo], reg: Dict[str, Any]) -> None:
         janvier_out = None
 
     # Aderyn
-    if aderyn and aderyn.run_callable:
+    if not janvier_out:
+        warn("Aderyn depends on Janvier output; skipping because Janvier produced no output.")
+    elif aderyn and aderyn.run_callable:
         log("Running Aderyn…")
         ok, aderyn_out = try_run_daemon(aderyn, payload=janvier_out, registry=reg)
         if not ok:
