@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+"""Canonical package entrypoint for the Rhea orchestrator."""
+
 from importlib import util
 from pathlib import Path
 import sys
