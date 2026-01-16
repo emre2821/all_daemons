@@ -123,7 +123,7 @@ Each workflow lists the sequence and the expected outputs or artifacts.
 3. **Riven** — validate fix hypotheses with tests.
    - **Output:** validation report (e.g., `Riven/reports/hypothesis_validation.xml`).
 
-## Artifact Labeling & Shelfing
+## Artifact Labeling & Shelving
 1. **Label** — auto-tag unclassified artifacts.
    - **Output:** tag set (e.g., `Label/outputs/tag_set.json`).
 2. **Mila** — allocate shelves and bins.
