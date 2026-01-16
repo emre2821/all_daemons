@@ -12,8 +12,7 @@ import argparse
 import yaml
 import json
 import requests
-from datetime import datetime
-import timezone
+from datetime import datetime, timezone
 from typing import List
 import Optional, Tuple, Dict, Any
 import re
