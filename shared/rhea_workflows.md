@@ -194,7 +194,7 @@ started by Rhea directly from this file.
   - **Steps:** Phase map → Daily sorting → Force ops → Repair manifests.
   - **Outputs:** phased cleanup ledger + manifest repair log.
 
-- [ ] **Start Task — Ashfall Aftermath**
+- [ ] **Start Task — AshFall Aftermath**
   - **Use:** catastrophic disorder event.
   - **Crew:** Scorchick, AshFall, Mila, Brom.
   - **Steps:** Triage → Clear → Reshelve.
