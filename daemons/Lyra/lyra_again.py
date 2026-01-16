@@ -36,7 +36,8 @@ try:
 except ImportError as e:
     print(f"Missing dependency: {e}")
     print("Install with: pip install PyGithub gitpython PyYAML python-dotenv tenacity requests")
-    sys.exit(1)
+    HAS_GIT = False
+    Github = GithubException = Auth = PRType = Repository = GitCommit = Issue = Repo = GitCommandError = Any
 
 try:
     from dotenv import load_dotenv
@@ -45,6 +46,21 @@ except ImportError:
     pass
 
 # Proper retry decorator handling
+HAS_TENACITY = False
+try:
+    from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
+    HAS_TENACITY = True
+except ImportError:
+    def retry(*args, **kwargs):
+        def decorator(func): return func
+        return decorator
+    def stop_after_attempt(n):
+        return lambda retry_state: retry_state
+    def wait_exponential(min=1, max=10):
+        return lambda retry_state: retry_state
+    def retry_if_exception_type(exc):
+        return lambda retry_state: retry_state
+
 logger = logging.getLogger(__name__)
 tenacity = load_tenacity(logger)
 HAS_TENACITY = tenacity.available
@@ -52,6 +68,13 @@ retry = tenacity.retry
 stop_after_attempt = tenacity.stop_after_attempt
 wait_exponential = tenacity.wait_exponential
 retry_if_exception_type = tenacity.retry_if_exception_type
+
+def require_git_dependencies() -> None:
+    if not HAS_GIT:
+        raise RuntimeError(
+            "Missing GitHub dependencies. Install with: "
+            "pip install PyGithub gitpython PyYAML python-dotenv tenacity requests"
+        )
 
 ############################################################
 # LOGGING
@@ -358,6 +381,7 @@ def try_merge_pr(repo: Repository, pr: PRType, config: Dict, pr_cache: Dict) -> 
 # PROCESS REPO
 ############################################################
 def process_repo(repo_full: str, label: str, config: Dict, pr_cache: Dict) -> str:
+    require_git_dependencies()
     try:
         g = Github(auth=Auth.Token(getenv("GITHUB_TOKEN", required=True)))
         repo = g.get_repo(repo_full)
@@ -396,6 +420,7 @@ def process_repo(repo_full: str, label: str, config: Dict, pr_cache: Dict) -> st
 # PROCESS ALL REPOS
 ############################################################
 def process_all_repos(label: str, dry_run: bool, config: Dict) -> str:
+    require_git_dependencies()
     if dry_run:
         return "DRY RUN COMPLETE"
 

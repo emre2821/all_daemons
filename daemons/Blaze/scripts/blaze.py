@@ -53,6 +53,12 @@ def should_skip_dir(path: Path, skip_names: set[str]) -> bool:
             return True
     return False
 
+def path_depth(root: Path, path: Path) -> int:
+    try:
+        return len(path.relative_to(root).parts)
+    except ValueError:
+        return len(path.parts)
+
 # ------------------------
 # Sweep (cache cleanup)
 # ------------------------
@@ -85,8 +91,11 @@ def blaze_sweep(root: Path, confirm: bool, skip: set[str], quiet: bool):
     summary_path = log_dir / f"sweep_{run_id}.summary.txt"
 
     found = list(iter_targets(root, skip))
-    dirs = sorted({p for k, p in found if k == "dir"},
-                  key=lambda p: len(p.as_posix()), reverse=True)
+    dirs = sorted(
+        {p for k, p in found if k == "dir"},
+        key=lambda p: path_depth(root, p),
+        reverse=True,
+    )
     files = sorted({p for k, p in found if k == "file"})
 
     deleted_files, deleted_dirs = 0, 0

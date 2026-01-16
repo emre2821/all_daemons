@@ -16,7 +16,7 @@ import json
 import requests
 import subprocess
 from datetime import datetime, timezone
-from typing import List, Optional, Tuple, Dict
+from typing import List, Optional, Tuple, Dict, Any
 import re
 import tempfile
 import concurrent.futures
@@ -30,16 +30,41 @@ try:
     from github.Repository import Repository
     from github.GitCommit import GitCommit
     from github.Issue import Issue
+    HAS_GIT = True
 except ImportError as e:
     print(f"[EDENOS] Missing dependency: {e}")
     print("Install: pip install PyGithub gitpython PyYAML python-dotenv tenacity requests")
-    sys.exit(1)
+    HAS_GIT = False
+    Github = GithubException = Auth = PRType = Repository = GitCommit = Issue = Any
 
 try:
     from dotenv import load_dotenv
     load_dotenv()
 except ImportError:
     pass
+
+HAS_TENACITY = False
+try:
+    from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
+    HAS_TENACITY = True
+except ImportError:
+    # Fallback (no retries, still runs).
+    # Provide compatible signatures for static checkers.
+    def retry(*dargs, **dkwargs):
+        def decorator(func):
+            return func
+        return decorator
+
+    def wait_exponential(multiplier: float = 1, max: Optional[int] = 10):
+        # Return a dummy wait object compatible with tenacity usage
+        return lambda retry_state: retry_state
+
+    def retry_if_exception_type(exception_types):
+        # Return a dummy retry predicate
+        return lambda retry_state: retry_state
+
+    def stop_after_attempt(max_attempt_number: int):
+        return lambda retry_state: retry_state
 
 logger = logging.getLogger("edenos.lyra")
 tenacity = load_tenacity(logger)
@@ -48,6 +73,13 @@ retry = tenacity.retry
 stop_after_attempt = tenacity.stop_after_attempt
 wait_exponential = tenacity.wait_exponential
 retry_if_exception_type = tenacity.retry_if_exception_type
+
+def require_git_dependencies() -> None:
+    if not HAS_GIT:
+        raise RuntimeError(
+            "Missing GitHub dependencies. Install with: "
+            "pip install PyGithub gitpython PyYAML python-dotenv tenacity requests"
+        )
 
 # ================================
 # SYMBOLIC LOGGING
@@ -367,6 +399,7 @@ def try_merge_pr(repo: Repository, pr: PRType, config: Dict, pr_cache: Dict) -> 
 # REPO PROCESSING
 # ================================
 def process_repo(repo_full: str, label: str, config: Dict, pr_cache: Dict) -> str:
+    require_git_dependencies()
     try:
         g = Github(auth=Auth.Token(getenv("GITHUB_TOKEN", required=True)))
         repo = g.get_repo(repo_full)
@@ -409,6 +442,7 @@ def process_repo(repo_full: str, label: str, config: Dict, pr_cache: Dict) -> st
 # ALL-REPO ORCHESTRATOR
 # ================================
 def process_all_repos(label: str, dry_run: bool, config: Dict) -> str:
+    require_git_dependencies()
     if dry_run:
         logger.info("DRY RUN - no changes will be made.")
         return "DRY RUN COMPLETE"
