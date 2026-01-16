@@ -14,8 +14,7 @@ import json
 import requests
 from datetime import datetime
 import timezone
-from typing import List
-import Optional, Tuple, Dict, Any
+from typing import Any, Dict, List, Optional, Tuple
 import re
 import tempfile
 import shutil
