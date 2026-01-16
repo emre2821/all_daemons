@@ -21,6 +21,8 @@ import re
 import tempfile
 import concurrent.futures
 
+from lyra_dependencies import load_tenacity
+
 # External dependencies with fallback logging
 try:
     from github import Github, GithubException, Auth
@@ -39,31 +41,13 @@ try:
 except ImportError:
     pass
 
-HAS_TENACITY = False
-try:
-    from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
-    HAS_TENACITY = True
-except ImportError:
-    # Fallback (no retries, still runs).
-    # Provide compatible signatures for static checkers.
-    def retry(*dargs, **dkwargs):
-        def decorator(func):
-            return func
-        return decorator
-
-    class stop_after_attempt:
-        def __init__(self, max_attempt_number: int): pass
-        def __call__(self, *a, **k): return False
-
-    def wait_exponential(multiplier: float = 1, max: Optional[int] = 10):
-        # Return a dummy wait object compatible with tenacity usage
-        return lambda *a, **k: None
-
-    def retry_if_exception_type(exception_types):
-        # Return a dummy retry predicate
-        return lambda *a, **k: False
-
 logger = logging.getLogger("edenos.lyra")
+tenacity = load_tenacity(logger)
+HAS_TENACITY = tenacity.available
+retry = tenacity.retry
+stop_after_attempt = tenacity.stop_after_attempt
+wait_exponential = tenacity.wait_exponential
+retry_if_exception_type = tenacity.retry_if_exception_type
 
 # ================================
 # SYMBOLIC LOGGING

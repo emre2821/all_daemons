@@ -19,6 +19,9 @@ import tempfile
 import shutil
 from pathlib import Path
 
+from lyra_dependencies import load_tenacity, require_git_dependencies
+
+HAS_GIT = False
 # External dependencies with fallbacks
 try:
     from github import Github, GithubException, Auth
@@ -39,12 +42,13 @@ try:
 except ImportError:
     pass
 
-try:
-    from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
-except ImportError:
-    retry = lambda x: x
-    logger = logging.getLogger(__name__)
-    logger.warning("tenacity not installed; rate-limit retries disabled.")
+logger = logging.getLogger(__name__)
+tenacity = load_tenacity(logger)
+HAS_TENACITY = tenacity.available
+retry = tenacity.retry
+stop_after_attempt = tenacity.stop_after_attempt
+wait_exponential = tenacity.wait_exponential
+retry_if_exception_type = tenacity.retry_if_exception_type
 
 # ================================
 # LOGGING SETUP
@@ -58,8 +62,6 @@ def setup_logging(verbose: bool = False, log_path: str = "lyra.log") -> None:
         datefmt="%Y-%m-%d %H:%M:%S",
         handlers=handlers
     )
-
-logger = logging.getLogger(__name__)
 
 # ================================
 # CONFIG & ENV
@@ -143,6 +145,7 @@ RECOMMENDATION (ours/theirs/manual):"""
 @retry(stop=stop_after_attempt(3), wait=wait_exponential(min=2, max=10))
 def resolve_pr_conflicts(repo: Repository, pr: PRType, config: Dict) -> Tuple[bool, str, Dict]:
     """The heart of Lyra - auto-resolves conflicts like magic ✨"""
+    require_git_dependencies(HAS_GIT)
     
     if pr.mergeable_state != "conflicted":
         return True, "No conflicts", {"resolved": 0}
