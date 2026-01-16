@@ -48,3 +48,6 @@ Lyra/.env
 /Rhea/outputs
 /inputs
 /Rhea/inputs
+
+# Snyk Security Extension - AI Rules (auto-generated)
+.windsurf/rules/snyk_rules.md
