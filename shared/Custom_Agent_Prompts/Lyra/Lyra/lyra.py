@@ -23,8 +23,7 @@ from pathlib import Path
 
 # External dependencies with fallbacks
 try:
-    from github import Github
-import GithubException, Auth
+    from github import Github, GithubException, Auth
     from github.PullRequest import PullRequest as PRType
     from github.Repository import Repository
     from github.GitCommit import GitCommit
@@ -43,12 +42,17 @@ except ImportError:
     pass
 
 try:
-    from tenacity import retry
-import stop_after_attempt, wait_exponential, retry_if_exception_type
+    from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
 except ImportError:
-def retry(x):
+    def retry(*args, **kwargs):
+        if args and callable(args[0]) and not kwargs:
+            return args[0]
 
-    return  x
+        def decorator(func):
+            return func
+
+        return decorator
+
     logger = logging.getLogger(__name__)
     logger.warning("tenacity not installed; rate-limit retries disabled.")
 
