@@ -91,7 +91,7 @@ def backup(path: Path, dest: Path) -> None:
 # -----------------------------
 # Eden paths & defaults
 # -----------------------------
-PROJECT_ROOT = Path(__file__).resolve().parents[1]
+PROJECT_ROOT = Path(__file__).resolve().parents[1].resolve()
 
 
 def resolve_root(env: Mapping[str, str] | None = None) -> Path:
@@ -99,7 +99,7 @@ def resolve_root(env: Mapping[str, str] | None = None) -> Path:
     env = env or os.environ
     env_root = env.get("EDEN_ROOT")
     if env_root:
-        candidate = Path(env_root).expanduser()
+        candidate = Path(env_root).expanduser().resolve()
         if candidate.exists():
             return candidate
         warn(f"EDEN_ROOT is set to {candidate}, but it does not exist. Falling back to PROJECT_ROOT.")
@@ -111,10 +111,10 @@ def resolve_daemon_dir(root: Path, env: Mapping[str, str] | None = None) -> Path
     env = env or os.environ
     env_daemons = env.get("EDEN_DAEMONS_DIR")
     candidates = [
-        Path(env_daemons).expanduser() if env_daemons else None,
-        root / "01_Daemon_Core_Agents",
-        root / "daemons",
-        root,
+        Path(env_daemons).expanduser().resolve() if env_daemons else None,
+        (root / "01_Daemon_Core_Agents").resolve(),
+        (root / "daemons").resolve(),
+        root.resolve(),
     ]
 
     def _looks_like_daemon_home(path: Path) -> bool:
@@ -137,18 +137,20 @@ def resolve_daemon_dir(root: Path, env: Mapping[str, str] | None = None) -> Path
         if candidate and candidate.exists():
             first_existing = first_existing or candidate
             if _looks_like_daemon_home(candidate):
-                return candidate
-    return first_existing or root
+                return candidate.resolve()
+    return (first_existing or root).resolve()
 
 
-ROOT = resolve_root()
-DAEMON_DIR = resolve_daemon_dir(ROOT)
-RHEA_DIR = Path(__file__).resolve().parent
-REGISTRY_PATH = RHEA_DIR / "rhea_registry.json"
-BACKUP_PATH = RHEA_DIR / f"rhea_registry.{int(time.time())}.bak.json"
+ROOT = resolve_root().resolve()
+DAEMON_DIR = resolve_daemon_dir(ROOT).resolve()
+RHEA_DIR = Path(__file__).resolve().parent.resolve()
+REGISTRY_PATH = (RHEA_DIR / "rhea_registry.json").resolve()
+BACKUP_PATH = (RHEA_DIR / f"rhea_registry.{int(time.time())}.bak.json").resolve()
 
 # Sheele wanted path (OpenAI exports)
-SHEELE_DEFAULT_INPUT = ROOT / "data" / "exports" / "openai_exports" / "conversations.json"
+SHEELE_DEFAULT_INPUT = (
+    ROOT / "data" / "exports" / "openai_exports" / "conversations.json"
+).resolve()
 
 # Name patterns
 PY_NAME = re.compile(r"^[a-zA-Z_][a-zA-Z0-9_]*\.py$")
