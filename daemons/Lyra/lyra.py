@@ -31,7 +31,8 @@ try:
 except ImportError as e:
     print(f"Missing dependency: {e}")
     print("Install with: pip install PyGithub gitpython PyYAML python-dotenv tenacity requests")
-    sys.exit(1)
+    HAS_GIT = False
+    Github = GithubException = Auth = PRType = Repository = GitCommit = Issue = Repo = Any
 
 try:
     from dotenv import load_dotenv
@@ -42,7 +43,16 @@ except ImportError:
 try:
     from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
 except ImportError:
-    retry = lambda x: x
+    def retry(*args, **kwargs):
+        def decorator(func):
+            return func
+        return decorator
+    def stop_after_attempt(n):
+        return lambda retry_state: retry_state
+    def wait_exponential(min=1, max=10):
+        return lambda retry_state: retry_state
+    def retry_if_exception_type(exc):
+        return lambda retry_state: retry_state
     logger = logging.getLogger(__name__)
     logger.warning("tenacity not installed; rate-limit retries disabled.")
 
@@ -60,6 +70,13 @@ def setup_logging(verbose: bool = False, log_path: str = "lyra.log") -> None:
     )
 
 logger = logging.getLogger(__name__)
+
+def require_git_dependencies() -> None:
+    if not HAS_GIT:
+        raise RuntimeError(
+            "Missing GitHub dependencies. Install with: "
+            "pip install PyGithub gitpython PyYAML python-dotenv tenacity requests"
+        )
 
 # ================================
 # CONFIG & ENV
@@ -303,7 +320,7 @@ def send_slack(message: str) -> None:
 @retry(stop=stop_after_attempt(3), wait=wait_exponential(min=4, max=10))
 def process_repo(repo_full: str, label: str, config: Dict, pr_cache: Dict) -> str:
     """Process single repo - THE CORE LOGIC"""
-    
+    require_git_dependencies()
     g = Github(auth=Auth.Token(getenv("GITHUB_TOKEN")))
     repo = g.get_repo(repo_full)
     
@@ -356,6 +373,7 @@ def process_repo(repo_full: str, label: str, config: Dict, pr_cache: Dict) -> st
 # ================================
 def process_all_repos(label: str, dry_run: bool, config: Dict) -> str:
     """Process ALL repos"""
+    require_git_dependencies()
     if dry_run:
         logger.info("🧪 DRY RUN MODE")
         return "DRY RUN COMPLETE"
