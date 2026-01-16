@@ -137,8 +137,8 @@ def resolve_daemon_dir(root: Path, env: Mapping[str, str] | None = None) -> Path
         if candidate and candidate.exists():
             first_existing = first_existing or candidate
             if _looks_like_daemon_home(candidate):
-                return candidate
-    return first_existing or root
+                return candidate.resolve()
+    return (first_existing or root).resolve()
 
 
 ROOT = resolve_root()
