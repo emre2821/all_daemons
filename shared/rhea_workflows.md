@@ -34,6 +34,7 @@ Each workflow lists the sequence and the expected outputs or artifacts.
   - [Log Hygiene & Rotation](#log-hygiene--rotation)
   - [Backup Rotation & Verification](#backup-rotation--verification)
   - [Data Retention Review](#data-retention-review)
+  - [File Discovery & Deduplication](#file-discovery--deduplication)
 - [Recovery & Integrity](#recovery--integrity)
   - [Incident Recovery & File Rescue](#incident-recovery--file-rescue)
   - [Recovery Drill](#recovery-drill)
@@ -42,9 +43,11 @@ Each workflow lists the sequence and the expected outputs or artifacts.
 - [Knowledge & Lore](#knowledge--lore)
   - [Identity & Law Registry Refresh](#identity--law-registry-refresh)
   - [Lore Sync & Canon Alignment](#lore-sync--canon-alignment)
+  - [Conversation Threading & Tagging](#conversation-threading--tagging)
   - [Memory Weave & Thread Stabilization](#memory-weave--thread-stabilization)
   - [Story Signals & Release Notifications](#story-signals--release-notifications)
   - [Identity Audit & Symbol Mapping](#identity-audit--symbol-mapping)
+  - [Agent Intake & Recommendation Loop](#agent-intake--recommendation-loop)
 - [Experience & Comms](#experience--comms)
   - [Emotional Weather Report](#emotional-weather-report)
   - [Creative Pulse & Prompt Forge](#creative-pulse--prompt-forge)
@@ -220,6 +223,14 @@ Each workflow lists the sequence and the expected outputs or artifacts.
 3. **Rhea** — update registry policies and flags.
    - **Output:** retention policy update (e.g., `Rhea/outputs/retention_policy.json`).
 
+### File Discovery & Deduplication
+1. **Alfie** — scan target directories for Eden file types and log duplicates.
+   - **Output:** scan log and quarantined dupes (e.g., `daemons/_daemon_specialty_folders/alfie_findings/alfie_log.txt`).
+2. **Tidbit** — watch configured folders for duplicate files and move dupes to a dump folder.
+   - **Output:** dedupe log and dump folder (configured paths, e.g., `.../dedupe_watchdog.log`, `.../waste_of_my_goddamned_time_and_space/`).
+3. **Runlet** — cleanse and rehome files into Eden-aligned folders.
+   - **Output:** cleansed file set (e.g., `~/Eden_Cleansed/`).
+
 ## Recovery & Integrity
 
 ### Incident Recovery & File Rescue
@@ -274,6 +285,16 @@ Each workflow lists the sequence and the expected outputs or artifacts.
 3. **Lyra** — publish a canon update summary via PR automation.
    - **Output:** PR automation log (e.g., `lyra.log`).
 
+### Conversation Threading & Tagging
+1. **Sheele** — split raw conversation exports into per-thread JSON files.
+   - **Output:** thread splits and fracture log (e.g., `Rhea/outputs/Sheele/split_conversations/*.json`, `Rhea/outputs/Sheele/split_conversations/sheele_fracture_log.json`).
+2. **Briar** — convert per-thread JSON into readable conversation transcripts.
+   - **Output:** transcript batch (e.g., `Rhea/outputs/Briar/split_conversations_txt/*.txt`).
+3. **Janvier** — transform transcripts into CHAOS thread files.
+   - **Output:** CHAOS threads (e.g., `Rhea/outputs/Janvier/chaos_threads/*.chaos`).
+4. **Filigree** — tag CHAOS threads with vibe markers for later discovery.
+   - **Output:** tagged CHAOS summaries (e.g., `Rhea/outputs/Filigree/tagged/*_tags.chaos`).
+
 ### Memory Weave & Thread Stabilization
 1. **Threadstep** — map memory links and anchors via path tracing.
    - **Output:** trace log (e.g., `daemons/_logs/Threadstep.log`).
@@ -297,6 +318,14 @@ Each workflow lists the sequence and the expected outputs or artifacts.
    - **Output:** mark ledger (e.g., `markbearer_log.json`).
 3. **Rhea** — publish identity audit summary.
    - **Output:** audit summary (e.g., `Rhea/reports/identity_audit.md`).
+
+### Agent Intake & Recommendation Loop
+1. **Ledger_Jr** — watch the mirror JSON stream and log newly arrived agent records.
+   - **Output:** arrival ledger (e.g., `eden_agent_arrivals.chaoscript`).
+2. **Juno_Jr** — match stated needs to domains and suggest fitting daemons.
+   - **Output:** routing notes (e.g., `_archives/juno_jr.echo.log`).
+3. **Scriptum** — chronicle onboarding notes and mood cues from the session.
+   - **Output:** onboarding chronicle (e.g., `scriptum_log.json`).
 
 ## Experience & Comms
 
