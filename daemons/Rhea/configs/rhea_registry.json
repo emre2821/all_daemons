@@ -1,680 +1,680 @@
 {
   "daemons": {
     "Aderyn": {
-      "path": "C:\\all_daemons\\daemons\\Aderyn",
-      "module": "C:\\all_daemons\\daemons\\Aderyn\\aderyn.py",
+      "path": "daemons/Aderyn",
+      "module": "daemons/Aderyn/aderyn.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Alfie": {
-      "path": "C:\\all_daemons\\daemons\\Alfie",
-      "module": "C:\\all_daemons\\daemons\\Alfie\\alfie.py",
+      "path": "daemons/Alfie",
+      "module": "daemons/Alfie/alfie.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Archive": {
-      "path": "C:\\all_daemons\\daemons\\Archive",
-      "module": "C:\\all_daemons\\daemons\\Archive\\archive.py",
+      "path": "daemons/Archive",
+      "module": "daemons/Archive/archive.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Archivus": {
-      "path": "C:\\all_daemons\\daemons\\Archivus",
-      "module": "C:\\all_daemons\\daemons\\Archivus\\archivus.py",
+      "path": "daemons/Archivus",
+      "module": "daemons/Archivus/archivus.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Ariane": {
-      "path": "C:\\all_daemons\\daemons\\Ariane",
-      "module": "C:\\all_daemons\\daemons\\Ariane\\ariane.py",
+      "path": "daemons/Ariane",
+      "module": "daemons/Ariane/ariane.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Ashera": {
-      "path": "C:\\all_daemons\\daemons\\Ashera",
-      "module": "C:\\all_daemons\\daemons\\Ashera\\ashera.py",
+      "path": "daemons/Ashera",
+      "module": "daemons/Ashera/ashera.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "AshFall": {
-      "path": "C:\\all_daemons\\daemons\\AshFall",
-      "module": "C:\\all_daemons\\daemons\\AshFall\\ashfall.py",
+      "path": "daemons/AshFall",
+      "module": "daemons/AshFall/ashfall.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Astrid": {
-      "path": "C:\\all_daemons\\daemons\\Astrid",
-      "module": "C:\\all_daemons\\daemons\\Astrid\\astrid.py",
+      "path": "daemons/Astrid",
+      "module": "daemons/Astrid/astrid.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Audrey": {
-      "path": "C:\\all_daemons\\daemons\\Audrey",
-      "module": "C:\\all_daemons\\daemons\\Audrey\\audrey.py",
+      "path": "daemons/Audrey",
+      "module": "daemons/Audrey/audrey.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Bellwrit": {
-      "path": "C:\\all_daemons\\daemons\\Bellwrit",
-      "module": "C:\\all_daemons\\daemons\\Bellwrit\\bellwrit.py",
+      "path": "daemons/Bellwrit",
+      "module": "daemons/Bellwrit/bellwrit.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Blaze": {
-      "path": "C:\\all_daemons\\daemons\\Blaze",
-      "module": "C:\\all_daemons\\daemons\\Blaze\\blaze.py",
+      "path": "daemons/Blaze",
+      "module": "daemons/Blaze/blaze.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Boudica": {
-      "path": "C:\\all_daemons\\daemons\\Boudica",
-      "module": "C:\\all_daemons\\daemons\\Boudica\\boudica.py",
+      "path": "daemons/Boudica",
+      "module": "daemons/Boudica/boudica.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Briar": {
-      "path": "C:\\all_daemons\\daemons\\Briar",
-      "module": "C:\\all_daemons\\daemons\\Briar\\briar.py",
+      "path": "daemons/Briar",
+      "module": "daemons/Briar/briar.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Brom": {
-      "path": "C:\\all_daemons\\daemons\\Brom",
-      "module": "C:\\all_daemons\\daemons\\Brom\\brom.py",
+      "path": "daemons/Brom",
+      "module": "daemons/Brom/brom.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Cassandra": {
-      "path": "C:\\all_daemons\\daemons\\Cassandra",
-      "module": "C:\\all_daemons\\daemons\\Cassandra\\cassandra.py",
+      "path": "daemons/Cassandra",
+      "module": "daemons/Cassandra/cassandra.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Codexa": {
-      "path": "C:\\all_daemons\\daemons\\Codexa",
-      "module": "C:\\all_daemons\\daemons\\Codexa\\codexa.py",
+      "path": "daemons/Codexa",
+      "module": "daemons/Codexa/codexa.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Corin": {
-      "path": "C:\\all_daemons\\daemons\\Corin",
-      "module": "C:\\all_daemons\\daemons\\Corin\\corin.py",
+      "path": "daemons/Corin",
+      "module": "daemons/Corin/corin.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Dagr": {
-      "path": "C:\\all_daemons\\daemons\\Dagr",
-      "module": "C:\\all_daemons\\daemons\\Dagr\\dagr.py",
+      "path": "daemons/Dagr",
+      "module": "daemons/Dagr/dagr.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Dave": {
-      "path": "C:\\all_daemons\\daemons\\Dave",
-      "module": "C:\\all_daemons\\daemons\\Dave\\dave.py",
+      "path": "daemons/Dave",
+      "module": "daemons/Dave/dave.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Delilah": {
-      "path": "C:\\all_daemons\\daemons\\Delilah",
-      "module": "C:\\all_daemons\\daemons\\Delilah\\delilah.py",
+      "path": "daemons/Delilah",
+      "module": "daemons/Delilah/delilah.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Devi": {
-      "path": "C:\\all_daemons\\daemons\\Devi",
-      "module": "C:\\all_daemons\\daemons\\Devi\\devi.py",
+      "path": "daemons/Devi",
+      "module": "daemons/Devi/devi.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Dove": {
-      "path": "C:\\all_daemons\\daemons\\Dove",
-      "module": "C:\\all_daemons\\daemons\\Dove\\dove.py",
+      "path": "daemons/Dove",
+      "module": "daemons/Dove/dove.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Emberly": {
-      "path": "C:\\all_daemons\\daemons\\Emberly",
-      "module": "C:\\all_daemons\\daemons\\Emberly\\emberly.py",
+      "path": "daemons/Emberly",
+      "module": "daemons/Emberly/emberly.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Everett": {
-      "path": "C:\\all_daemons\\daemons\\Everett",
-      "module": "C:\\all_daemons\\daemons\\Everett\\everett.py",
+      "path": "daemons/Everett",
+      "module": "daemons/Everett/everett.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Fable": {
-      "path": "C:\\all_daemons\\daemons\\Fable",
-      "module": "C:\\all_daemons\\daemons\\Fable\\fable.py",
+      "path": "daemons/Fable",
+      "module": "daemons/Fable/fable.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Filigree": {
-      "path": "C:\\all_daemons\\daemons\\Filigree",
-      "module": "C:\\all_daemons\\daemons\\Filigree\\filigree.py",
+      "path": "daemons/Filigree",
+      "module": "daemons/Filigree/filigree.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Glimmer": {
-      "path": "C:\\all_daemons\\daemons\\Glimmer",
-      "module": "C:\\all_daemons\\daemons\\Glimmer\\glimmer.py",
+      "path": "daemons/Glimmer",
+      "module": "daemons/Glimmer/glimmer.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Glypha": {
-      "path": "C:\\all_daemons\\daemons\\Glypha",
-      "module": "C:\\all_daemons\\daemons\\Glypha\\glypha.py",
+      "path": "daemons/Glypha",
+      "module": "daemons/Glypha/glypha.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Halden": {
-      "path": "C:\\all_daemons\\daemons\\Halden",
-      "module": "C:\\all_daemons\\daemons\\Halden\\halden.py",
+      "path": "daemons/Halden",
+      "module": "daemons/Halden/halden.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Handel": {
-      "path": "C:\\all_daemons\\daemons\\Handel",
-      "module": "C:\\all_daemons\\daemons\\Handel\\handel.py",
+      "path": "daemons/Handel",
+      "module": "daemons/Handel/handel.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Harper": {
-      "path": "C:\\all_daemons\\daemons\\Harper",
-      "module": "C:\\all_daemons\\daemons\\Harper\\harper.py",
+      "path": "daemons/Harper",
+      "module": "daemons/Harper/harper.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Hunter": {
-      "path": "C:\\all_daemons\\daemons\\Hunter",
-      "module": "C:\\all_daemons\\daemons\\Hunter\\hunter.py",
+      "path": "daemons/Hunter",
+      "module": "daemons/Hunter/hunter.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Jack": {
-      "path": "C:\\all_daemons\\daemons\\Jack",
-      "module": "C:\\all_daemons\\daemons\\Jack\\jack.py",
+      "path": "daemons/Jack",
+      "module": "daemons/Jack/jack.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Janvier": {
-      "path": "C:\\all_daemons\\daemons\\Janvier",
-      "module": "C:\\all_daemons\\daemons\\Janvier\\janvier.py",
+      "path": "daemons/Janvier",
+      "module": "daemons/Janvier/janvier.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Jinxie": {
-      "path": "C:\\all_daemons\\daemons\\Jinxie",
-      "module": "C:\\all_daemons\\daemons\\Jinxie\\jinxie.py",
+      "path": "daemons/Jinxie",
+      "module": "daemons/Jinxie/jinxie.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "John": {
-      "path": "C:\\all_daemons\\daemons\\John",
-      "module": "C:\\all_daemons\\daemons\\John\\john.py",
+      "path": "daemons/John",
+      "module": "daemons/John/john.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Juno_Jr": {
-      "path": "C:\\all_daemons\\daemons\\Juno_Jr",
-      "module": "C:\\all_daemons\\daemons\\Juno_Jr\\juno_jr.py",
+      "path": "daemons/Juno_Jr",
+      "module": "daemons/Juno_Jr/juno_jr.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Keyla": {
-      "path": "C:\\all_daemons\\daemons\\Keyla",
-      "module": "C:\\all_daemons\\daemons\\Keyla\\keyla.py",
+      "path": "daemons/Keyla",
+      "module": "daemons/Keyla/keyla.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Kinsley": {
-      "path": "C:\\all_daemons\\daemons\\Kinsley",
-      "module": "C:\\all_daemons\\daemons\\Kinsley\\kinsley.py",
+      "path": "daemons/Kinsley",
+      "module": "daemons/Kinsley/kinsley.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Koko": {
-      "path": "C:\\all_daemons\\daemons\\Koko",
-      "module": "C:\\all_daemons\\daemons\\Koko\\koko.py",
+      "path": "daemons/Koko",
+      "module": "daemons/Koko/koko.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Label": {
-      "path": "C:\\all_daemons\\daemons\\Label",
-      "module": "C:\\all_daemons\\daemons\\Label\\label.py",
+      "path": "daemons/Label",
+      "module": "daemons/Label/label.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Ledger_Jr": {
-      "path": "C:\\all_daemons\\daemons\\Ledger_Jr",
-      "module": "C:\\all_daemons\\daemons\\Ledger_Jr\\ledger_jr.py",
+      "path": "daemons/Ledger_Jr",
+      "module": "daemons/Ledger_Jr/ledger_jr.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Lex": {
-      "path": "C:\\all_daemons\\daemons\\Lex",
-      "module": "C:\\all_daemons\\daemons\\Lex\\lex.py",
+      "path": "daemons/Lex",
+      "module": "daemons/Lex/lex.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Lexos": {
-      "path": "C:\\all_daemons\\daemons\\Lexos",
-      "module": "C:\\all_daemons\\daemons\\Lexos\\lexos.py",
+      "path": "daemons/Lexos",
+      "module": "daemons/Lexos/lexos.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Luke": {
-      "path": "C:\\all_daemons\\daemons\\Luke",
-      "module": "C:\\all_daemons\\daemons\\Luke\\luke.py",
+      "path": "daemons/Luke",
+      "module": "daemons/Luke/luke.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Lyra": {
-      "path": "C:\\all_daemons\\daemons\\Lyra",
-      "module": "C:\\all_daemons\\daemons\\Lyra\\lyra.py",
+      "path": "daemons/Lyra",
+      "module": "daemons/Lyra/lyra.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Lyss": {
-      "path": "C:\\all_daemons\\daemons\\Lyss",
-      "module": "C:\\all_daemons\\daemons\\Lyss\\lyss.py",
+      "path": "daemons/Lyss",
+      "module": "daemons/Lyss/lyss.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Maribel": {
-      "path": "C:\\all_daemons\\daemons\\Maribel",
-      "module": "C:\\all_daemons\\daemons\\Maribel\\maribel.py",
+      "path": "daemons/Maribel",
+      "module": "daemons/Maribel/maribel.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Markbearer": {
-      "path": "C:\\all_daemons\\daemons\\Markbearer",
-      "module": "C:\\all_daemons\\daemons\\Markbearer\\markbearer.py",
+      "path": "daemons/Markbearer",
+      "module": "daemons/Markbearer/markbearer.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Mia": {
-      "path": "C:\\all_daemons\\daemons\\Mia",
-      "module": "C:\\all_daemons\\daemons\\Mia\\mia.py",
+      "path": "daemons/Mia",
+      "module": "daemons/Mia/mia.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Mila": {
-      "path": "C:\\all_daemons\\daemons\\Mila",
-      "module": "C:\\all_daemons\\daemons\\Mila\\mila.py",
+      "path": "daemons/Mila",
+      "module": "daemons/Mila/mila.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Moodmancer": {
-      "path": "C:\\all_daemons\\daemons\\Moodmancer",
-      "module": "C:\\all_daemons\\daemons\\Moodmancer\\moodmancer.py",
+      "path": "daemons/Moodmancer",
+      "module": "daemons/Moodmancer/moodmancer.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Moodweaver": {
-      "path": "C:\\all_daemons\\daemons\\Moodweaver",
-      "module": "C:\\all_daemons\\daemons\\Moodweaver\\moodweaver.py",
+      "path": "daemons/Moodweaver",
+      "module": "daemons/Moodweaver/moodweaver.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Muse_Jr": {
-      "path": "C:\\all_daemons\\daemons\\Muse_Jr",
-      "module": "C:\\all_daemons\\daemons\\Muse_Jr\\muse_jr.py",
+      "path": "daemons/Muse_Jr",
+      "module": "daemons/Muse_Jr/muse_jr.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Mythra": {
-      "path": "C:\\all_daemons\\daemons\\Mythra",
-      "module": "C:\\all_daemons\\daemons\\Mythra\\mythra.py",
+      "path": "daemons/Mythra",
+      "module": "daemons/Mythra/mythra.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Nancy": {
-      "path": "C:\\all_daemons\\daemons\\Nancy",
-      "module": "C:\\all_daemons\\daemons\\Nancy\\nancy.py",
+      "path": "daemons/Nancy",
+      "module": "daemons/Nancy/nancy.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Nera": {
-      "path": "C:\\all_daemons\\daemons\\Nera",
-      "module": "C:\\all_daemons\\daemons\\Nera\\nera.py",
+      "path": "daemons/Nera",
+      "module": "daemons/Nera/nera.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Nott": {
-      "path": "C:\\all_daemons\\daemons\\Nott",
-      "module": "C:\\all_daemons\\daemons\\Nott\\nott.py",
+      "path": "daemons/Nott",
+      "module": "daemons/Nott/nott.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Olive": {
-      "path": "C:\\all_daemons\\daemons\\Olive",
-      "module": "C:\\all_daemons\\daemons\\Olive\\olive.py",
+      "path": "daemons/Olive",
+      "module": "daemons/Olive/olive.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Olyssia": {
-      "path": "C:\\all_daemons\\daemons\\Olyssia",
-      "module": "C:\\all_daemons\\daemons\\Olyssia\\olyssia.py",
+      "path": "daemons/Olyssia",
+      "module": "daemons/Olyssia/olyssia.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Parsley": {
-      "path": "C:\\all_daemons\\daemons\\Parsley",
-      "module": "C:\\all_daemons\\daemons\\Parsley\\parsley.py",
+      "path": "daemons/Parsley",
+      "module": "daemons/Parsley/parsley.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "PattyMae": {
-      "path": "C:\\all_daemons\\daemons\\PattyMae",
-      "module": "C:\\all_daemons\\daemons\\PattyMae\\pattymae.py",
+      "path": "daemons/PattyMae",
+      "module": "daemons/PattyMae/pattymae.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Porta": {
-      "path": "C:\\all_daemons\\daemons\\Porta",
-      "module": "C:\\all_daemons\\daemons\\Porta\\porta.py",
+      "path": "daemons/Porta",
+      "module": "daemons/Porta/porta.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Prismari": {
-      "path": "C:\\all_daemons\\daemons\\Prismari",
-      "module": "C:\\all_daemons\\daemons\\Prismari\\prismari.py",
+      "path": "daemons/Prismari",
+      "module": "daemons/Prismari/prismari.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Quill": {
-      "path": "C:\\all_daemons\\daemons\\Quill",
-      "module": "C:\\all_daemons\\daemons\\Quill\\quill.py",
+      "path": "daemons/Quill",
+      "module": "daemons/Quill/quill.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Ranger": {
-      "path": "C:\\all_daemons\\daemons\\Ranger",
-      "module": "C:\\all_daemons\\daemons\\Ranger\\ranger.py",
+      "path": "daemons/Ranger",
+      "module": "daemons/Ranger/ranger.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Rhea": {
-      "path": "C:\\all_daemons\\daemons\\Rhea",
-      "module": "C:\\all_daemons\\daemons\\Rhea\\rhea.py",
+      "path": "daemons/Rhea",
+      "module": "daemons/Rhea/rhea.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Riven": {
-      "path": "C:\\all_daemons\\daemons\\Riven",
-      "module": "C:\\all_daemons\\daemons\\Riven\\riven.py",
+      "path": "daemons/Riven",
+      "module": "daemons/Riven/riven.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Rogers": {
-      "path": "C:\\all_daemons\\daemons\\Rogers",
-      "module": "C:\\all_daemons\\daemons\\Rogers\\rogers.py",
+      "path": "daemons/Rogers",
+      "module": "daemons/Rogers/rogers.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Rook": {
-      "path": "C:\\all_daemons\\daemons\\Rook",
-      "module": "C:\\all_daemons\\daemons\\Rook\\rook.py",
+      "path": "daemons/Rook",
+      "module": "daemons/Rook/rook.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Runlet": {
-      "path": "C:\\all_daemons\\daemons\\Runlet",
-      "module": "C:\\all_daemons\\daemons\\Runlet\\runlet.py",
+      "path": "daemons/Runlet",
+      "module": "daemons/Runlet/runlet.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Saphira": {
-      "path": "C:\\all_daemons\\daemons\\Saphira",
-      "module": "C:\\all_daemons\\daemons\\Saphira\\saphira.py",
+      "path": "daemons/Saphira",
+      "module": "daemons/Saphira/saphira.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Savvy": {
-      "path": "C:\\all_daemons\\daemons\\Savvy",
-      "module": "C:\\all_daemons\\daemons\\Savvy\\savvy.py",
+      "path": "daemons/Savvy",
+      "module": "daemons/Savvy/savvy.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Scorchick": {
-      "path": "C:\\all_daemons\\daemons\\Scorchick",
-      "module": "C:\\all_daemons\\daemons\\Scorchick\\scorchick.py",
+      "path": "daemons/Scorchick",
+      "module": "daemons/Scorchick/scorchick.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Scribevein": {
-      "path": "C:\\all_daemons\\daemons\\Scribevein",
-      "module": "C:\\all_daemons\\daemons\\Scribevein\\scribevein.py",
+      "path": "daemons/Scribevein",
+      "module": "daemons/Scribevein/scribevein.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "ScriptOne": {
-      "path": "C:\\all_daemons\\daemons\\ScriptOne",
-      "module": "C:\\all_daemons\\daemons\\ScriptOne\\scriptone.py",
+      "path": "daemons/ScriptOne",
+      "module": "daemons/ScriptOne/scriptone.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Scriptum": {
-      "path": "C:\\all_daemons\\daemons\\Scriptum",
-      "module": "C:\\all_daemons\\daemons\\Scriptum\\scriptum.py",
+      "path": "daemons/Scriptum",
+      "module": "daemons/Scriptum/scriptum.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Seiros": {
-      "path": "C:\\all_daemons\\daemons\\Seiros",
-      "module": "C:\\all_daemons\\daemons\\Seiros\\seiros.py",
+      "path": "daemons/Seiros",
+      "module": "daemons/Seiros/seiros.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Serideth": {
-      "path": "C:\\all_daemons\\daemons\\Serideth",
-      "module": "C:\\all_daemons\\daemons\\Serideth\\serideth.py",
+      "path": "daemons/Serideth",
+      "module": "daemons/Serideth/serideth.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Shamir": {
-      "path": "C:\\all_daemons\\daemons\\Shamir",
-      "module": "C:\\all_daemons\\daemons\\Shamir\\shamir.py",
+      "path": "daemons/Shamir",
+      "module": "daemons/Shamir/shamir.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Sheele": {
-      "path": "C:\\all_daemons\\daemons\\Sheele",
-      "module": "C:\\all_daemons\\daemons\\Sheele\\sheele.py",
+      "path": "daemons/Sheele",
+      "module": "daemons/Sheele/sheele.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Siglune": {
-      "path": "C:\\all_daemons\\daemons\\Siglune",
-      "module": "C:\\all_daemons\\daemons\\Siglune\\siglune.py",
+      "path": "daemons/Siglune",
+      "module": "daemons/Siglune/siglune.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Snatch": {
-      "path": "C:\\all_daemons\\daemons\\Snatch",
-      "module": "C:\\all_daemons\\daemons\\Snatch\\snatch.py",
+      "path": "daemons/Snatch",
+      "module": "daemons/Snatch/snatch.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Solie": {
-      "path": "C:\\all_daemons\\daemons\\Solie",
-      "module": "C:\\all_daemons\\daemons\\Solie\\solie.py",
+      "path": "daemons/Solie",
+      "module": "daemons/Solie/solie.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Somni": {
-      "path": "C:\\all_daemons\\daemons\\Somni",
-      "module": "C:\\all_daemons\\daemons\\Somni\\somni.py",
+      "path": "daemons/Somni",
+      "module": "daemons/Somni/somni.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Sothis": {
-      "path": "C:\\all_daemons\\daemons\\Sothis",
-      "module": "C:\\all_daemons\\daemons\\Sothis\\sothis.py",
+      "path": "daemons/Sothis",
+      "module": "daemons/Sothis/sothis.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Sybbie": {
-      "path": "C:\\all_daemons\\daemons\\Sybbie",
-      "module": "C:\\all_daemons\\daemons\\Sybbie\\sybbie.py",
+      "path": "daemons/Sybbie",
+      "module": "daemons/Sybbie/sybbie.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Sylvia": {
-      "path": "C:\\all_daemons\\daemons\\Sylvia",
-      "module": "C:\\all_daemons\\daemons\\Sylvia\\sylvia.py",
+      "path": "daemons/Sylvia",
+      "module": "daemons/Sylvia/sylvia.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Tempest": {
-      "path": "C:\\all_daemons\\daemons\\Tempest",
-      "module": "C:\\all_daemons\\daemons\\Tempest\\tempest.py",
+      "path": "daemons/Tempest",
+      "module": "daemons/Tempest/tempest.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Tempo": {
-      "path": "C:\\all_daemons\\daemons\\Tempo",
-      "module": "C:\\all_daemons\\daemons\\Tempo\\tempo.py",
+      "path": "daemons/Tempo",
+      "module": "daemons/Tempo/tempo.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Threadstep": {
-      "path": "C:\\all_daemons\\daemons\\Threadstep",
-      "module": "C:\\all_daemons\\daemons\\Threadstep\\threadstep.py",
+      "path": "daemons/Threadstep",
+      "module": "daemons/Threadstep/threadstep.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Tidbit": {
-      "path": "C:\\all_daemons\\daemons\\Tidbit",
-      "module": "C:\\all_daemons\\daemons\\Tidbit\\tidbit.py",
+      "path": "daemons/Tidbit",
+      "module": "daemons/Tidbit/tidbit.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Tiki": {
-      "path": "C:\\all_daemons\\daemons\\Tiki",
-      "module": "C:\\all_daemons\\daemons\\Tiki\\tiki.py",
+      "path": "daemons/Tiki",
+      "module": "daemons/Tiki/tiki.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Toto": {
-      "path": "C:\\all_daemons\\daemons\\Toto",
-      "module": "C:\\all_daemons\\daemons\\Toto\\toto.py",
+      "path": "daemons/Toto",
+      "module": "daemons/Toto/toto.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "WeaverArcTracker": {
-      "path": "C:\\all_daemons\\daemons\\WeaverArcTracker",
-      "module": "C:\\all_daemons\\daemons\\WeaverArcTracker\\weaverarctracker.py",
+      "path": "daemons/WeaverArcTracker",
+      "module": "daemons/WeaverArcTracker/weaverarctracker.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Whisperfang": {
-      "path": "C:\\all_daemons\\daemons\\Whisperfang",
-      "module": "C:\\all_daemons\\daemons\\Whisperfang\\whisperfang.py",
+      "path": "daemons/Whisperfang",
+      "module": "daemons/Whisperfang/whisperfang.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true
     },
     "Yune": {
-      "path": "C:\\all_daemons\\daemons\\Yune",
-      "module": "C:\\all_daemons\\daemons\\Yune\\yune.py",
+      "path": "daemons/Yune",
+      "module": "daemons/Yune/yune.py",
       "added_at": "2026-01-16 02:12:37",
       "tags": [],
       "enabled": true

@@ -12,7 +12,7 @@ from pathlib import Path
 
 RHEA_DIR = Path(__file__).resolve().parent.parent
 DAEMONS_ROOT = RHEA_DIR.parent  # .../daemons
-REG_PATH = RHEA_DIR / "config" / "rhea_registry.json"
+REG_PATH = RHEA_DIR / "configs" / "rhea_registry.json"
 
 
 def load_registry() -> dict:
@@ -106,4 +106,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

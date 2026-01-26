@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Syncs Rhea/scripts/configs/{daemons.yaml,tasks.yaml} from the canonical
-registry at Rhea/config/rhea_registry.json.
+registry at Rhea/configs/rhea_registry.json.
 
 - daemons.yaml: overwritten with the full registry JSON (for GUI use).
 - tasks.yaml: preserved; appends a YAML document containing a daemon_index
@@ -13,9 +13,9 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 RHEA = Path(__file__).resolve().parent.parent
-REG = RHEA / "config" / "rhea_registry.json"
+REG = RHEA / "configs" / "rhea_registry.json"
 # Primary (used by orchestrator/GUI)
-CFG_DIR_PRIMARY = RHEA / "config"
+CFG_DIR_PRIMARY = RHEA / "configs"
 DAEMONS_YAML_PRIMARY = CFG_DIR_PRIMARY / "daemons.yaml"
 TASKS_YAML_PRIMARY = CFG_DIR_PRIMARY / "tasks.yaml"
 # Secondary (legacy view inside scripts/configs for convenience)
