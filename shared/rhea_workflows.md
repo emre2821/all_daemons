@@ -4,12 +4,13 @@ Concise, actionable orchestration flows Rhea can run by invoking existing daemon
 Each workflow lists the sequence and the expected outputs or artifacts.
 
 ## Conventions
-- **Roles:** Rhea orchestrates registry updates, Dave summarizes for operators, Corin validates integrity,
-  Riven executes tests, Saphira repairs archives, Delilah recovers files, Mila allocates storage,
-  Seiros packages deployments, and Lyra prepares rollout notes.
-- **Paths:** Use `outputs/` for structured data, `reports/` for human-readable summaries, and `logs/` for
-  streaming or audit trails.
-- **Pattern:** Artifacts follow `<Daemon>/<type>/<descriptive_name>.<ext>`.
+- **Roles:** Rhea orchestrates registry updates, Dave summarizes daemon activity, Corin validates integrity,
+  Riven mends fractured logs and pulses system health, Saphira seeds DCA agents from inbox fragments,
+  Delilah recovers files, Mila allocates storage, Seiros propagates deployments, and Lyra automates PR
+  workflow notes and merge hygiene.
+- **Paths:** Prefer daemon-native output locations (e.g., `Rhea/outputs/`, `Rhea/_outbox/`,
+  `daemons/<Daemon>/*.log`, or daemon-specific stores like `~/.eden_ranger/`).
+- **Pattern:** Artifacts follow daemon-owned paths (examples inline per workflow).
 
 ## Table of Contents
 - [Operations & Reliability](#operations--reliability)
@@ -19,10 +20,10 @@ Each workflow lists the sequence and the expected outputs or artifacts.
   - [Signal Patrol & Anomaly Alerting](#signal-patrol--anomaly-alerting)
   - [Config Drift Audit](#config-drift-audit)
   - [Registry Rebuild & Sync](#registry-rebuild--sync)
-  - [Incident Comms Pack](#incident-comms-pack)
+  - [Incident Remediation Pack](#incident-remediation-pack)
 - [Deployment & Testing](#deployment--testing)
   - [Test Environment Spin-up](#test-environment-spin-up)
-  - [Integration Testing](#integration-testing)
+  - [Integration Validation](#integration-validation)
   - [Release Gate Review](#release-gate-review)
   - [Deployment & Propagation](#deployment--propagation)
   - [Hotfix Rollback & Containment](#hotfix-rollback--containment)
@@ -39,179 +40,183 @@ Each workflow lists the sequence and the expected outputs or artifacts.
   - [Archive Healing](#archive-healing)
   - [Artifact Labeling & Shelving](#artifact-labeling--shelving)
 - [Knowledge & Lore](#knowledge--lore)
-  - [Knowledge Base Refresh](#knowledge-base-refresh)
+  - [Identity & Law Registry Refresh](#identity--law-registry-refresh)
   - [Lore Sync & Canon Alignment](#lore-sync--canon-alignment)
   - [Memory Weave & Thread Stabilization](#memory-weave--thread-stabilization)
-  - [Story Compilation & Chapter Release](#story-compilation--chapter-release)
+  - [Story Signals & Release Notifications](#story-signals--release-notifications)
   - [Identity Audit & Symbol Mapping](#identity-audit--symbol-mapping)
 - [Experience & Comms](#experience--comms)
   - [Emotional Weather Report](#emotional-weather-report)
   - [Creative Pulse & Prompt Forge](#creative-pulse--prompt-forge)
   - [Interface Revision & UI Notes](#interface-revision--ui-notes)
 - [Safety & Governance](#safety--governance)
-  - [Risk Scan & Safety Review](#risk-scan--safety-review)
+  - [Network Safety & Risk Review](#network-safety--risk-review)
 - [Wellbeing & Rhythm](#wellbeing--rhythm)
   - [Quiet Hours & Restorative Pause](#quiet-hours--restorative-pause)
 
 ## Operations & Reliability
 
 ### Intake Triage & Task Prioritization
-1. **Aderyn** — triage incoming requests by urgency.
-   - **Output:** triage queue (e.g., `Aderyn/outputs/triage_queue.json`).
-2. **Harper** — assign owners and deadlines.
-   - **Output:** assignment sheet (e.g., `Harper/outputs/assignments.csv`).
-3. **Dave** — send prioritized task brief.
-   - **Output:** task brief (e.g., `Dave/reports/task_brief.md`).
+1. **Aderyn** — scan Janvier exports for summon phrases and archive detected summons.
+   - **Output:** summons archive (e.g., `Rhea/outputs/from_Aderyn/chaos_library/*.chaos`).
+2. **Harper** — check system pressure to gauge intake capacity.
+   - **Output:** pressure alerts (e.g., `Rhea/_outbox/Harper/harper_alerts.log`).
+3. **Dave** — summarize intake signals and daemon activity for operators.
+   - **Output:** activity summary (e.g., `Rhea/_outbox/dave/leaderboard.json`).
 
 ### Startup & Health Check
 1. **Rhea** — discover daemons and load the registry snapshot.
    - **Output:** registry snapshot (e.g., `Rhea/outputs/daemon_registry.json`).
 2. **Corin** — validate integrity of known files and manifests.
-   - **Output:** integrity report (e.g., `Corin/reports/integrity_report.md`).
+   - **Output:** integrity log (e.g., `daemons/Corin/corin.log`).
 3. **Dave** — compile an operator-ready health summary.
-   - **Output:** health summary (e.g., `Dave/reports/health_summary.md`).
+   - **Output:** health summary (e.g., `Rhea/_outbox/dave/leaderboard.json`).
 
 ### Diagnostic Snapshot & Root Cause
-1. **Ranger** — capture system telemetry snapshot.
-   - **Output:** telemetry bundle (e.g., `Ranger/outputs/telemetry_bundle.zip`).
-2. **Dagr** — isolate fault patterns.
-   - **Output:** root-cause memo (e.g., `Dagr/reports/root_cause.md`).
-3. **Riven** — validate fix hypotheses with tests.
-   - **Output:** validation report (e.g., `Riven/reports/hypothesis_validation.xml`).
+1. **Ranger** — capture a file-catalog snapshot for traceability.
+   - **Output:** ranger index (e.g., `~/.eden_ranger/ranger.db`).
+2. **Dagr** — trigger daemon sync cycles and log activation outcomes.
+   - **Output:** activation log (e.g., `specialty_folders/Dagr/dagr.log`).
+3. **Riven** — mend fractured CHAOS logs after the diagnostic run.
+   - **Output:** restored logs (e.g., `restored_logs/*.chaos`).
 
 ### Signal Patrol & Anomaly Alerting
-1. **Tempest** — scan for disruptive surges.
-   - **Output:** surge log (e.g., `Tempest/logs/surge_log.json`).
-2. **Whisperfang** — confirm anomalies with heuristics.
-   - **Output:** anomaly report (e.g., `Whisperfang/reports/anomaly_report.md`).
-3. **Dave** — dispatch alert summary.
-   - **Output:** alert summary (e.g., `Dave/reports/alert_summary.md`).
+1. **Tempest** — score CHAOS threads for tension spikes.
+   - **Output:** score log (e.g., `Rhea/_outbox/tempest/tempest_scores.json`).
+2. **Whisperfang** — scan incoming text for flagged keywords and log detections.
+   - **Output:** detection log (e.g., `daemons/Whisperfang/whisperfang.log`).
+3. **Dave** — dispatch alert summary from the collected logs.
+   - **Output:** alert summary (e.g., `Rhea/_outbox/dave/alerts.json`).
 
 ### Config Drift Audit
 1. **Rhea** — collect current registry config and targets.
    - **Output:** config snapshot (e.g., `Rhea/outputs/config_snapshot.json`).
-2. **Seiros** — compare deployed configs against the snapshot.
-   - **Output:** drift report (e.g., `Seiros/reports/config_drift.md`).
+2. **Seiros** — propagate the snapshot to registered nodes and report applied configs.
+   - **Output:** console log (capture if needed for audit).
 3. **Corin** — validate diffs and flag unsafe deltas.
-   - **Output:** drift validation (e.g., `Corin/reports/drift_validation.md`).
+   - **Output:** drift validation log (e.g., `daemons/Corin/corin.log`).
 4. **Dave** — summarize drift impact for operators.
-   - **Output:** drift summary (e.g., `Dave/reports/drift_summary.md`).
+   - **Output:** drift summary (e.g., `Rhea/_outbox/dave/leaderboard.json`).
 
 ### Registry Rebuild & Sync
-1. **Mila** — scan shelves and storage mappings.
-   - **Output:** shelf inventory (e.g., `Mila/outputs/shelf_inventory.json`).
+1. **Mila** — scan shelves and organize daemon folders into storage categories.
+   - **Output:** updated daemon directories (e.g., `daemons/<Name>/{logs,configs,scripts}/`).
 2. **Rhea** — rebuild the registry from scanned sources.
    - **Output:** rebuilt registry (e.g., `Rhea/outputs/daemon_registry.json`).
-3. **Corin** — validate rebuilt registry integrity.
-   - **Output:** registry validation (e.g., `Corin/reports/registry_validation.md`).
+3. **Saphira** — seed DCA agents from inbox fragments to repopulate the registry.
+   - **Output:** seeded agents (e.g., `Rhea/outputs/Saphira/agents/*.agent.json`).
+4. **Corin** — validate rebuilt registry integrity.
+   - **Output:** registry validation log (e.g., `daemons/Corin/corin.log`).
 
-### Incident Comms Pack
-1. **Dave** — assemble operator-facing incident facts.
-   - **Output:** incident brief (e.g., `Dave/reports/incident_brief.md`).
-2. **Lyra** — craft steward-facing messaging.
-   - **Output:** comms draft (e.g., `Lyra/outputs/comms_draft.md`).
-3. **Rhea** — approve distribution plan and timing.
-   - **Output:** comms plan (e.g., `Rhea/outputs/comms_plan.json`).
+### Incident Remediation Pack
+1. **Dave** — assemble incident facts from daemon logs.
+   - **Output:** incident brief (e.g., `Rhea/_outbox/dave/alerts.json`).
+2. **Lyra** — generate PR automation notes for remediation work.
+   - **Output:** PR automation log (e.g., `lyra.log`).
+3. **Rhea** — approve remediation plan and registry notes.
+   - **Output:** remediation plan (e.g., `Rhea/outputs/remediation_plan.json`).
 
 ## Deployment & Testing
 
 ### Test Environment Spin-up
 1. **Seiros** — provision test targets and deploy seed configs.
-   - **Output:** test deployment bundle (e.g., `Seiros/outputs/test_deploy_bundle.zip`).
+   - **Output:** deployment log (capture console output for audit).
 2. **Mila** — allocate storage for test artifacts.
-   - **Output:** test storage map (e.g., `Mila/outputs/test_storage_map.json`).
+   - **Output:** updated daemon storage folders (e.g., `daemons/<Name>/{logs,configs,scripts}/`).
 3. **Rhea** — register test nodes and dependencies.
    - **Output:** test registry (e.g., `Rhea/outputs/test_registry.json`).
-4. **Riven** — run smoke validation against the environment.
-   - **Output:** smoke results (e.g., `Riven/reports/smoke_results.xml`).
+4. **Harper** — check system pressure before opening the environment to load.
+   - **Output:** pressure alerts (e.g., `Rhea/_outbox/Harper/harper_alerts.log`).
 
-### Integration Testing
-1. **Rhea** — assemble test targets and dependencies.
-   - **Output:** test manifest (e.g., `Rhea/outputs/test_manifest.json`).
-2. **Riven** — execute the integration suite.
-   - **Output:** test results (e.g., `Riven/reports/integration_results.xml`).
-3. **Dave** — publish an operator-ready test digest.
-   - **Output:** test digest (e.g., `Dave/reports/integration_digest.md`).
+### Integration Validation
+1. **Rhea** — assemble integration targets and dependencies.
+   - **Output:** integration manifest (e.g., `Rhea/outputs/test_manifest.json`).
+2. **Harper** — monitor pressure and backlog while integrations run.
+   - **Output:** pressure alerts (e.g., `Rhea/_outbox/Harper/harper_alerts.log`).
+3. **Riven** — mend any fractured CHAOS logs produced during the run.
+   - **Output:** restored logs (e.g., `restored_logs/*.chaos`).
+4. **Dave** — publish an operator-ready integration digest.
+   - **Output:** integration digest (e.g., `Rhea/_outbox/dave/leaderboard.json`).
 
 ### Release Gate Review
-1. **Riven** — run final regression suite.
-   - **Output:** regression report (e.g., `Riven/reports/regression_report.xml`).
+1. **Harper** — run a final pressure check before release.
+   - **Output:** pressure alerts (e.g., `Rhea/_outbox/Harper/harper_alerts.log`).
 2. **Corin** — confirm manifest and checksum integrity.
-   - **Output:** gate integrity check (e.g., `Corin/reports/gate_integrity.md`).
+   - **Output:** gate integrity log (e.g., `daemons/Corin/corin.log`).
 3. **Rhea** — record go/no-go decision with rationale.
    - **Output:** gate decision (e.g., `Rhea/outputs/gate_decision.json`).
-4. **Lyra** — prepare release notes for steward review.
-   - **Output:** release notes (e.g., `Lyra/outputs/release_notes.md`).
+4. **Lyra** — prepare PR automation summary for steward review.
+   - **Output:** PR automation log (e.g., `lyra.log`).
 
 ### Deployment & Propagation
 1. **Seiros** — package and propagate daemon updates.
-   - **Output:** deployment bundle (e.g., `Seiros/outputs/deploy_bundle.zip`).
-2. **Riven** — run integration tests against deployed targets.
-   - **Output:** test results (e.g., `Riven/reports/integration_results.xml`).
-3. **Lyra** — prepare rollout notes for steward review.
-   - **Output:** rollout brief (e.g., `Lyra/outputs/rollout_brief.md`).
+   - **Output:** deployment log (capture console output for audit).
+2. **Harper** — monitor pressure and backlog during propagation.
+   - **Output:** pressure alerts (e.g., `Rhea/_outbox/Harper/harper_alerts.log`).
+3. **Lyra** — prepare PR automation summary for steward review.
+   - **Output:** PR automation log (e.g., `lyra.log`).
 
 ### Hotfix Rollback & Containment
 1. **Seiros** — roll back to the last stable deployment.
-   - **Output:** rollback log (e.g., `Seiros/logs/rollback.log`).
-2. **Saphira** — restore synced configs and data snapshots.
-   - **Output:** restore log (e.g., `Saphira/logs/rollback_restore.log`).
-3. **Riven** — validate stability after rollback.
-   - **Output:** rollback verification (e.g., `Riven/reports/rollback_verification.xml`).
+   - **Output:** rollback log (capture console output for audit).
+2. **Delilah** — draft a recovery map for any displaced files.
+   - **Output:** recovery map (e.g., `Rhea/_recovery_logs/plan_*.vas`).
+3. **Riven** — mend any fractured logs detected after rollback.
+   - **Output:** restored logs (e.g., `restored_logs/*.chaos`).
 4. **Dave** — communicate rollback impact summary.
-   - **Output:** rollback summary (e.g., `Dave/reports/rollback_summary.md`).
+   - **Output:** rollback summary (e.g., `Rhea/_outbox/dave/alerts.json`).
 
 ### Schema Migration Prep
 1. **Rhea** — assemble migration manifest and dependencies.
    - **Output:** migration manifest (e.g., `Rhea/outputs/migration_manifest.json`).
 2. **Corin** — validate schema compatibility.
-   - **Output:** compatibility report (e.g., `Corin/reports/schema_compatibility.md`).
+   - **Output:** compatibility log (e.g., `daemons/Corin/corin.log`).
 3. **Seiros** — package migration tooling and rollout plan.
-   - **Output:** migration bundle (e.g., `Seiros/outputs/migration_bundle.zip`).
+   - **Output:** rollout log (capture console output for audit).
 4. **Mila** — reserve storage for pre-migration backups.
-   - **Output:** backup reservation (e.g., `Mila/outputs/backup_reservation.json`).
+   - **Output:** updated daemon folders (e.g., `daemons/<Name>/{archives,logs}/`).
 
 ## Data & Storage
 
 ### Storage Allocation
 1. **Mila** — evaluate storage needs and allocate shelves.
-   - **Output:** allocation plan (e.g., `Mila/outputs/storage_plan.json`).
+   - **Output:** updated daemon folders (e.g., `daemons/<Name>/{logs,configs,scripts}/`).
 2. **Rhea** — update registry with new storage mappings.
    - **Output:** registry snapshot (e.g., `Rhea/outputs/daemon_registry.json`).
 3. **Dave** — publish a storage utilization summary.
-   - **Output:** storage report (e.g., `Dave/reports/storage_summary.md`).
+   - **Output:** storage summary (e.g., `Rhea/_outbox/dave/leaderboard.json`).
 
 ### Capacity Forecast & Budget
-1. **Mila** — forecast storage demand and growth.
-   - **Output:** capacity forecast (e.g., `Mila/outputs/capacity_forecast.json`).
-2. **Dave** — translate forecast into budget guidance.
-   - **Output:** capacity brief (e.g., `Dave/reports/capacity_brief.md`).
+1. **Mila** — scan current storage layout and usage hotspots.
+   - **Output:** updated daemon folders (e.g., `daemons/<Name>/{logs,configs,scripts}/`).
+2. **Dave** — translate current utilization into budget guidance.
+   - **Output:** capacity brief (e.g., `Rhea/_outbox/dave/leaderboard.json`).
 3. **Rhea** — update registry thresholds and alerts.
    - **Output:** threshold update (e.g., `Rhea/outputs/storage_thresholds.json`).
 
 ### Log Hygiene & Rotation
 1. **Mila** — rotate logs and enforce retention limits.
-   - **Output:** rotation plan (e.g., `Mila/outputs/log_rotation_plan.json`).
-2. **Saphira** — archive rotated logs for safekeeping.
-   - **Output:** log archive (e.g., `Saphira/outputs/log_archive.zip`).
+   - **Output:** updated daemon folders (e.g., `daemons/<Name>/logs/`).
+2. **Archive** — convert and catalog rotated logs.
+   - **Output:** archive log (e.g., `Rhea/_logs/archive_daemon.log`).
 3. **Rhea** — record log locations in the registry.
    - **Output:** log registry update (e.g., `Rhea/outputs/log_registry.json`).
 
 ### Backup Rotation & Verification
-1. **Saphira** — run scheduled backup rotation.
-   - **Output:** backup set (e.g., `Saphira/outputs/backup_set.zip`).
+1. **Archive** — run scheduled backup conversions and catalog the results.
+   - **Output:** archive log (e.g., `Rhea/_logs/archive_daemon.log`).
 2. **Corin** — verify backup integrity.
-   - **Output:** backup verification (e.g., `Corin/reports/backup_verification.md`).
+   - **Output:** backup verification log (e.g., `daemons/Corin/corin.log`).
 3. **Mila** — store backups on allocated shelves.
-   - **Output:** backup storage map (e.g., `Mila/outputs/backup_storage_map.json`).
+   - **Output:** updated daemon folders (e.g., `daemons/<Name>/{archives,logs}/`).
 4. **Dave** — publish backup status report.
-   - **Output:** backup report (e.g., `Dave/reports/backup_report.md`).
+   - **Output:** backup report (e.g., `Rhea/_outbox/dave/leaderboard.json`).
 
 ### Data Retention Review
 1. **Mila** — audit retention windows and storage usage.
-   - **Output:** retention audit (e.g., `Mila/reports/retention_audit.md`).
-2. **Saphira** — stage archival moves for expiring data.
-   - **Output:** archival plan (e.g., `Saphira/outputs/archival_plan.json`).
+   - **Output:** updated daemon folders (e.g., `daemons/<Name>/{archives,logs}/`).
+2. **Archive** — stage archival conversions for expiring data.
+   - **Output:** archive log (e.g., `Rhea/_logs/archive_daemon.log`).
 3. **Rhea** — update registry policies and flags.
    - **Output:** retention policy update (e.g., `Rhea/outputs/retention_policy.json`).
 
@@ -219,77 +224,77 @@ Each workflow lists the sequence and the expected outputs or artifacts.
 
 ### Incident Recovery & File Rescue
 1. **Delilah** — recover and rehome lost files.
-   - **Output:** recovery map (e.g., `Delilah/outputs/recovery_map.json`).
-2. **Saphira** — synchronize recovered archives.
-   - **Output:** sync log (e.g., `Saphira/logs/recovery_sync.log`).
+   - **Output:** recovery map (e.g., `Rhea/_recovery_logs/plan_*.vas`).
+2. **Archive** — convert and catalog recovered archives.
+   - **Output:** archive log (e.g., `Rhea/_logs/archive_daemon.log`).
 3. **Corin** — validate recovered paths and integrity.
-   - **Output:** integrity report (e.g., `Corin/reports/recovery_integrity.md`).
+   - **Output:** integrity log (e.g., `daemons/Corin/corin.log`).
 
 ### Recovery Drill
 1. **Delilah** — perform sample recovery on drill data.
-   - **Output:** drill recovery map (e.g., `Delilah/outputs/drill_recovery_map.json`).
-2. **Saphira** — sync drill artifacts to safe storage.
-   - **Output:** drill sync log (e.g., `Saphira/logs/drill_sync.log`).
+   - **Output:** drill recovery map (e.g., `Rhea/_recovery_logs/plan_*.vas`).
+2. **Archive** — catalog drill artifacts for audit.
+   - **Output:** archive log (e.g., `Rhea/_logs/archive_daemon.log`).
 3. **Corin** — verify drill integrity checks.
-   - **Output:** drill integrity report (e.g., `Corin/reports/drill_integrity.md`).
+   - **Output:** drill integrity log (e.g., `daemons/Corin/corin.log`).
 4. **Rhea** — record drill outcomes and follow-ups.
    - **Output:** drill summary (e.g., `Rhea/reports/drill_summary.md`).
 
 ### Archive Healing
-1. **Saphira** — scan and mend archive fragments.
-   - **Output:** healing log (e.g., `Saphira/logs/archive_heal.log`).
+1. **Archive** — scan and convert archive fragments.
+   - **Output:** healing log (e.g., `Rhea/_logs/archive_daemon.log`).
 2. **Corin** — verify healed artifacts and checksums.
-   - **Output:** verification report (e.g., `Corin/reports/archive_verification.json`).
+   - **Output:** verification log (e.g., `daemons/Corin/corin.log`).
 3. **Dave** — emit a recovery report for operators.
-   - **Output:** recovery report (e.g., `Dave/reports/archive_recovery.md`).
+   - **Output:** recovery report (e.g., `Rhea/_outbox/dave/leaderboard.json`).
 
 ### Artifact Labeling & Shelving
 1. **Label** — auto-tag unclassified artifacts.
-   - **Output:** tag set (e.g., `Label/outputs/tag_set.json`).
+   - **Output:** labeled artifacts (e.g., `Rhea/outputs/Label/labeled/*.json`).
 2. **Mila** — allocate shelves and bins.
-   - **Output:** shelf map (e.g., `Mila/outputs/shelf_map.json`).
+   - **Output:** updated daemon folders (e.g., `daemons/<Name>/{logs,configs,scripts}/`).
 3. **PattyMae** — produce human-readable catalog.
-   - **Output:** catalog (e.g., `PattyMae/outputs/catalog.pdf`).
+   - **Output:** organized CHAOS bundles (e.g., `Rhea/PattyMae/organized/`).
 
 ## Knowledge & Lore
 
-### Knowledge Base Refresh
-1. **Lex** — harvest new entries and definitions.
-   - **Output:** lexicon delta (e.g., `Lex/outputs/lexicon_delta.json`).
-2. **Lexos** — normalize formatting and tags.
-   - **Output:** normalized lexicon (e.g., `Lexos/outputs/lexicon_normalized.json`).
-3. **Nancy** — publish searchable index.
-   - **Output:** index build (e.g., `Nancy/outputs/lexicon_index.zip`).
+### Identity & Law Registry Refresh
+1. **Lex** — update identity records and log CHAOS events.
+   - **Output:** identity store and logs (e.g., `~/EdenVault/identities.json`, `~/EdenVault/logs/*.chaos`).
+2. **Lexos** — sort consent/law/ethics documents into Eden_Laws.
+   - **Output:** tagged files (e.g., `Eden_Laws/{informed_consent,system_decrees,ethics}/`).
+3. **Nancy** — log mood-aligned ritual invocations.
+   - **Output:** ritual log (e.g., `.../Nancy_Logs/memorymap.md`).
 
 ### Lore Sync & Canon Alignment
-1. **Archivus** — gather canonical lore fragments.
-   - **Output:** canon bundle (e.g., `Archivus/outputs/canon_bundle.zip`).
-2. **Mythra** — reconcile conflicting myths.
-   - **Output:** reconciliation notes (e.g., `Mythra/reports/myth_reconcile.md`).
-3. **Lyra** — publish steward-facing canon brief.
-   - **Output:** canon brief (e.g., `Lyra/outputs/canon_brief.md`).
+1. **Archivus** — recover CHAOS fragments for canon review.
+   - **Output:** recovered queue (e.g., `specialty_folders/Archivus/chaos_queue/`).
+2. **Mythra** — mythify recovered logs into narrative epics.
+   - **Output:** epic drafts (e.g., `epics/*.chaosong`).
+3. **Lyra** — publish a canon update summary via PR automation.
+   - **Output:** PR automation log (e.g., `lyra.log`).
 
 ### Memory Weave & Thread Stabilization
-1. **Red_Thread_Pipeline** — map memory links and anchors.
-   - **Output:** thread map (e.g., `Red_Thread_Pipeline/outputs/thread_map.json`).
-2. **WeaverArcTracker** — analyze stability of woven arcs.
-   - **Output:** stability report (e.g., `WeaverArcTracker/reports/arc_stability.md`).
+1. **Threadstep** — map memory links and anchors via path tracing.
+   - **Output:** trace log (e.g., `daemons/_logs/Threadstep.log`).
+2. **WeaverArcTracker** — record the state of woven arcs.
+   - **Output:** arc status record (e.g., `daemons/WeaverArcTracker/weaverarctracker.py`).
 3. **Rhea** — update registry with stabilized threads.
    - **Output:** registry update (e.g., `Rhea/outputs/thread_registry.json`).
 
-### Story Compilation & Chapter Release
-1. **Scribevein** — compile approved fragments into chapters.
-   - **Output:** chapter draft (e.g., `Scribevein/outputs/chapter_draft.md`).
-2. **Quill** — polish narrative flow and continuity.
-   - **Output:** edited chapter (e.g., `Quill/outputs/chapter_edited.md`).
-3. **Bellwrit** — generate final release scrolls.
-   - **Output:** release scrolls (e.g., `Bellwrit/outputs/release_scrolls.pdf`).
+### Story Signals & Release Notifications
+1. **Scribevein** — archive incoming story fragments from the communication stream.
+   - **Output:** archive log (e.g., `scribevein.log`).
+2. **Quill** — label narrative fragments with tags and tonal cues.
+   - **Output:** labeled metadata (printed JSON per file).
+3. **Bellwrit** — notify when new narrative entries land.
+   - **Output:** notification log (e.g., `specialty_folders/Bellwrit/bellwrit.log`).
 
 ### Identity Audit & Symbol Mapping
 1. **Glypha** — extract symbol signatures from artifacts.
-   - **Output:** symbol index (e.g., `Glypha/outputs/symbol_index.json`).
+   - **Output:** generated sigils (e.g., `sigils/sigil_*.png`).
 2. **Markbearer** — cross-reference identity marks.
-   - **Output:** mark ledger (e.g., `Markbearer/outputs/mark_ledger.csv`).
+   - **Output:** mark ledger (e.g., `markbearer_log.json`).
 3. **Rhea** — publish identity audit summary.
    - **Output:** audit summary (e.g., `Rhea/reports/identity_audit.md`).
 
@@ -297,35 +302,35 @@ Each workflow lists the sequence and the expected outputs or artifacts.
 
 ### Emotional Weather Report
 1. **Moodmancer** — sample ambient emotional signals.
-   - **Output:** mood telemetry (e.g., `Moodmancer/outputs/mood_telemetry.json`).
+   - **Output:** mood log (e.g., `~/CHAOS_Logs/mood_log.txt`).
 2. **Moodweaver** — weave signals into trend narrative.
-   - **Output:** mood narrative (e.g., `Moodweaver/reports/mood_narrative.md`).
+   - **Output:** mood memory (e.g., `moodweaver.json`).
 3. **Dave** — issue daily emotional forecast.
-   - **Output:** forecast brief (e.g., `Dave/reports/emotion_forecast.md`).
+   - **Output:** forecast brief (e.g., `Rhea/_outbox/dave/leaderboard.json`).
 
 ### Creative Pulse & Prompt Forge
 1. **Muse_Jr** — draft creative prompts.
-   - **Output:** prompt list (e.g., `Muse_Jr/outputs/prompt_list.md`).
+   - **Output:** CHAOS prompt entries (e.g., `~/Dropbox/CHAOS_Logs/ping_*.chaos`).
 2. **Fable** — test narrative resonance.
-   - **Output:** resonance notes (e.g., `Fable/reports/resonance_notes.md`).
+   - **Output:** memory records (e.g., `eden_memory.db`).
 3. **Glimmer** — package prompt kit.
-   - **Output:** prompt kit (e.g., `Glimmer/outputs/prompt_kit.zip`).
+   - **Output:** emotion scan log (e.g., `glimmer_log.json`).
 
 ### Interface Revision & UI Notes
 1. **RitualGUI** — propose interface tweaks.
-   - **Output:** UI change set (e.g., `RitualGUI/outputs/ui_change_set.json`).
+   - **Output:** ritual definition files (e.g., `*.chaos` saved from the UI).
 2. **Prismari** — verify visual harmony.
-   - **Output:** design critique (e.g., `Prismari/reports/design_critique.md`).
-3. **Lyra** — draft release notes for UI updates.
-   - **Output:** UI release notes (e.g., `Lyra/outputs/ui_release_notes.md`).
+   - **Output:** palette commentary (printed or captured via stdout).
+3. **Lyra** — draft PR automation notes for UI updates.
+   - **Output:** PR automation log (e.g., `lyra.log`).
 
 ## Safety & Governance
 
-### Risk Scan & Safety Review
-1. **Shamir** — scan for policy violations.
-   - **Output:** safety scan (e.g., `Shamir/reports/safety_scan.md`).
-2. **Boudica** — assess operational risk level.
-   - **Output:** risk assessment (e.g., `Boudica/outputs/risk_assessment.json`).
+### Network Safety & Risk Review
+1. **Shamir** — verify VPN tunnel status and network guard posture.
+   - **Output:** status output (captured from stdout).
+2. **Boudica** — scan code for structural risk signals (e.g., undefined variables).
+   - **Output:** scan output (printed to stdout).
 3. **Rhea** — compile safety readiness report.
    - **Output:** readiness report (e.g., `Rhea/reports/safety_readiness.md`).
 
@@ -333,8 +338,8 @@ Each workflow lists the sequence and the expected outputs or artifacts.
 
 ### Quiet Hours & Restorative Pause
 1. **Somni** — schedule restorative downtime blocks.
-   - **Output:** rest schedule (e.g., `Somni/outputs/rest_schedule.json`).
+   - **Output:** dreamline extracts (e.g., `Rhea/_outbox/somni/dreamlines.json`).
 2. **Solie** — dim nonessential daemons.
-   - **Output:** dimming log (e.g., `Solie/logs/dimming.log`).
+   - **Output:** holdspace fragments (e.g., `solacebay/solie_*.chaos`).
 3. **Rhea** — confirm resume window and alerts.
    - **Output:** resume plan (e.g., `Rhea/outputs/resume_plan.md`).
