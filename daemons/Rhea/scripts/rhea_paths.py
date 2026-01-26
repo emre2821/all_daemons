@@ -15,13 +15,18 @@ class RheaPaths:
 
 def resolve_rhea_paths(script_file: Path) -> RheaPaths:
     script_dir = script_file.resolve().parent
-    rhea_dir = script_dir.parent if script_dir.name == "scripts" else script_dir
+    scripts_dir = (
+        script_dir
+        if script_dir.name == "scripts"
+        else next((parent for parent in script_dir.parents if parent.name == "scripts"), None)
+    )
+    rhea_dir = scripts_dir.parent if scripts_dir is not None else script_dir
     config_dir = rhea_dir / "config"
     return RheaPaths(
         rhea_dir=rhea_dir,
         config_dir=config_dir,
         registry_path=config_dir / "rhea_registry.json",
-        scripts_configs_dir=rhea_dir / "scripts" / "configs",
+        scripts_configs_dir=(scripts_dir or rhea_dir / "scripts") / "configs",
         daemon_lists_dir=config_dir / "daemon_lists",
     )
 
