@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # Rhea Orchestrator — self-managing daemon system
 # - Watches ./daemons for changes
-# - Maintains ./config/rhea_registry.json with schema validation
+# - Maintains ./configs/rhea_registry.json with schema validation
 # - Auto-discovers daemon metadata from YAML docstring headers
 # - Self-corrects common issues and keeps teams/pairs in sync
 # - CLI for scan/list/start/stop/add/validate/fix/gui
@@ -37,7 +37,7 @@ DAEMONS_ROOT = RHEA_DIR.parent                     # .../daemons
 
 # Directories for Rhea's own state/config
 DIR_DAEMONS = DAEMONS_ROOT
-DIR_CONFIG = RHEA_DIR / "config"
+DIR_CONFIG = RHEA_DIR / "configs"
 DIR_BACKUPS = RHEA_DIR / "backups"
 DIR_LOGS = RHEA_DIR / "logs"
 REGISTRY_PATH = DIR_CONFIG / "rhea_registry.json"

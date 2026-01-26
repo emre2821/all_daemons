@@ -48,8 +48,8 @@ PALETTE = {
 ROOT = Path(os.environ.get("EDEN_ROOT", str(Path.cwd())))
 DAEMON_DIR = ROOT / "daemons"
 RHEA_DIR = DAEMON_DIR / "Rhea"
-REGISTRY_PATH = RHEA_DIR / "rhea_registry.json"
-BACKUP_PATH = RHEA_DIR / f"rhea_registry.{int(time.time())}.bak.json"
+REGISTRY_PATH = RHEA_DIR / "configs" / "rhea_registry.json"
+BACKUP_PATH = RHEA_DIR / "configs" / f"rhea_registry.{int(time.time())}.bak.json"
 
 # Sheele wanted path (OpenAI exports)
 SHEELE_DEFAULT_INPUT = ROOT / "data" / "exports" / "openai_exports" / "conversations.json"

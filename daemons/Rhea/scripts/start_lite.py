@@ -10,7 +10,7 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 ORCH = HERE / 'full_rhea.complete_build.py'
-REG  = HERE.parent / 'config' / 'rhea_registry.json'
+REG  = HERE.parent / 'configs' / 'rhea_registry.json'
 
 # Fallback curated lightweight set (no pandas/kivy/psutil required)
 FALLBACK_LITE = {

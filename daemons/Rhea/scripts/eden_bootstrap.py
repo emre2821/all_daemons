@@ -4,7 +4,7 @@ Eden Bootstrap - set up configs and reconcile registry so things run.
 
 Runs in order:
 1) Update registry from filesystem (treat <Daemon>/scripts/*.py as daemons)
-2) Sync daemons.yaml/tasks.yaml from registry (writes to Rhea/config and scripts/configs)
+2) Sync daemons.yaml/tasks.yaml from registry (writes to Rhea/configs and scripts/configs)
 3) Initialize, scan, and fix registry via Rhea orchestrator
 
 Optional next steps printed at the end to start by tags or open GUI.
@@ -48,4 +48,3 @@ def main() -> int:
 
 if __name__ == '__main__':
     raise SystemExit(main())
-

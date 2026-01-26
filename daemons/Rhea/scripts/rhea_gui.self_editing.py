@@ -8,8 +8,8 @@ from tkinter import ttk, messagebox, filedialog
 from jsonschema import Draft7Validator
 
 ROOT = Path(__file__).resolve().parent.parent  # .../Rhea
-REGISTRY_PATH = ROOT / "config" / "rhea_registry.json"
-SCHEMA_PATH = ROOT / "config" / "rhea_schema.json"
+REGISTRY_PATH = ROOT / "configs" / "rhea_registry.json"
+SCHEMA_PATH = ROOT / "configs" / "rhea_schema.json"
 BACKUPS = ROOT / "backups"
 BACKUPS.mkdir(parents=True, exist_ok=True)
 

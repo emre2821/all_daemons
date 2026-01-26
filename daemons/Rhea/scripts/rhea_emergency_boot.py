@@ -26,10 +26,10 @@ from typing import Dict, List, Tuple, Any
 
 # --- Paths -------------------------------------------------------------
 # Resolve paths relative to the Rhea package directory
-ROOT = Path(__file__).resolve().parent
+ROOT = Path(__file__).resolve().parents[1]
 # The Eden "daemons" root is the parent of Rhea
 DIR_DAEMONS = ROOT.parent
-DIR_CONFIG = ROOT / "config"
+DIR_CONFIG = ROOT / "configs"
 DIR_BACKUPS = ROOT / "backups"
 DIR_LOGS = ROOT / "logs"
 REGISTRY = DIR_CONFIG / "rhea_registry.json"
