@@ -15,7 +15,8 @@ import shutil
 from typing import Dict, Any
 
 # ---------- Paths ----------
-EDEN_ROOT = os.environ.get("EDEN_ROOT", r"C:\EdenOS_Root")
+_DEFAULT_EDEN_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", ".."))
+EDEN_ROOT = os.environ.get("EDEN_ROOT", _DEFAULT_EDEN_ROOT)
 TROUBLES_ROOT = os.path.join(EDEN_ROOT, "The_Troubles")
 NATHAN_ROOT = os.path.join(TROUBLES_ROOT, "Nathan")
 AUDREY_ROOT = os.path.join(TROUBLES_ROOT, "Audrey")

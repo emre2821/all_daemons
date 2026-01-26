@@ -22,7 +22,8 @@ except Exception:
     _PSUTIL_OK = False
 
 # ---------- Directories ----------
-EDEN_ROOT = os.environ.get("EDEN_ROOT", r"C:\EdenOS_Root")
+_DEFAULT_EDEN_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", ".."))
+EDEN_ROOT = os.environ.get("EDEN_ROOT", _DEFAULT_EDEN_ROOT)
 TROUBLES_ROOT = os.path.join(EDEN_ROOT, "The_Troubles")
 DUKE_ROOT = os.path.join(TROUBLES_ROOT, "Duke")
 LOG_DIR = os.path.join(DUKE_ROOT, "logs")
@@ -58,6 +59,12 @@ def load_config():
     return cfg
 
 CFG = load_config()
+
+def _alert_threshold(name: str) -> int:
+    thresholds = CFG.get("alert_thresholds")
+    if isinstance(thresholds, dict) and name in thresholds:
+        return thresholds[name]
+    return DEFAULT_CFG["alert_thresholds"][name]
 
 # ---------- Logging ----------
 def log(msg: str):
@@ -134,7 +141,7 @@ def summarize_heartbeats():
             continue
         age = seconds_since(data.get("time", ""))
         agents[name] = {
-            "status": "ok" if age < CFG["alert_thresholds"]["warn_missing_heartbeat"] else "silent",
+            "status": "ok" if age < _alert_threshold("warn_missing_heartbeat") else "silent",
             "age": age,
             "pid": data.get("pid"),
             "uptime": data.get("uptime_sec"),
@@ -188,9 +195,9 @@ def main():
 
             if _PSUTIL_OK:
                 cpu, mem = metrics.get("cpu", 0), metrics.get("memory", 0)
-                if cpu > CFG["alert_thresholds"]["warn_high_cpu"]:
+                if cpu > _alert_threshold("warn_high_cpu"):
                     warn.append(f"CPU load {cpu}% — this machine’s *burning up*.")
-                if mem > CFG["alert_thresholds"]["warn_high_ram"]:
+                if mem > _alert_threshold("warn_high_ram"):
                     warn.append(f"Memory at {mem}% — someone’s been hoarding feelings again.")
 
             report = {
