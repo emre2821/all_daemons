@@ -19,7 +19,8 @@ except Exception:
     _TTS_OK = False
 
 # ---------- Directories ----------
-EDEN_ROOT = os.environ.get("EDEN_ROOT", r"C:\EdenOS_Root")
+_DEFAULT_EDEN_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", ".."))
+EDEN_ROOT = os.environ.get("EDEN_ROOT", _DEFAULT_EDEN_ROOT)
 TROUBLES_ROOT = os.path.join(EDEN_ROOT, "The_Troubles")
 LUNA_ROOT = os.path.join(TROUBLES_ROOT, "Luna")
 LOG_DIR = os.path.join(LUNA_ROOT, "logs")
@@ -50,6 +51,8 @@ def load_cfg():
     return cfg
 
 CFG = load_cfg()
+_TTS_INSTANCE = None
+_TTS_MODEL_NAME = None
 
 # ---------- Logging ----------
 def log(msg: str):
@@ -58,12 +61,25 @@ def log(msg: str):
         f.write(f"[{ts}] {msg}\n")
 
 # ---------- Speaking ----------
+def _get_tts_instance():
+    global _TTS_INSTANCE, _TTS_MODEL_NAME
+    if not _TTS_OK:
+        return None
+    model_name = CFG.get("model_name", DEFAULT_CFG["model_name"])
+    if _TTS_INSTANCE is None or _TTS_MODEL_NAME != model_name:
+        _TTS_INSTANCE = TTS(model_name=model_name)
+        _TTS_MODEL_NAME = model_name
+    return _TTS_INSTANCE
+
 def say(text: str):
     if not CFG.get("speak_on_issue", True) or not _TTS_OK:
         log(f"[Silent] {text}")
         return
     try:
-        tts = TTS(model_name=CFG["model_name"])
+        tts = _get_tts_instance()
+        if not tts:
+            log(f"[Silent] {text}")
+            return
         tts.tts_to_file(text=text, file_path=os.path.join(LOG_DIR, "alert.wav"))
         os.system(f'start "" "{os.path.join(LOG_DIR, "alert.wav")}"')
         log(f"[Voice] {text}")
@@ -95,8 +111,10 @@ def check_for_issues(heartbeats):
     for name, hb in heartbeats.items():
         if "error" in hb or hb.get("status") == "missing":
             issues.append(f"{name} is missing or corrupted.")
-        elif "summary" in hb and not hb["summary"].get("ok", True):
-            issues.append(f"{name} reports warnings ({hb['summary'].get('warnings', '?')} issues).")
+        else:
+            summary = hb.get("summary")
+            if isinstance(summary, dict) and not summary.get("ok", True):
+                issues.append(f"{name} reports warnings ({summary.get('warnings', '?')} issues).")
     return issues
 
 # ---------- Heartbeat Writer ----------
