@@ -143,9 +143,9 @@ def resolve_daemon_dir(root: Path, env: Mapping[str, str] | None = None) -> Path
 
 ROOT = resolve_root().resolve()
 DAEMON_DIR = resolve_daemon_dir(ROOT).resolve()
-RHEA_DIR = Path(__file__).resolve().parent.resolve()
-REGISTRY_PATH = (RHEA_DIR / "rhea_registry.json").resolve()
-BACKUP_PATH = (RHEA_DIR / f"rhea_registry.{int(time.time())}.bak.json").resolve()
+RHEA_DIR = Path(__file__).resolve().parents[1]
+REGISTRY_PATH = (RHEA_DIR / "configs" / "rhea_registry.json").resolve()
+BACKUP_PATH = (RHEA_DIR / "configs" / f"rhea_registry.{int(time.time())}.bak.json").resolve()
 
 # Sheele wanted path (OpenAI exports)
 SHEELE_DEFAULT_INPUT = (
