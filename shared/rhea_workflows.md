@@ -8,8 +8,10 @@ Each workflow lists the sequence and the expected outputs or artifacts.
   Riven mends fractured logs and pulses system health, Saphira seeds DCA agents from inbox fragments,
   Delilah recovers files, Mila allocates storage, Seiros propagates deployments, and Lyra automates PR
   workflow notes and merge hygiene.
-- **Paths:** Prefer daemon-native output locations (e.g., `Rhea/outputs/`, `Rhea/_outbox/`,
-  `daemons/<Daemon>/*.log`, or daemon-specific stores like `~/.eden_ranger/`).
+- **Paths:** Prefer daemon-native output locations; examples use **repo-root-relative** paths
+  like `Rhea/outputs/`, `Rhea/_outbox/`, and `daemons/<Daemon>/*.log`, **home-relative**
+  paths like `~/.eden_ranger/`, and should be interpreted as **absolute** when your
+  deployment uses fully-qualified locations.
 - **Pattern:** Artifacts follow daemon-owned paths (examples inline per workflow).
 
 ## Table of Contents
