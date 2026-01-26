@@ -13,43 +13,55 @@ import time
 from pathlib import Path
 
 DEFAULT_SKIP_DIRNAMES = {
-    ".git", ".hg", ".svn", ".venv", "venv", "env", "node_modules",
-    "_vault", "_secrets", "_secure", "_backups"
+    ".git",
+    ".hg",
+    ".svn",
+    ".venv",
+    "venv",
+    "env",
+    "node_modules",
+    "_vault",
+    "_secrets",
+    "_secure",
+    "_backups",
 }
 DEFAULT_EDEN_SACRED = {"Archive", "Sacred", "EdenOS_Core"}
 
 TARGET_DIRNAMES = {
-    "__pycache__", ".pytest_cache", ".ruff_cache", ".mypy_cache",
-    ".ipynb_checkpoints", "build", "dist"
+    "__pycache__",
+    ".pytest_cache",
+    ".ruff_cache",
+    ".mypy_cache",
+    ".ipynb_checkpoints",
+    "build",
+    "dist",
 }
-TARGET_FILE_GLOBS = {
-    "*.pyc", "*.pyo", "*.pyd", ".DS_Store", "Thumbs.db"
-}
+TARGET_FILE_GLOBS = {"*.pyc", "*.pyo", "*.pyd", ".DS_Store", "Thumbs.db"}
 TARGET_SUFFIXES = {".egg-info"}
+
 
 # ------------------------
 # Utilities
 # ------------------------
 def guess_root() -> Path:
-
-    candidates = [Path(os.environ.get("EDEN_ROOT", os.getcwd())), Path(os.getcwd())]
+    candidates = [Path("C:/EdenOS_Origin"), Path(os.getcwd())]
     for c in candidates:
         if c.exists():
             return c.resolve()
     return Path(os.getcwd()).resolve()
 
-def timestamp() -> str:
 
+def timestamp() -> str:
     return _dt.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 
-def ensure_log_dir(root: Path, sub="cleanup") -> Path:
 
+def ensure_log_dir(root: Path, sub="cleanup") -> Path:
     log_dir = root / "_logs" / "Blaze" / sub
     log_dir.mkdir(parents=True, exist_ok=True)
     return log_dir
 
-def should_skip_dir(path: Path, skip_names: set[str]) -> bool:
 
+def should_skip_dir(path: Path, skip_names: set[str]) -> bool:
     if path.name in skip_names:
         return True
     for part in path.parts:
@@ -57,18 +69,11 @@ def should_skip_dir(path: Path, skip_names: set[str]) -> bool:
             return True
     return False
 
-def path_depth(root: Path, path: Path) -> int:
-
-    try:
-        return len(path.relative_to(root).parts)
-    except ValueError:
-        return len(path.parts)
 
 # ------------------------
 # Sweep (cache cleanup)
 # ------------------------
 def iter_targets(root: Path, skip_names: set[str]):
-
     for dirpath, dirnames, filenames in os.walk(root):
         dpath = Path(dirpath)
         # prune traversal
@@ -91,17 +96,18 @@ def iter_targets(root: Path, skip_names: set[str]):
                 if p.name.endswith(sfx):
                     yield ("file", p)
 
-def blaze_sweep(root: Path, confirm: bool, skip: set[str], quiet: bool):
 
+def blaze_sweep(root: Path, confirm: bool, skip: set[str], quiet: bool):
     log_dir = ensure_log_dir(root, "cleanup")
     run_id = timestamp()
     summary_path = log_dir / f"sweep_{run_id}.summary.txt"
 
     found = list(iter_targets(root, skip))
-    def key(p):
-        return path_depth(root, p)
-
-    dirs = sorted({p for k, p in found if k == "dir"}, key=key, reverse=True)
+    dirs = sorted(
+        {p for k, p in found if k == "dir"},
+        key=lambda p: len(p.as_posix()),
+        reverse=True,
+    )
     files = sorted({p for k, p in found if k == "file"})
 
     deleted_files, deleted_dirs = 0, 0
@@ -111,40 +117,44 @@ def blaze_sweep(root: Path, confirm: bool, skip: set[str], quiet: bool):
                 if p.exists():
                     p.unlink()
                     deleted_files += 1
-                    if not quiet: print(f"[Blaze] removed file: {p}")
+                    if not quiet:
+                        print(f"[Blaze] removed file: {p}")
             except Exception as e:
-                if not quiet: print(f"[Blaze] error removing {p}: {e}")
+                if not quiet:
+                    print(f"[Blaze] error removing {p}: {e}")
         for d in dirs:
             try:
                 if d.exists():
                     shutil.rmtree(d)
                     deleted_dirs += 1
-                    if not quiet: print(f"[Blaze] removed dir: {d}")
+                    if not quiet:
+                        print(f"[Blaze] removed dir: {d}")
             except Exception as e:
-                if not quiet: print(f"[Blaze] error removing {d}: {e}")
+                if not quiet:
+                    print(f"[Blaze] error removing {d}: {e}")
     else:
         if not quiet:
             print(f"[Blaze] DRY-RUN: {len(files)} files, {len(dirs)} dirs would be removed.")
 
-    with open(summary_path, "w") as s:
+    with open(summary_path, "w", encoding="utf-8") as s:
         s.write(f"Blaze Sweep — {run_id}\n")
         s.write(f"Deleted: files={deleted_files}, dirs={deleted_dirs}\n")
     if not quiet:
         print(f"[Blaze] Sweep summary logged: {summary_path}")
 
+
 # ------------------------
 # Deduplicate
 # ------------------------
 def hash_file(path: Path, chunk_size=65536):
-
     h = hashlib.sha256()
     with open(path, "rb") as f:
         while chunk := f.read(chunk_size):
             h.update(chunk)
     return h.hexdigest()
 
-def blaze_dedupe(root: Path, quiet: bool):
 
+def blaze_dedupe(root: Path, quiet: bool):
     log_dir = ensure_log_dir(root, "dedupe")
     run_id = timestamp()
     report = log_dir / f"dedupe_{run_id}.jsonl"
@@ -161,20 +171,21 @@ def blaze_dedupe(root: Path, quiet: bool):
                 else:
                     seen[h] = str(p)
             except Exception as e:
-                if not quiet: print(f"[Blaze] error hashing {p}: {e}")
+                if not quiet:
+                    print(f"[Blaze] error hashing {p}: {e}")
 
-    with open(report, "w") as f:
+    with open(report, "w", encoding="utf-8") as f:
         for a, b in dupes:
             f.write(json.dumps({"dupe": a, "original": b}) + "\n")
 
     if not quiet:
         print(f"[Blaze] Found {len(dupes)} duplicates. Report: {report}")
 
+
 # ------------------------
 # Classify
 # ------------------------
 def classify_file(path: Path) -> str:
-
     name = path.name
     if name.endswith((".py", ".chaos", ".json", ".md")):
         return "core"
@@ -184,13 +195,13 @@ def classify_file(path: Path) -> str:
         return "check"
     return "check"
 
-def blaze_classify(root: Path, quiet: bool):
 
+def blaze_classify(root: Path, quiet: bool):
     log_dir = ensure_log_dir(root, "classify")
     run_id = timestamp()
     report = log_dir / f"classify_{run_id}.jsonl"
 
-    with open(report, "w") as f:
+    with open(report, "w", encoding="utf-8") as f:
         for dirpath, _, filenames in os.walk(root):
             for fn in filenames:
                 p = Path(dirpath) / fn
@@ -200,11 +211,11 @@ def blaze_classify(root: Path, quiet: bool):
     if not quiet:
         print(f"[Blaze] Classification complete. Report: {report}")
 
+
 # ------------------------
 # Watchdog
 # ------------------------
 def blaze_watch(root: Path, interval: int, quiet: bool):
-
     print(f"[Blaze] Watchdog active — scanning every {interval}s")
     while True:
         try:
@@ -214,14 +225,18 @@ def blaze_watch(root: Path, interval: int, quiet: bool):
             print("\n[Blaze] Watchdog stopped.")
             break
 
+
 # ------------------------
 # Main CLI
 # ------------------------
 def main():
-
     parser = argparse.ArgumentParser(description="Blaze — Eden cleanup agent")
-    parser.add_argument("--root", type=str, default=None,
-                        help="Project root (default: C:\\EdenOS_Origin or cwd)")
+    parser.add_argument(
+        "--root",
+        type=str,
+        default=None,
+        help="Project root (default: C:\\EdenOS_Origin or cwd)",
+    )
     subparsers = parser.add_subparsers(dest="command")
 
     # sweep
@@ -258,6 +273,7 @@ def main():
         blaze_watch(root, args.interval, args.quiet)
     else:
         parser.print_help()
+
 
 if __name__ == "__main__":
     main()

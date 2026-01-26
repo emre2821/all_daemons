@@ -1,35 +1,19 @@
-"""Placeholder entrypoint for Puffin.
+"""Puffin: thermal guardian helper for Windows.
 
-Created to normalize daemon folder structure.
+See CoolGuardPlus.ps1 for the full implementation.
 """
 
-from __future__ import annotations
 
-from pathlib import Path
-import sys
-
-if __package__ is None:
-    sys.path.append(str(Path(__file__).resolve().parents[1]))
-
-from placeholder_daemon import run_placeholder
-
-
-if __name__ == "__main__":
-    run_placeholder("Puffin")
-import logging
-
-AGENT_NAME = "Puffin"
-
-
-def main():
-    logging.basicConfig(level=logging.INFO, format="%(message)s")
-    message = (
-        f"{AGENT_NAME} has no active entrypoint logic yet. "
-        "This placeholder exists to normalize daemon folder structure."
-    )
-    logging.error(message)
-    raise NotImplementedError(message)
+def describe() -> dict:
+    return {
+        "name": "Puffin",
+        "role": "Thermal guardian (PowerShell CoolGuard+)",
+        "entrypoint": "CoolGuardPlus.ps1",
+        "notes": "Run in PowerShell with LibreHardwareMonitor's web server enabled.",
+    }
 
 
 if __name__ == "__main__":
-    main()
+    details = describe()
+    for k, v in details.items():
+        print(f"{k}: {v}")
