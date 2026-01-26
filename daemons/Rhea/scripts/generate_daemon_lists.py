@@ -18,17 +18,24 @@ import json
 from pathlib import Path
 import os
 
-RHEA = Path(__file__).resolve().parent.parent
-REG  = RHEA / 'config' / 'rhea_registry.json'
+from rhea_paths import ensure_rhea_dirs, resolve_rhea_paths
+
+PATHS = resolve_rhea_paths(Path(__file__))
+RHEA = PATHS.rhea_dir
+REG = PATHS.registry_path
+
 
 def load_reg() -> dict:
     return json.loads(REG.read_text(encoding='utf-8'))
+
 
 def write_text(path: Path, lines: list[str]):
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text("\n".join(lines) + "\n", encoding='utf-8')
 
+
 def main() -> int:
+    ensure_rhea_dirs(PATHS)
     reg = load_reg()
     daemons = reg.get('daemons', {})
     names = sorted(daemons.keys())
@@ -89,6 +96,7 @@ def main() -> int:
 
     print(f"Lists generated: {len(names)} daemons, {len(by_team)} teams, {len(by_tag)} tags")
     return 0
+
 
 if __name__ == '__main__':
     raise SystemExit(main())
