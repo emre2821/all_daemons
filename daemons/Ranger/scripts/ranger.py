@@ -657,10 +657,7 @@ def _seconds_until(hour: int, minute: int) -> int:
     return int((target - now).total_seconds())
 
 # ---------------------- CLI -----------------------
-def main():
-
-    init_db()
-
+def _handle_cli_args():
     if len(sys.argv) > 1:
         cmd = sys.argv[1]
 
@@ -668,27 +665,30 @@ def main():
             q = " ".join(sys.argv[2:]) or "Where are my largest logs?"
             ans = ask(q)
             console.print(Panel(ans, title="Answer", style=f"bold {PALETTE['velvet']}"))
-            return
+            return True
 
         if cmd == "report":
-            daily_report(); return
+            daily_report()
+            return True
 
         if cmd == "hunt-chaos":
             contains = sys.argv[2] if len(sys.argv) > 2 else None
-            hunt_chaos(contains=contains); return
+            hunt_chaos(contains=contains)
+            return True
 
         if cmd == "hunt":
             if len(sys.argv) < 3:
                 console.print("Usage: hunt <name> [contains]")
-                return
+                return True
             name = sys.argv[2]
             contains = sys.argv[3] if len(sys.argv) > 3 else None
-            run_config_hunt(name, contains=contains); return
+            run_config_hunt(name, contains=contains)
+            return True
 
         if cmd == "autohunt":
             if len(sys.argv) < 3:
                 console.print("Usage: autohunt <name> [HH:MM] [contains]")
-                return
+                return True
             name = sys.argv[2]
             when = sys.argv[3] if len(sys.argv) > 3 else "10:00"
             contains = sys.argv[4] if len(sys.argv) > 4 else None
@@ -704,8 +704,10 @@ def main():
                 except Exception as e:
                     console.print(f"[{PALETTE['danger']}]Autohunt error: {e}[/]")
                 time.sleep(60)
+            return True
+    return False
 
-    # Initial crawl
+def _initial_crawl():
     console.print(Panel("Initial crawl…", style=f"bold {PALETTE['eden_sky']}"))
     for root in WATCH_DIRS:
         for dirpath, _, filenames in os.walk(root):
@@ -717,7 +719,7 @@ def main():
                     pass
     console.print(Panel("Crawl done.", style=f"bold {PALETTE['ok']}"))
 
-    # Start watcher
+def _start_watcher_loop():
     obs = start_watch()
     console.print(Panel("Daemon running. Ctrl+C to stop.",
                         style=f"bold {PALETTE['ink']} on #222222"))
@@ -727,6 +729,16 @@ def main():
     except KeyboardInterrupt:
         obs.stop()
     obs.join()
+
+def main():
+
+    init_db()
+
+    if _handle_cli_args():
+        return
+
+    _initial_crawl()
+    _start_watcher_loop()
 
 if __name__ == "__main__":
     main()

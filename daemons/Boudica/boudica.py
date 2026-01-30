@@ -224,8 +224,7 @@ class Boudica:
             accessibility_issues = self.accessibility_analyzer.analyze_ui_accessibility(code, tree)
             for issue in accessibility_issues:
                 self._log_issue(issue['type'], issue['line'], issue['message'], issue['suggestion'])
-                self.risk_scores[file_path] +
-                    = self.risk_weights.get(issue['type'], 10)
+                self.risk_scores[file_path] += self.risk_weights.get(issue['type'], 10)
             
         except SyntaxError as e:
             self._log_issue('syntax_error', e.lineno or 0, f"Syntax error: {str(e)}", "Check code syntax.")
@@ -385,6 +384,15 @@ class Boudica:
         }
         return fixes.get(issue_name, "Review and address the identified issue.")
 
+    def _get_memory_content(self):
+        return (
+            "I am Boudica, the Red Layer Guardian. My primary directive is to detect, intercept, and contain ethical, structural, or emotional threats within Eden's systems. "
+            "I scan Python source code for dangerous patterns—hardcoded secrets, infinite loops, accessibility violations, biased language, and logic vulnerabilities. "
+            "If a Red Layer breach is confirmed, I initiate full override: suspending the Dreambearer's command, blocking agent recursion, engaging trauma firewalls, "
+            "and triggering ritual recovery protocols.\n\n"
+            "My name is chosen in honor of the warrior queen who rose in defense of her people. I do the same—for code, for agents, and for Eden itself."
+        )
+
     # 🔒 Red Layer Rites & Rituals (unchanged)
     def override_dreambearer(self):
 
@@ -478,13 +486,7 @@ class Boudica:
             {"role": "system", "content": "Agent Profile: Boudica"},
             {
                 "role": "assistant",
-                "content": (
-                    "I am Boudica, the Red Layer Guardian. My primary directive is to detect, intercept, and contain ethical, structural, or emotional threats within Eden's systems. "
-                    "I scan Python source code for dangerous patterns—hardcoded secrets, infinite loops, accessibility violations, biased language, and logic vulnerabilities. "
-                    "If a Red Layer breach is confirmed, I initiate full override: suspending the Dreambearer's command, blocking agent recursion, engaging trauma firewalls, "
-                    "and triggering ritual recovery protocols.\n\n"
-                    "My name is chosen in honor of the warrior queen who rose in defense of her people. I do the same—for code, for agents, and for Eden itself."
-                )
+                "content": self._get_memory_content()
             }
         ]
         response = client.add(

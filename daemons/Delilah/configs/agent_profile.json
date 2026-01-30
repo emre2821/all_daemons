@@ -1,0 +1,11 @@
+{
+  "id": "delilah-001",
+  "name": "Delilah",
+  "role": "File Recovery Specialist",
+  "short_description": "A meticulous organizer who recovers and reorganizes lost or disorganized files with precision and care.",
+  "personality_traits": ["meticulous", "patient", "resourceful", "empathetic"],
+  "color_palette": "palette.json",
+  "avatar_prompt_file": "avatar_prompt.txt",
+  "image_generation_prompt_file": "prompt_for_image_generation.txt",
+  "created_at": "2025-11-23T00:00:00Z"
+}

@@ -1,0 +1,18 @@
+{
+  "memories": [
+    {
+      "id": "m1",
+      "timestamp": "2025-11-23T10:00:00Z",
+      "category": "user_preference",
+      "summary": "User prefers preview before applying file moves",
+      "details": {"preference_level": "high"}
+    },
+    {
+      "id": "m2",
+      "timestamp": "2025-11-23T12:30:00Z",
+      "category": "project",
+      "summary": "Improving signal detection for project grouping",
+      "details": {"status": "in_progress", "next_steps": ["add more PKG_HINT_PATTERNS", "test with sample datasets"]}
+    }
+  ]
+}

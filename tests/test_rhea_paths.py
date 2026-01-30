@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from Rhea import rhea_main
+from .Rhea import rhea_main
 
 
 def _make_daemon(path: Path, name: str = "Echo", *, create_main: bool = False, create_primary: bool = True) -> None:

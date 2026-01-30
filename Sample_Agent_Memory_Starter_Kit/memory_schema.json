@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Agent Memory Schema",
+  "type": "object",
+  "properties": {
+    "memories": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {"type": "string"},
+          "timestamp": {"type": "string", "format": "date-time"},
+          "category": {"type": "string"},
+          "summary": {"type": "string"},
+          "details": {"type": "object"}
+        },
+        "required": ["id", "timestamp", "summary"]
+      }
+    }
+  },
+  "additionalProperties": false
+}

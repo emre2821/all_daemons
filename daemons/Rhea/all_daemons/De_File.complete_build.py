@@ -35,8 +35,8 @@ def write(path: str, code: str):
     print(f"✅ Wrote: {normalized}")
 
 
-# === briar.py ===
-write(r"C:/EdenOS_Origin/daemons/Briar/briar.py", """import json
+def _write_briar():
+    briar_code = """import json
 import os
 from datetime import datetime, timezone
 
