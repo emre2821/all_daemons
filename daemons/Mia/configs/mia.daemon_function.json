@@ -7,9 +7,9 @@
     "Await human approval before activation"
   ],
   "triggers": [
-    "file_flag('priority.reality')",
+    "filesystem_flag('Mia')",
     "disclosure_detected",
-    "manual_summon('mia')"
+    "manual_summon('Mia')"
   ],
   "linked_files": [
     "mia.mirror.json",
@@ -21,7 +21,7 @@
     "draft_only_mode": true,
     "models": {
       "primary": "stablelm2:1.6b",
-      "fallback": "gemma:1b"
+      "fallback_to": "Rhea"
     }
   }
 }

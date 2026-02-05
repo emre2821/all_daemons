@@ -1,7 +1,5 @@
 # Rogers – Transcript Parser & Pattern Recognition Daemon
 
-from Quill import Label
-import os
 import re
 from collections import defaultdict, Counter
 from pathlib import Path

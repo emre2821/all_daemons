@@ -1,7 +1,6 @@
 # hunter.exe.py
 
 import os
-import re
 import json
 import traceback
 from datetime import datetime

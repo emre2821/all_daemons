@@ -1,6 +1,5 @@
 # rhea.py (scaffolded)
 from pathlib import Path
-import subprocess
 
 class Rhea:
     def __init__(self, eden_root: Path):

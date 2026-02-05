@@ -1,6 +1,4 @@
 import json
-import os
-import re
 
 class Label:
     def __init__(self, file_path):

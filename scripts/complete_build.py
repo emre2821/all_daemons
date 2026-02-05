@@ -6,7 +6,9 @@ Safe, offline-friendly, 100% text files.
 """
 
 from pathlib import Path
-import json, uuid, datetime as dt
+import json
+import uuid
+import datetime as dt
 
 ROOT = Path(".") / "Digitari_v0_1"
 

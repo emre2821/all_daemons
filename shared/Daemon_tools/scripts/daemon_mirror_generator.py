@@ -1,5 +1,4 @@
 import json
-from datetime import datetime
 
 
 def generate_daemonmirror():

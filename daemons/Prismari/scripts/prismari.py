@@ -37,7 +37,7 @@ class Prismari:
         print(f"Palette: {name}")
         
         if mood or agent:
-            print(f"Tags:", end=" ")
+            print("Tags:", end=" ")
             if mood:
                 print(f"[Mood: {mood}]", end=" ")
             if agent:

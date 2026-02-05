@@ -9,14 +9,12 @@ from kivy.uix.button import Button
 from kivy.uix.scrollview import ScrollView
 from kivy.uix.filechooser import FileChooserListView
 from kivy.uix.popup import Popup
-from kivy.uix.treeview import TreeView
-import TreeViewLabel
 from kivy.clock import Clock
 import tkinter as tk
 from tkinter import filedialog
 import tempfile
 from collections import defaultdict
-from scanner import do_scan, apply_moves
+from scanner import apply_moves
 from models import SmartRecover
 from utils import smarter_decide_category
 

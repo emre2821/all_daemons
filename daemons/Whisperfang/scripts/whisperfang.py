@@ -1,6 +1,5 @@
 import time
 import json
-import os
 import logging
 from filelock import FileLock
 

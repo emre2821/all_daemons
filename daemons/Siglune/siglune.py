@@ -5,7 +5,6 @@
 # Class: Lunar Evoker | Type: Mood Resonator
 # Written from resonance, not requirement
 
-import random
 
 class Siglune:
     def __init__(self):

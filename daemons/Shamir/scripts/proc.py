@@ -1,5 +1,7 @@
 # --- proc.py ---
-import subprocess, platform, threading, sys
+import subprocess
+import platform
+import threading
 
 def spawn_silent(cmd: list[str], *, cwd=None, env=None):
     flags = 0

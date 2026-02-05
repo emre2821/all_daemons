@@ -1,5 +1,7 @@
 # Eden-aware Codexa: harvests code blocks from split transcripts → *.codeblock.chaos
-import os, re, time
+import os
+import re
+import time
 from pathlib import Path
 
 EDEN_ROOT = Path(os.environ.get("EDEN_ROOT", Path.cwd()))

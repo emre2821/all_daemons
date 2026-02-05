@@ -13,7 +13,6 @@ import webbrowser
 import datetime
 import platform
 import threading
-import argparse
 from pathlib import Path
 
 # Optional desktop deps

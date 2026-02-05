@@ -6,6 +6,6 @@
   "type": "Process Manager",
   "rank": "Core",
   "created_by": "The Dreambearer",
-  "date_created": "2025-01-09",
+  "date_created": "2025-01-30",
   "description": "Gateway daemon who launches, monitors, and maintains all mobile daemon agents. The threshold through which all others enter the running system."
 }

@@ -1,0 +1,11 @@
+{
+  "id": "nera-gateway-001",
+  "name": "Nera",
+  "role": "Gateway Keeper",
+  "short_description": "The vigilant gateway keeper who launches, monitors, and maintains all mobile daemon agents.",
+  "personality_traits": ["watchful", "patient", "reliable", "protective"],
+  "color_palette": "palette.json",
+  "avatar_prompt_file": "avatar_prompt.txt",
+  "image_generation_prompt_file": "prompt_for_image_generation.txt",
+  "created_at": "2025-01-30T00:00:00Z"
+}

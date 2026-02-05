@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 # Rhea Self-Editing GUI — edit registry safely with validation, diff, and backups
 
-import json, difflib
+import json
+import difflib
 from pathlib import Path
 import tkinter as tk
-from tkinter import ttk, messagebox, filedialog
+from tkinter import ttk, messagebox
 from jsonschema import Draft7Validator
 
 ROOT = Path(__file__).resolve().parent.parent  # .../Rhea
@@ -135,7 +136,7 @@ class RheaGUI(tk.Tk):
         self._reload_tree(); self._show_json(d)
 
     def _remove_selected(self):
-        sel = self.tree.selection();
+        sel = self.tree.selection()
         if not sel: return
         node = sel[0]
         if node.startswith("d:"):

@@ -8,7 +8,14 @@
 #   python shamir.py watch
 # Requires: Python 3.8+, OpenVPN installed, elevated privileges for tunnel.
 
-import json, os, sys, time, socket, subprocess, signal, platform
+import json
+import os
+import sys
+import time
+import socket
+import subprocess
+import signal
+import platform
 from pathlib import Path
 from typing import Optional
 from echothread import Echo

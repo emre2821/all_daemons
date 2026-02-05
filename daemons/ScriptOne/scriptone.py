@@ -18,7 +18,7 @@ from datetime import datetime
 from pathlib import Path
 import re
 from typing import Dict, List
-from tracing import tracer, tracing_enabled
+from tracing import tracer
 
 DEFAULT_VAULT = Path.home() / "Dropbox" / "CHAOS_Logs"
 INDEX_FILENAME = "chaos_index.json"

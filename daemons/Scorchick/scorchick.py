@@ -1,11 +1,9 @@
 # === Daemon Core Member: Scorchick (Rewritten for Safety) ===
 
 import os
-import subprocess
 import shutil
 import argparse
 from datetime import datetime
-import random
 import sys
 
 # === CONFIGURATION ===

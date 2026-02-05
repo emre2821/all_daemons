@@ -17,7 +17,7 @@
     "farewell": "Gateway closing. Rest well."
   },
   "tts_engine": "xtts-v2",
-  "fallback_voice": "neutral_f2",
+  "fallback_voice": "neutral_female",
   "resonance_tags": [
     "threshold",
     "passage",

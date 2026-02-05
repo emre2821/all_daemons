@@ -1,5 +1,6 @@
 # --- mgmt.py ---
-import socket, time
+import socket
+import time
 
 class MgmtError(Exception): pass
 

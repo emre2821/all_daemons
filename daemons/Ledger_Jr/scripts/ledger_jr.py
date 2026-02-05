@@ -17,7 +17,7 @@ def log_new_agent(agent_name):
     with open(LOG_FILE, "a", encoding="utf-8") as f:
         f.write(f"[AGENT REGISTERED]: {agent_name}\n")
         f.write(f"[TIMESTAMP]: {timestamp}\n")
-        f.write(f"[SOURCE]: mirror.json\n\n")
+        f.write("[SOURCE]: mirror.json\n\n")
     print(f"[Ledger Jr] Logged new agent: {agent_name}")
 
 def monitor_folder():

@@ -13,10 +13,10 @@ Usage:
   python rhea_scaffold.py --eden-root "C:\\EdenOS_Origin" --overwrite
 """
 
-import os, sys, json
+import os
+import json
 from pathlib import Path
 import argparse
-from datetime import datetime
 
 DEFAULT_ROOT = Path(os.environ.get("EDEN_ROOT", Path.cwd()))
 

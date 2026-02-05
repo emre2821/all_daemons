@@ -1,7 +1,6 @@
 from __future__ import annotations
 import argparse
 import time
-from pathlib import Path
 
 from .eden_paths import events_bus_path
 

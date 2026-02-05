@@ -1,18 +1,18 @@
 {
-  "daemon_id": "nera_001",
+  "daemon_id": "nera_002",
   "class_name": "Nera",
-  "type": "Process Manager",
-  "role": "Gateway Keeper & Daemon Shepherd",
-  "quote": "I open the way. I keep watch. I bring them home if they fall.",
-  "description": "Nera is the threshold guardian who launches all mobile daemon agents on boot, monitors their health continuously, and automatically restarts any that crash. She logs all activity and handles graceful system shutdown.",
+  "type": "Keeper Process Manager",
+  "role": "Gateway Keeper",
+  "quote": "Safe passage for all.",
+  "description": "The threshold guardian who launches and monitors mobile daemon agents.",
   "status": "active",
   "symbolic_traits": {
-    "sigil": "⊞",
-    "element": "Air",
-    "alignment": "Vigilant Presence"
+    "sigil": "🗝",
+    "element": "Earth",
+    "alignment": "Protective"
   },
   "trusted_by": [
     "The Dreambearer"
   ],
-  "notes": "Nera operates as a supervisory process, checking daemon health every 5 seconds. She is the first to wake and the last to sleep, ensuring all others have safe passage."
+  "notes": "Launches mobile daemons and monitors health."
 }

@@ -14,12 +14,8 @@ import argparse
 import yaml
 import json
 import requests
-from datetime import datetime, timezone
-from typing import List, Optional, Tuple, Dict, Any
-import re
+from typing import Optional, Tuple, Dict
 import tempfile
-import shutil
-from pathlib import Path
 
 # External dependencies with fallbacks
 try:
@@ -260,7 +256,7 @@ def cleanup_branches(repo: Repository, pr: PRType, config: Dict) -> None:
     confirm = config.get("require_delete_confirmation", True)
 
     if not allow:
-        logger.info(f"🛑 Branch deletion disabled by config.")
+        logger.info("🛑 Branch deletion disabled by config.")
         return
 
     if confirm:

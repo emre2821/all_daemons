@@ -8,8 +8,8 @@
   ],
   "triggers": [
     "boot_sequence",
-    "system_startup",
-    "manual_summon('nera')"
+    "system_startup('Nera')",
+    "manual_summon('Nera')"
   ],
   "linked_files": [
     "nera.mirror.json",
@@ -17,6 +17,7 @@
     "nera.log",
     "EdenGate_log.txt"
   ],
+  "fallback_to": "Rhea",
   "failsafes": {
     "health_check_interval": "5 seconds",
     "auto_restart": true,

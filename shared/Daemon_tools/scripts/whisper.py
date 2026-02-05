@@ -2,8 +2,6 @@ import os
 import re
 import time
 import tkinter as tk
-from tkinter import messagebox
-from tkinter import simpledialog
 from datetime import datetime
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler

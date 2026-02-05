@@ -1,7 +1,6 @@
 
 import subprocess
 import time
-from pathlib import Path
 
 try:
     from .eden_paths import eden_root

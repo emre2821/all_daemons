@@ -4,7 +4,6 @@ import json
 import re
 from datetime import datetime
 from pathlib import Path
-import sys
 
 # Get paths relative to script location
 SCRIPT_DIR = Path(__file__).parent

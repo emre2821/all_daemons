@@ -4,8 +4,6 @@ from datetime import datetime, timezone
 from github import GithubException
 from github.PullRequest import PullRequest as PRType
 from github.Repository import Repository
-from github.Issue import Issue  # For closing linked issues
-from github.Review import Review
 
 # Assuming MERGE_METHOD is loaded from config/env elsewhere
 MERGE_METHOD = "squash"  # Default; override via config

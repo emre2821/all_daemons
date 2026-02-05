@@ -2,7 +2,6 @@ import os
 import json
 from datetime import datetime
 import glob
-import shutil
 import subprocess
 import xml.etree.ElementTree as ET
 import time

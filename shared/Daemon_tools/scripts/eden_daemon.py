@@ -14,7 +14,6 @@ try:
     from .eden_safety import SafetyContext, log_event
 except Exception:
     # Allow running as a plain script without package context
-    import importlib.util as _ilu
     import pathlib as _pl
     _HERE = _pl.Path(__file__).resolve().parent
     if str(_HERE) not in sys.path:
@@ -173,7 +172,7 @@ def cmd_tail(args) -> int:
 
 
 def cmd_report(args) -> int:
-    from datetime import datetime, date
+    from datetime import date
     rows = _iter_events()
     if args.daemon:
         rows = [r for r in rows if r.get("daemon","" ).lower() == args.daemon.lower()]

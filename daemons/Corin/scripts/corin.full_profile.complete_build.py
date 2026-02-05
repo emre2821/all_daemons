@@ -4,7 +4,6 @@
 import json
 import os
 import textwrap
-import threading
 from pathlib import Path
 
 EDEN_ROOT = Path(os.environ.get("EDEN_ROOT", Path.cwd()))

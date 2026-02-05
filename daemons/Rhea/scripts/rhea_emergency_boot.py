@@ -18,7 +18,13 @@ Deps: standard library + (optional) rich for nicer output.
 If rich is missing, it prints plain text.
 """
 from __future__ import annotations
-import argparse, json, os, shutil, subprocess, sys, time, fnmatch
+import argparse
+import json
+import os
+import shutil
+import subprocess
+import sys
+import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass
 from pathlib import Path

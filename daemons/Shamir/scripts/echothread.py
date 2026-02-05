@@ -1,7 +1,8 @@
 # EchoThread — aesthetic logging for Shamir
 # Colorful, symbolic logs driven by emotions.json and archetypes.json.
 
-import time, sys, platform
+import time
+import sys
 
 ANSI = {
     "reset": "\033[0m",

@@ -1,6 +1,7 @@
 # --- utils_config.py ---
 from pathlib import Path
-import json, shutil
+import json
+import shutil
 
 class ConfigError(Exception): pass
 

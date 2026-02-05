@@ -44,7 +44,7 @@ def process_pr(pr):
                         resolve_conflicts_with_llm(path)
         # Add and commit resolved files
         os.system("git add .")
-        os.system(f'git commit -m "Lyra: auto-resolved conflicts with LLM"')
+        os.system('git commit -m "Lyra: auto-resolved conflicts with LLM"')
     # Push merge commit
     os.system(f"git push origin {pr.base.ref}")
     # Merge PR on GitHub

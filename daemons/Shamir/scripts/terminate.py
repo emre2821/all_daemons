@@ -1,5 +1,8 @@
 # --- terminate.py ---
-import os, signal, subprocess, platform
+import os
+import signal
+import subprocess
+import platform
 
 def terminate_pid(pid: int):
     if platform.system() == "Windows":

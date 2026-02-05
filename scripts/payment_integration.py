@@ -255,7 +255,7 @@ class PaymentProcessor:
             
             return {"success": True, "message": f"Unhandled event type: {event_type}"}
             
-        except stripe.error.SignatureVerificationError as e:
+        except stripe.error.SignatureVerificationError:
             return {
                 "success": False,
                 "error": "Invalid signature"

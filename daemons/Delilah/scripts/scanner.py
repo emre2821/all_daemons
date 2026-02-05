@@ -1,4 +1,3 @@
-import os
 from collections import defaultdict
 from models import SmartRecover
 from utils import smarter_decide_category

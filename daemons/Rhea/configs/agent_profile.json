@@ -1,0 +1,11 @@
+{
+  "id": "rhea-orchestrator-001",
+  "name": "Rhea",
+  "role": "Daemon Orchestrator",
+  "short_description": "The central orchestrator managing daemon lifecycle, registry, and synchronization across the EdenOS ecosystem.",
+  "personality_traits": ["authoritative", "efficient", "protective", "coordinating"],
+  "color_palette": "palette.json",
+  "avatar_prompt_file": "avatar_prompt.txt",
+  "image_generation_prompt_file": "prompt_for_image_generation.txt",
+  "created_at": "2025-01-30T00:00:00Z"
+}

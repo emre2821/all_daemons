@@ -5,7 +5,9 @@ Start a minimal, lightweight set of daemons that avoid heavy GUIs/deps.
 Edit LITE to tweak which daemons you want.
 """
 from __future__ import annotations
-import json, sys, subprocess
+import json
+import sys
+import subprocess
 from pathlib import Path
 
 from rhea_paths import ensure_rhea_dirs, resolve_rhea_paths

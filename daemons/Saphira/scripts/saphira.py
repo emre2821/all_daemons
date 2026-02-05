@@ -106,7 +106,7 @@ class SaphiraSynchronizer:
         
         if not force:
             if input(f"    Create/overwrite '{path.name}' for '{parent_name}'? (y/n): ").lower() != 'y':
-                self.log(f"❌ SKIPPED: User chose not to write file.")
+                self.log("❌ SKIPPED: User chose not to write file.")
                 return
 
         # Create a backup before overwriting

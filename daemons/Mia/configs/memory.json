@@ -1,0 +1,18 @@
+{
+  "memories": [
+    {
+      "id": "m1",
+      "timestamp": "2025-01-30T10:00:00Z",
+      "category": "crisis_response",
+      "summary": "Generated practical action plan for system overload crisis",
+      "details": {"plan_steps": 8, "executed": true}
+    },
+    {
+      "id": "m2",
+      "timestamp": "2025-01-30T12:30:00Z",
+      "category": "monitoring",
+      "summary": "Monitored for priority reality flags and initiated response",
+      "details": {"flags_detected": 3, "responses": 3}
+    }
+  ]
+}

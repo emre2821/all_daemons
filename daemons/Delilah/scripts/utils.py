@@ -1,7 +1,6 @@
 import hashlib
 from pathlib import Path
 from collections import Counter
-import re
 from config import EDENISH_EXTS, CODE_EXTS, DOC_EXTS, IMG_EXTS, AUDIO_EXTS, ARCHIVE_EXTS, SAFE_MAX_BYTES_TO_PEEK, PKG_HINT_PATTERNS, PFX_SPLIT
 from collections import defaultdict
 

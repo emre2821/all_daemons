@@ -8,17 +8,17 @@
   ],
   "triggers": [
     "boot_sequence",
-    "system_flag('{{DAEMON_NAME}}')",
-    "manual_summon('{{DAEMON_NAME}}')",
+    "system_flag('Maribel')",
+    "manual_summon('Maribel')",
     "ritual('AutoEngage')"
   ],
   "linked_files": [
-    "{{DAEMON_NAME | lowercase}}.mirror.json",
-    "{{DAEMON_NAME | lowercase}}.voice.json",
-    "{{DAEMON_NAME | lowercase}}.log"
+    "maribel.mirror.json",
+    "maribel.voice.json",
+    "maribel.log"
   ],
   "failsafes": {
-    "fallback_to": "{{FALLBACK_DAEMON}}",
+    "fallback_to": "Rhea",
     "mirror_link_required": true
   }
 }

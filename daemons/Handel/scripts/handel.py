@@ -1,4 +1,6 @@
-import os, time, shutil, sys
+import os
+import time
+import shutil
 from pathlib import Path
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler

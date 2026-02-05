@@ -27,7 +27,6 @@ except Exception:
     work_root = os.environ.get("EDEN_WORK_ROOT", os.environ.get("EDEN_ROOT", os.getcwd()))
     JINXIE_OUT = os.path.join(work_root, "daemons", "Rhea", "_outbox", "Jinxie")
     os.makedirs(JINXIE_OUT, exist_ok=True)
-import json
 
 # --- Cookie Jar & Debt ---
 cookie_jar = {

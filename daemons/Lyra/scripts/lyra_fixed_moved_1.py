@@ -16,8 +16,7 @@ import json
 import requests
 import subprocess
 from datetime import datetime, timezone
-from typing import List, Optional, Tuple, Dict, Any
-import re
+from typing import Optional, Tuple, Dict, Any
 import tempfile
 import concurrent.futures
 

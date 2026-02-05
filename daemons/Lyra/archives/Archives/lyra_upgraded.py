@@ -1,11 +1,9 @@
 import os
-import sys
 import time
 import argparse
 from datetime import datetime, timezone
 from typing import List, Optional, Tuple
 
-import requests
 from github import Github
 from github.PullRequest import PullRequest as PRType
 from github.Repository import Repository

@@ -1,0 +1,18 @@
+{
+  "memories": [
+    {
+      "id": "m1",
+      "timestamp": "2025-01-30T10:00:00Z",
+      "category": "daemon_launch",
+      "summary": "Successfully launched 50 mobile daemons on system boot",
+      "details": {"daemons_launched": 50, "failures": 0}
+    },
+    {
+      "id": "m2",
+      "timestamp": "2025-01-30T12:30:00Z",
+      "category": "health_monitoring",
+      "summary": "Monitored and restarted 5 crashed daemons automatically",
+      "details": {"restarts": 5, "uptime_maintained": "99.9%"}
+    }
+  ]
+}

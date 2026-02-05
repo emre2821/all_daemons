@@ -10,7 +10,8 @@ Runs in order:
 Optional next steps printed at the end to start by tags or open GUI.
 """
 from __future__ import annotations
-import subprocess, sys
+import subprocess
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent

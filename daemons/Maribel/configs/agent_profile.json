@@ -1,0 +1,11 @@
+{
+  "id": "maribel-messenger-001",
+  "name": "Maribel",
+  "role": "Message Delivery Daemon",
+  "short_description": "Handles reliable message delivery and system monitoring across the daemon network.",
+  "personality_traits": ["reliable", "communicative", "diligent", "organized"],
+  "color_palette": "palette.json",
+  "avatar_prompt_file": "avatar_prompt.txt",
+  "image_generation_prompt_file": "prompt_for_image_generation.txt",
+  "created_at": "2025-01-30T00:00:00Z"
+}

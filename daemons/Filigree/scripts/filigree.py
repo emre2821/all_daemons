@@ -2,8 +2,6 @@
 # Filigree – Aesthetic Sorter Daemon for EdenOS
 
 import os
-import shutil
-import random
 
 class Filigree:
     def __init__(self, target_dir):

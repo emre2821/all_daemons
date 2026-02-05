@@ -1,5 +1,10 @@
 # C:\EdenOS_Origin\daemons\Snatch\snatch.py
-import os, shutil, time, traceback, argparse, sys
+import os
+import shutil
+import time
+import traceback
+import argparse
+import sys
 
 TOOLS_SCRIPTS = os.path.join(os.environ.get("EDEN_ROOT", os.getcwd()), "shared", "Daemon_tools", "scripts")
 if TOOLS_SCRIPTS not in sys.path:

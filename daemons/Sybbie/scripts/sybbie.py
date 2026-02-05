@@ -8,7 +8,6 @@ NOTION_TOKEN = os.getenv("NOTION_TOKEN")
 DATABASE_ID = "1f742eb27c3d80289339e74abed58b90"
 import json
 import requests
-from datetime import datetime
 
 HEADERS = {
     "Authorization": f"Bearer {NOTION_TOKEN}",

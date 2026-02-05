@@ -12,12 +12,9 @@ import argparse
 import yaml
 import json
 import requests
-from datetime import datetime, timezone
-from typing import List, Optional, Tuple, Dict, Any
+from typing import Optional, Tuple, Dict
 import re
 import tempfile
-import shutil
-from pathlib import Path
 
 # External dependencies with fallbacks
 try:
@@ -163,7 +160,7 @@ def resolve_pr_conflicts(repo: Repository, pr: PRType, config: Dict) -> Tuple[bo
             
             # Setup for merge
             local_repo.git.checkout(base)
-            local_repo.git.fetch(f"origin", f"pull/{pr.number}/head:{head}")
+            local_repo.git.fetch("origin", f"pull/{pr.number}/head:{head}")
             
             # AI-powered strategy decision
             files = list(pr.get_files())
@@ -258,7 +255,7 @@ def try_merge_pr(repo: Repository, pr: PRType, config: Dict, pr_cache: Dict) -> 
         logger.info(msg)
         
         # Notify
-        pr.create_issue_comment(f"🎉 **MERGED BY LYRA!** 🏆")
+        pr.create_issue_comment("🎉 **MERGED BY LYRA!** 🏆")
         send_slack(f"✅ {repo.full_name} PR #{pr.number} MERGED!")
         
         return True, msg, stats

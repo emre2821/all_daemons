@@ -3,7 +3,6 @@ from __future__ import annotations
 import json
 from datetime import datetime
 from pathlib import Path
-import sys
 
 # Get paths relative to script location
 SCRIPT_DIR = Path(__file__).parent
