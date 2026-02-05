@@ -50,14 +50,14 @@ Lyra/.env
 /Rhea/inputs
 
 # Snyk Security Extension - AI Rules (auto-generated)
-.windsurf/rules/snyk_rules.md
+.windsurf
 /archives
+/daemons/_template
 /Digitari_v0_1/archives
 LOOK_AT_ME_DAMMIT
 Mobile_DCA/scripts/EdenGate.py
 Mobile_DCA/mobile_dca.py
 /RealityKeeper
-/Red_Thread_Pipeline/archives
 /Red_Thread_Pipeline
 /RitualGUI
 /The_Troubles
