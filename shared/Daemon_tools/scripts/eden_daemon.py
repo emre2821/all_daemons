@@ -152,6 +152,8 @@ def cmd_tail(args) -> int:
         show(e)
     if args.follow:
         path = events_bus_path()
+        if not path.exists():
+            path.touch()
         with path.open("r", encoding="utf-8") as f:
             f.seek(0, 2)
             while True:
